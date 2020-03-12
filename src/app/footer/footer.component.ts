@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   readonly contactValues: {type: string, contact: string}[] = [
     { type: 'E-mail', contact: 'foo@bar.com' },
@@ -14,14 +14,8 @@ export class FooterComponent implements OnInit {
   ];
 
   readonly linkValues: {name: string, ref: string}[] = [
-    { name: 'about', ref: '#' },
-    { name: 'impressum', ref: '#' },
-    { name: 'datenschutz', ref: '#' }
+    { name: 'about', ref: '/' },
+    { name: 'impressum', ref: '/' },
+    { name: 'datenschutz', ref: '/' }
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

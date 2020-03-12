@@ -1,0 +1,15 @@
+.nav-link {
+  width: 5rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  &:hover {
+    color: gray;
+  }
+}
+
+.logo {
+  letter-spacing: 5px;
+  font-size: 2.5rem;
+  cursor: pointer;
+  text-align: center;
+}
