@@ -1,0 +1,17 @@
+<footer class="footer">
+    <section class="contact py-4 mb-3">
+      <p class="contact-title mb-4">CONTACT</p>
+        <ng-container *ngFor="let contact of contactValues">
+          <div class="d-flex mb-1 contact-details">
+            <span class="pr-1">{{ contact.type }}:</span>
+            <span>{{ contact.contact }}</span>
+          </div>
+        </ng-container>
+    </section>
+
+    <section class="links p-4 mt-2 d-flex justify-content-center">
+      <ng-container *ngFor="let link of linkValues">
+        <span class="mx-4 clickable" [routerLink]="link.ref"> {{ link.name | uppercase }} </span>
+      </ng-container>
+    </section>
+</footer>
