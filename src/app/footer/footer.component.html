@@ -11,7 +11,7 @@
 
   <section class="links p-4 mt-2 d-flex justify-content-sm-center align-items-center flex-column flex-sm-row">
     <ng-container *ngFor="let link of linkValues">
-      <span class="mx-sm-4 my-3 my-sm-0 clickable" [routerLink]="link.ref"> {{ link.name | uppercase }} </span>
+      <span class="hover-animation mx-sm-4 my-3 my-sm-0 clickable" [routerLink]="link.ref"> {{ link.name | uppercase }} </span>
     </ng-container>
   </section>
 </footer>

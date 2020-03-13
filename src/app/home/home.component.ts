@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SocialModel} from '../shared/models/social-model';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  socialLinks: SocialModel[] = [
+    {
+      name: 'Instagram',
+      ref: 'https://www.instagram.com/',
+      src: 'instagram.png'
+    },
+    {
+      name: 'YouTube',
+      ref: 'https://www.youtube.com/',
+      src: 'youtube.png'
+    },
+    {
+      name: 'Spotify',
+      ref: 'https://www.spotify.com/',
+      src: 'spotify.png'
+    }
+  ];
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  hover(name: string, transition: 'over' | 'out') {
+    let src: string;
+    switch (transition) {
+      case 'over':
+        src = name.toLowerCase() + '-colored.png';
+        break;
+      case 'out':
+        src = name.toLowerCase() + '.png';
+        break;
+    }
+    this.socialLinks.find(link => link.name === name).src = src;
   }
 
 }
