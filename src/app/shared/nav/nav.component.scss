@@ -13,7 +13,6 @@
     transition: .5s ease;
   }
   &:hover {
-    color: gray;
     &:after {
       width: 90%;
     }
@@ -25,7 +24,10 @@
 
 .nav-container {
   position: relative;
-  width: 7rem;
+  width: 10rem;
+  &:last-of-type {
+    margin-left: 1.25rem !important;
+  }
 }
 
 .logo {
