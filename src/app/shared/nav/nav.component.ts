@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {fromEvent} from 'rxjs';
 import {auditTime} from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import {auditTime} from 'rxjs/operators';
 })
 export class NavComponent implements OnInit {
 
+  @Input() lighten = false;
   width: number;
 
   constructor() { }
