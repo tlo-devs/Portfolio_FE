@@ -45,4 +45,7 @@ export class HomeComponent implements OnInit {
     this.socialLinks.find(link => link.name === name).src = src;
   }
 
+  isMobile() {
+    return window.innerWidth < 992;
+  }
 }

@@ -1,12 +1,13 @@
 .nav-link {
   position: relative;
   color: black;
+  font-weight: bold;
   letter-spacing: 2px;
   cursor: pointer;
   &:after {
     content: '';
     display: block;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid black;
     width: 0;
     position: absolute;
     left: 4%;

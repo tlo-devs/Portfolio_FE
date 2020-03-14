@@ -1,9 +1,17 @@
 <main class="main-home d-flex flex-column justify-content-between">
-  <app-nav [lighten]="true"></app-nav>
-  <div class="d-flex social mb-5 justify-content-center">
+  <app-nav class="front-nav" [lighten]="true"></app-nav>
+  <div class="d-flex front-social mb-5 justify-content-center">
     <ng-container *ngFor="let social of socialLinks">
       <ng-container *ngTemplateOutlet="socialT; context:{$implicit: social}"></ng-container>
     </ng-container>
+  </div>
+  <div class="front-video-container d-flex justify-content-center align-items-center">
+    <video autoplay muted loop id="front-video">
+      <source *ngIf="isMobile()" src="assets/videos/showreel-mobile.mp4"
+              type="video/mp4">
+      <source *ngIf="!isMobile()" src="assets/videos/showreel-desk.mp4"
+              type="video/mp4">
+    </video>
   </div>
 </main>
 

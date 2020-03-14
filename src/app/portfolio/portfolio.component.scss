@@ -13,11 +13,32 @@
     }
   }
   &-item {
-    background-color: grey;
+    position: relative;
     height: min-content;
+    cursor: pointer;
+    &:hover {
+      .portfolio-img {
+        opacity: .4;
+      }
+      .portfolio-img-title {
+        opacity: 1;
+      }
+    }
   }
   &-img {
     width: 100%;
-    cursor: pointer;
+    transition: .5s opacity ease;
+    &-title {
+      position: absolute;
+      z-index: 3;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      transition: .5s opacity ease;
+    }
   }
 }
