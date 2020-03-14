@@ -3,7 +3,7 @@
   height: max-content;
   &-grid {
     display: grid;
-    width: 100%;
+    width: calc(100% - 1px);
     grid-template-columns: repeat(3, minmax(20rem, 100%));
     grid-auto-columns: minmax(20rem, 35rem);
     @media only screen and (max-width: 992px) {
