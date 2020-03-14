@@ -1,4 +1,10 @@
-<div class="h-100 d-flex flex-column align-items-center">
-  <app-nav></app-nav>
-  <p>something here</p>
-</div>
+<app-nav></app-nav>
+<main class="portfolio h-100">
+  <article class="portfolio-grid mt-5">
+    <ng-container *ngFor="let item of portfolioItems">
+      <section class="portfolio-item">
+        <img class="portfolio-img" [appImg]="item.preview.uri" [alt]="item.preview.alt">
+      </section>
+    </ng-container>
+  </article>
+</main>

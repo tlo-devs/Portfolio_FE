@@ -1,0 +1,23 @@
+.portfolio {
+  background-color: black;
+  &-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(20rem, 100%));
+    grid-auto-columns: minmax(20rem, 35rem);
+    @media only screen and (max-width: 992px) {
+      grid-template-columns: repeat(2, minmax(20rem, 100%));
+    }
+    @media only screen and (max-width: 660px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &-item {
+    background-color: grey;
+    height: min-content;
+  }
+  &-img {
+    width: 100%;
+    cursor: pointer;
+  }
+}

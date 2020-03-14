@@ -37,4 +37,7 @@
 
 .lighten {
   color: white;
+  &:after {
+    border-color: white;
+  }
 }
