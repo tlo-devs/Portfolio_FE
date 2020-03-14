@@ -1,5 +1,6 @@
 .portfolio {
   background-color: black;
+  height: max-content;
   &-grid {
     display: grid;
     width: 100%;
@@ -14,7 +15,7 @@
   }
   &-item {
     position: relative;
-    height: min-content;
+    margin: 0 -1px;
     cursor: pointer;
     &:hover {
       .portfolio-img {
