@@ -1,5 +1,5 @@
 <main class="main-home d-flex flex-column justify-content-between">
-  <app-nav class="front-nav" [lighten]="true"></app-nav>
+  <app-nav [lighten]="true"></app-nav>
   <div class="d-flex front-social mb-5 justify-content-center">
     <ng-container *ngFor="let social of socialLinks">
       <ng-container *ngTemplateOutlet="socialT; context:{$implicit: social}"></ng-container>

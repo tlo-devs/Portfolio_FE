@@ -11,7 +11,7 @@ import {SharedModule} from '../_shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild([ {path: '', component: HomeComponent} ])
+    RouterModule.forChild([{path: '', component: HomeComponent}])
   ]
 })
 export class HomeModule { }

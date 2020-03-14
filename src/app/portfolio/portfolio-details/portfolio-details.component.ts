@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PortfolioItemModel} from '../../_models/portfolio-item-model';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PortfolioDetailsComponent implements OnInit {
 
-  constructor() { }
+  portfolio: PortfolioItemModel;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.portfolio = this.route.snapshot.data.portfolioItem;
+    console.log(this.portfolio);
   }
 
 }

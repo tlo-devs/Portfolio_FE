@@ -21,4 +21,8 @@ export class PortfolioService {
     return this.rest.get(this.url);
   }
 
+  portfolio(id: number): Observable<PortfolioItemModel> {
+    return this.rest.get(this.url + id);
+  }
+
 }

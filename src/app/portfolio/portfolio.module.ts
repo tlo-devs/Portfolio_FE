@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import {PortfolioRoutingModule} from './portfolio-routing.module';
 import {SharedModule} from '../_shared/shared.module';
 import {PortfolioService} from './portfolio.service';
+import {PortfolioItemResolver} from './portfolio-item.resolver';
 
 import {PortfolioComponent} from './portfolio.component';
 import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details.component';
+
 
 
 @NgModule({
@@ -18,6 +20,6 @@ import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details
     PortfolioRoutingModule,
     SharedModule
   ],
-  providers: [PortfolioService]
+  providers: [PortfolioService, PortfolioItemResolver]
 })
 export class PortfolioModule { }
