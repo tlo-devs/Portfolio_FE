@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {SocialModel} from '../_models/social-model';
 
 @Component({
@@ -6,7 +6,9 @@ import {SocialModel} from '../_models/social-model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements AfterViewInit {
+
+  @ViewChild('video', {static: false}) private video: ElementRef;
 
   socialLinks: SocialModel[] = [
     {
@@ -26,10 +28,8 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() {
-  }
-
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.video.nativeElement.play();
   }
 
   hover(name: string, transition: 'over' | 'out') {
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
     this.socialLinks.find(link => link.name === name).src = src;
   }
 
-  isMobile() {
+  isMobile(): boolean {
     return window.innerWidth < 992;
   }
 }

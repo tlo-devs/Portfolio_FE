@@ -6,7 +6,7 @@
     </ng-container>
   </div>
   <div class="front-video-container d-flex justify-content-center align-items-center">
-    <video autoplay muted loop id="front-video">
+    <video #video autoplay muted loop id="front-video">
       <source *ngIf="isMobile()" src="assets/videos/showreel-mobile.mp4"
               type="video/mp4">
       <source *ngIf="!isMobile()" src="assets/videos/showreel-desk.mp4"
