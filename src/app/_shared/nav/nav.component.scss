@@ -1,3 +1,8 @@
+.nav {
+  @media only screen and (max-width: 768px) {
+    justify-content: space-around !important;
+  }
+}
 .nav-link {
   position: relative;
   color: black;
@@ -21,6 +26,10 @@
 .nav-container {
   position: relative;
   width: 10rem;
+  @media only screen and (max-width: 768px) {
+    width: 7rem;
+    margin-left: 1.5rem;
+  }
 }
 
 .logo {

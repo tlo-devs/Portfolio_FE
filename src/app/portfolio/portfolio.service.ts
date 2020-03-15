@@ -12,13 +12,9 @@ export class PortfolioService {
   constructor(private rest: RestService) { }
 
   preview(): Observable<PortfolioItemModel[]> {
-    const previewParams = ['id', 'title', 'preview'];
+    const previewParams = ['id', 'title', 'preview', 'type', 'category'];
     const params = {params: new HttpParams().append('fields', previewParams.join(','))};
     return this.rest.get(this.url, params);
-  }
-
-  all(): Observable<PortfolioItemModel[]> {
-    return this.rest.get(this.url);
   }
 
   portfolio(id: number): Observable<PortfolioItemModel> {

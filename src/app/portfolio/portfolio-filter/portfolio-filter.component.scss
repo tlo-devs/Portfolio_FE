@@ -1,23 +1,57 @@
 .filter {
   &-container {
     background-color: black;
-    height: 4rem;
-  }
-  &-wrapper {
   }
   &-link {
     text-align: center;
-    width: 5rem;
+    width: 10rem;
     color: white;
     font-weight: bold;
+    font-size: .9375rem;
     letter-spacing: 2px;
     cursor: pointer;
     &:hover {
       color: gray;
     }
+    @media only screen and (max-width: 768px) {
+      width: 8rem;
+    }
+  }
+  &-items {
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  &-small {
+    @media only screen and (max-width: 768px) {
+      justify-content: space-around !important;
+    }
+  }
+  &-dropdown {
+
   }
 }
 
 .active {
   color: gray;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.visible {
+  overflow: hidden;
+  height: 13rem;
+  transition: .4s height;
+}
+
+.hidden {
+  height: 0;
+  overflow: hidden;
+  transition: .4s height;
+}
+
+.margin-top {
+  margin-top: 1.3rem;
 }

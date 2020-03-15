@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {PortfolioComponent} from './portfolio.component';
 import {PortfolioDetailsComponent} from './portfolio-details/portfolio-details.component';
 import {PortfolioItemResolver} from './portfolio-item.resolver';
+import {PortfolioGuard} from './portfolio.guard';
 
 const routes: Routes = [
   {
@@ -11,19 +12,33 @@ const routes: Routes = [
   },
   {
     path: 'all',
+    component: PortfolioComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'image/:category/:id',
+    component: PortfolioDetailsComponent
+  },
+  {
+    path: 'image/:category',
     component: PortfolioComponent
   },
   {
-    path: 'details/:id',
-    component: PortfolioDetailsComponent,
-    resolve: {
-      portfolioItem: PortfolioItemResolver
-    }
+    path: 'image',
+    redirectTo: 'image/all'
   },
   {
-    path: 'details',
-    redirectTo: 'details/:id'
+    path: 'video/:category/:id',
+    component: PortfolioDetailsComponent
   },
+  {
+    path: 'video/:category',
+    component: PortfolioComponent
+  },
+  {
+    path: 'video',
+    redirectTo: 'video/all'
+  }
 ];
 
 @NgModule({

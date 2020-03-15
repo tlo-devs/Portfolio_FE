@@ -1,6 +1,7 @@
 .portfolio {
   background-color: black;
   margin-top: -3rem;
+  min-height: 100%;
   &-grid {
     display: grid;
     width: calc(100% - 1px);

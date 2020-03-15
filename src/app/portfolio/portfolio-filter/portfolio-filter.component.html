@@ -1,8 +1,46 @@
-<nav class="mt-2 filter-container w-100 d-flex justify-content-center">
-  <div class="filter-wrapper d-flex w-50 h-100 align-items-center justify-content-around">
-    <ng-container *ngFor="let filter of filters">
-      <div routerLinkActive="active" class="filter-link hover-animation"
-           [routerLink]="'../' + filter.key">{{ filter.name | uppercase }}</div>
+<nav class="mt-2 filter-container w-100 d-flex justify-content-center align-items-center">
+  <ng-container *ngTemplateOutlet="filtersT; context: {filters: types}"></ng-container>
+</nav>
+
+<ng-template #filtersT let-filters="filters">
+  <div class="filter-items d-flex flex-column justify-content-around"
+       [style.height.rem]="categories().length ? width < 768 ? '' : '8' : '4'">
+    <div class="filter-small d-flex align-items-center justify-content-center">
+      <ng-container *ngFor="let filter of filters">
+        <div [class.margin-top]="categories().length && width < 768" routerLinkActive="active"
+             class="filter-link hover-animation"
+             [routerLink]="changeType(filter.key)">
+          {{ filter.name | uppercase }}</div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="categories().length">
+      <ng-container *ngIf="width >= 768; else categoryDrop">
+        <div class="d-flex align-items-center justify-content-around">
+          <ng-container *ngFor="let category of categories()">
+            <div class="filter-link hover-animation" routerLinkActive="active"
+                 [routerLink]="changeCategory(category.key)">
+              {{ category.name | uppercase }}
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
     </ng-container>
   </div>
-</nav>
+</ng-template>
+
+<ng-template #categoryDrop>
+
+  <div [ngClass]="{'visible': selected, 'hidden': !selected}"
+       class="d-flex flex-column justify-content-center align-items-center">
+    <ng-container *ngFor="let category of categories()">
+      <div class="my-3 filter-link filter-dropdown hover-animation" routerLinkActive="active"
+           [routerLink]="changeCategory(category.key)">
+        {{ category.name | uppercase }}
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="mt-2 w-100 d-flex justify-content-center filter-link" (click)="selected = !selected">
+    <img [style.transition]="'.4s ease'" [class.rotated]="selected" src="assets/images/arrow_down.svg">
+  </div>
+</ng-template>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PortfolioItemModel} from '../_models/portfolio-item-model';
 import {PortfolioService} from './portfolio.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
@@ -9,18 +10,25 @@ import {PortfolioService} from './portfolio.service';
 })
 export class PortfolioComponent implements OnInit {
 
+  parent: string;
   portfolioItems: PortfolioItemModel[];
 
-  constructor(private portfolioService: PortfolioService) {
+  constructor(private portfolioService: PortfolioService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.portfolioService.preview().subscribe(items => {
       this.portfolioItems = items;
-      MOCKITEMS.forEach(i => this.portfolioItems.push(i));
     });
+    this.route.parent.url.subscribe(parent => this.parent = parent[0].path);
     // fixme
     this.portfolioItems = MOCKITEMS;
+  }
+
+  toDetails(item: PortfolioItemModel) {
+    this.router.navigate([`${this.parent}/${item.type}/${item.category}/${item.id}`]);
   }
 
 }
