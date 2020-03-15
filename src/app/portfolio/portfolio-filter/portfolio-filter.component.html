@@ -34,7 +34,7 @@
        class="d-flex flex-column justify-content-center align-items-center">
     <ng-container *ngFor="let category of categories()">
       <div class="my-3 filter-link filter-dropdown hover-animation" routerLinkActive="active"
-           [routerLink]="changeCategory(category.key)">
+           [routerLink]="changeCategory(category.key)" (click)="selected = false">
         {{ category.name | uppercase }}
       </div>
     </ng-container>
