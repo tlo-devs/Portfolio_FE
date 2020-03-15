@@ -29,7 +29,6 @@ export class HomeComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit(): void {
-    this.video.nativeElement.play();
     this.video.nativeElement.muted = 'muted';
     this.video.nativeElement.autoplay = 'autoplay';
     this.video.nativeElement.loop = 'loop';
