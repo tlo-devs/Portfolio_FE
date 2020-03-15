@@ -5,21 +5,23 @@
 
 <ng-template #biggerScreens>
   <ng-container *ngTemplateOutlet="navLink; context: {name: 'portfolio', ref: '/portfolio'}"></ng-container>
-  <div [class.lighten]="lighten" class="logo mx-sm-5 mx-2" routerLink="/">11SEVENDOME</div>
-  <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/'}"></ng-container>
+  <div [class.lighten]="lighten" class="logo mx-5" routerLink="/">11SEVENDOME</div>
+  <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/shop'}"></ng-container>
 </ng-template>
 
 <ng-template #smallerScreens>
-  <div [class.lighten]="lighten" class="logo mx-sm-5 mx-2" routerLink="/">11SEVENDOME</div>
-  <div class="d-flex justify-content-around mt-5">
+  <div [class.lighten]="lighten" class="logo" routerLink="/">11SEVENDOME</div>
+  <div class="d-flex flex-column align-items-center mt-5">
     <ng-container *ngTemplateOutlet="navLink; context: {name: 'portfolio', ref: '/portfolio'}"></ng-container>
-    <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/'}"></ng-container>
+    <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/shop'}"></ng-container>
   </div>
 </ng-template>
 
 <ng-template #navLink let-name="name" let-ref="ref">
-  <div class="nav-container d-flex justify-content-center align-items-end mx-sm-2 mx-md-3 mx-lg-5">
-    <span [class.lighten]="lighten" class="hover-animation nav-link p-0 pb-2 mx-md-3 mx-lg-5"
+  <div class="nav-container d-flex justify-content-center align-items-end mb-4 mb-sm-0 mx-sm-2 mx-md-3 mx-lg-5">
+    <span routerLinkActive #rla="routerLinkActive"
+          [ngClass]="{'lighten': lighten, 'active': rla.isActive, 'inactive': !rla.isActive}"
+          class="hover-animation nav-link p-0 pb-2 mx-md-3 mx-lg-5"
           [routerLink]="ref">{{ name | uppercase }}</span>
   </div>
 </ng-template>
