@@ -7,13 +7,15 @@ import {PortfolioItemResolver} from './portfolio-item.resolver';
 
 import {PortfolioComponent} from './portfolio.component';
 import { PortfolioDetailsComponent } from './portfolio-details/portfolio-details.component';
+import { PortfolioFilterComponent } from './portfolio-filter/portfolio-filter.component';
 
 
 
 @NgModule({
   declarations: [
     PortfolioComponent,
-    PortfolioDetailsComponent
+    PortfolioDetailsComponent,
+    PortfolioFilterComponent
   ],
   imports: [
     CommonModule,

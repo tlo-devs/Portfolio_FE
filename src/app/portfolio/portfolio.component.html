@@ -1,10 +1,11 @@
 <app-nav></app-nav>
+<app-portfolio-filter></app-portfolio-filter>
 
 <main class="portfolio">
   <article class="portfolio-grid mt-5">
     <ng-container *ngFor="let item of portfolioItems">
       <figure [routerLink]="'../details/' + item.id.toString()" class="portfolio-item">
-        <div class="portfolio-img-title">{{ item.title }}</div>
+        <figcaption class="portfolio-img-title">{{ item.title }}</figcaption>
         <!--suppress RequiredAttributes -->
         <!--suppressed because appImg directive provides the src attribute-->
         <img class="portfolio-img" [appImg]="item.preview.uri"

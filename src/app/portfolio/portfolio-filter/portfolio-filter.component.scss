@@ -1,0 +1,23 @@
+.filter {
+  &-container {
+    background-color: black;
+    height: 4rem;
+  }
+  &-wrapper {
+  }
+  &-link {
+    text-align: center;
+    width: 5rem;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    &:hover {
+      color: gray;
+    }
+  }
+}
+
+.active {
+  color: gray;
+}

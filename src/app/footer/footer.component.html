@@ -1,11 +1,11 @@
 <footer class="footer">
   <section class="contact py-4 mb-3">
-    <p class="contact-title mb-4">CONTACT</p>
+    <header class="contact-title mb-4">CONTACT</header>
     <ng-container *ngFor="let contact of contactValues">
-      <div class="d-flex mb-1 contact-details">
+      <address class="d-flex mb-1 contact-details">
         <span class="pr-1">{{ contact.type }}:</span>
         <span>{{ contact.contact }}</span>
-      </div>
+      </address>
     </ng-container>
   </section>
 
