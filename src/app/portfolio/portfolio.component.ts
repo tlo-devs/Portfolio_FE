@@ -30,7 +30,7 @@ const MOCKITEMS = [
     id: 1,
     preview: {
       alt: 'hdrseh',
-      uri: 'dhrxth'
+      uri: 'assets/images/baby-yoda.jpg'
     },
     title: 'erzse'
   },
@@ -145,7 +145,7 @@ const MOCKITEMS = [
     id: 16,
     preview: {
       alt: 'hdrseh',
-      uri: 'dhrxth'
+      uri: 'gfgfg'
     },
     title: 'erzse'
   },

@@ -29,6 +29,8 @@
   }
   &-img {
     width: 100%;
+    object-fit: cover;
+    height: 100%;
     transition: .5s opacity ease;
     &-title {
       position: absolute;
