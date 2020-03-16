@@ -17,7 +17,7 @@ export class ProductFilterComponent implements OnInit {
 
   types: ProductFilterModel[] = [
     {
-      name: 'all',
+      name: 'alles',
       key: 'all',
       categories: []
     },
@@ -25,17 +25,17 @@ export class ProductFilterComponent implements OnInit {
       name: 'videos',
       key: 'video',
       categories: [
-        {name: 'all', key: 'all'},
+        {name: 'alles', key: 'all'},
         {name: 'Imagevideos', key: 'imagevideo'},
         {name: 'Werbevideos', key: 'werbevideo'},
         {name: 'Musikvideos', key: 'musikvideo'}
       ]
     },
     {
-      name: 'images',
+      name: 'bilder',
       key: 'image',
       categories: [
-        {name: 'all', key: 'all'},
+        {name: 'alles', key: 'all'},
         {name: 'Landschaftsphotographie', key: 'landscape'},
         {name: 'Architektur', key: 'architecture'},
         {name: 'Portraits', key: 'portrait'}

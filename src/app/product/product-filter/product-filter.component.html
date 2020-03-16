@@ -4,8 +4,8 @@
 
 <ng-template #filtersT let-filters="filters">
   <div class="w-75 filter-items d-flex flex-column justify-content-around"
-       [style.height.rem]="categories().length ? width < 768 ? '' : '8' : '4'">
-    <div class="filter-small d-flex align-items-center justify-content-center">
+       [style.height.rem]="categories().length ? width < 768 ? '' : '7' : '4'">
+    <div [class.m-top]="categories().length" class="filter-small d-flex align-items-center justify-content-center">
       <ng-container *ngFor="let filter of filters">
         <div [class.margin-top]="categories().length && width < 768" routerLinkActive="active"
              class="filter-link hover-animation"
