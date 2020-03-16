@@ -26,7 +26,7 @@ export class PortfolioFilterComponent implements OnInit {
       key: 'video',
       categories: [
         {name: 'all', key: 'all'},
-        {name: 'landscape', key: 'landscape'},
+        {name: 'aftermovie', key: 'aftermovie'},
         {name: 'portrait', key: 'portrait'},
         {name: 'architecture', key: 'architecture'}
       ]

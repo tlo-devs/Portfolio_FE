@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PortfolioItemModel} from '../_models/portfolio-item-model';
 import {PortfolioService} from './portfolio.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {flatMap, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-portfolio',
@@ -10,6 +11,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class PortfolioComponent implements OnInit {
 
+  private active: string;
+  private category: string;
   parent: string;
   portfolioItems: PortfolioItemModel[];
 
@@ -19,16 +22,27 @@ export class PortfolioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.portfolioService.preview().subscribe(items => {
-      this.portfolioItems = items;
+    this.route.params.pipe(
+      flatMap(p => {
+        this.category = p.category;
+        return this.portfolioService.preview();
+      })
+    ).subscribe(items => {
+      this.active = this.route.snapshot.url[0].path;
+      this.portfolioItems = this.filterBy(items);
     });
     this.route.parent.url.subscribe(parent => this.parent = parent[0].path);
-    // fixme
-    this.portfolioItems = MOCKITEMS;
   }
 
   toDetails(item: PortfolioItemModel) {
     this.router.navigate([`${this.parent}/${item.type}/${item.category}/${item.id}`]);
+  }
+
+  filterBy(items: PortfolioItemModel[]): PortfolioItemModel[] {
+    return items.filter(item =>
+      this.active === 'all' || (item.type === this.active &&
+      (this.category === 'all' || item.category === this.category))
+    );
   }
 
 }
