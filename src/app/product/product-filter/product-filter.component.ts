@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PortfolioFilterModel} from '../../_models/portfolio-filter.model';
+import {ProductFilterModel} from '../../_models/product-filter.model';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-portfolio-filter',
-  templateUrl: './portfolio-filter.component.html',
-  styleUrls: ['./portfolio-filter.component.scss']
+  selector: 'app-product-filter',
+  templateUrl: './product-filter.component.html',
+  styleUrls: ['./product-filter.component.scss']
 })
-export class PortfolioFilterComponent implements OnInit {
+export class ProductFilterComponent implements OnInit {
 
   @Input() private parent: string;
 
@@ -15,7 +15,7 @@ export class PortfolioFilterComponent implements OnInit {
   active: string;
   selected = false;
 
-  types: PortfolioFilterModel[] = [
+  types: ProductFilterModel[] = [
     {
       name: 'all',
       key: 'all',
@@ -26,9 +26,9 @@ export class PortfolioFilterComponent implements OnInit {
       key: 'video',
       categories: [
         {name: 'all', key: 'all'},
-        {name: 'aftermovie', key: 'aftermovie'},
-        {name: 'portrait', key: 'portrait'},
-        {name: 'architecture', key: 'architecture'}
+        {name: 'Imagevideos', key: 'imagevideo'},
+        {name: 'Werbevideos', key: 'werbevideo'},
+        {name: 'Musikvideos', key: 'musikvideo'}
       ]
     },
     {
@@ -36,9 +36,9 @@ export class PortfolioFilterComponent implements OnInit {
       key: 'image',
       categories: [
         {name: 'all', key: 'all'},
-        {name: 'landscape', key: 'landscape'},
-        {name: 'portrait', key: 'portrait'},
-        {name: 'architecture', key: 'architecture'}
+        {name: 'Landschaftsphotographie', key: 'landscape'},
+        {name: 'Architektur', key: 'architecture'},
+        {name: 'Portraits', key: 'portrait'}
       ]
     }
   ];
@@ -59,7 +59,7 @@ export class PortfolioFilterComponent implements OnInit {
     return `/${this.parent}/${this.active}/${category}`;
   }
 
-  categories(): PortfolioFilterModel[] {
+  categories(): ProductFilterModel[] {
     return this.types.find(t => t.key === this.active).categories;
   }
 }

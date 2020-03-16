@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {SocialModel} from '../_models/social-model';
+import {SocialModel} from '../_models/social.model';
 
 @Component({
   selector: 'app-home',

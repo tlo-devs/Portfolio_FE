@@ -1,9 +1,9 @@
-import {PortfolioItemType} from './portfolio-item-type';
+import {ProductItemType} from './product-item.type';
 
-export interface PortfolioItemModel {
+export interface ProductItemModel {
   id: number;
   title: string;
-  type?: PortfolioItemType;
+  type?: ProductItemType;
   preview?: {alt: string, uri: string};
   category?: string;
   content?: string[];

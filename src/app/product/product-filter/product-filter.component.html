@@ -3,7 +3,7 @@
 </nav>
 
 <ng-template #filtersT let-filters="filters">
-  <div class="filter-items d-flex flex-column justify-content-around"
+  <div class="w-75 filter-items d-flex flex-column justify-content-around"
        [style.height.rem]="categories().length ? width < 768 ? '' : '8' : '4'">
     <div class="filter-small d-flex align-items-center justify-content-center">
       <ng-container *ngFor="let filter of filters">
@@ -17,7 +17,7 @@
       <ng-container *ngIf="width >= 768; else categoryDrop">
         <div class="d-flex align-items-center justify-content-around">
           <ng-container *ngFor="let category of categories()">
-            <div class="filter-link hover-animation" routerLinkActive="active"
+            <div [style.width]="'unset'" class="filter-link hover-animation" routerLinkActive="active"
                  [routerLink]="changeCategory(category.key)">
               {{ category.name | uppercase }}
             </div>

@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {PortfolioComponent} from './portfolio.component';
-import {PortfolioDetailsComponent} from './portfolio-details/portfolio-details.component';
-import {PortfolioItemResolver} from './portfolio-item.resolver';
-import {PortfolioGuard} from './portfolio.guard';
+import {ProductComponent} from './product.component';
+import {ProductDetailsComponent} from './product-details/product-details.component';
+import {ProductItemResolver} from './product-item.resolver';
+import {ProductGuard} from './product.guard';
 
 const routes: Routes = [
   {
@@ -12,16 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'all',
-    component: PortfolioComponent,
+    component: ProductComponent,
     pathMatch: 'full'
   },
   {
     path: 'image/:category/:id',
-    component: PortfolioDetailsComponent
+    component: ProductDetailsComponent
   },
   {
     path: 'image/:category',
-    component: PortfolioComponent
+    component: ProductComponent
   },
   {
     path: 'image',
@@ -29,11 +29,11 @@ const routes: Routes = [
   },
   {
     path: 'video/:category/:id',
-    component: PortfolioDetailsComponent
+    component: ProductDetailsComponent
   },
   {
     path: 'video/:category',
-    component: PortfolioComponent
+    component: ProductComponent
   },
   {
     path: 'video',
@@ -45,5 +45,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PortfolioRoutingModule {
+export class ProductRoutingModule {
 }

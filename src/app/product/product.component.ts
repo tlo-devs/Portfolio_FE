@@ -1,22 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {PortfolioItemModel} from '../_models/portfolio-item-model';
-import {PortfolioService} from './portfolio.service';
+import {ProductItemModel} from '../_models/product-item.model';
+import {ProductService} from './product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {flatMap, takeUntil} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-portfolio',
-  templateUrl: './portfolio.component.html',
-  styleUrls: ['./portfolio.component.scss']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss']
 })
-export class PortfolioComponent implements OnInit {
+export class ProductComponent implements OnInit {
 
   private active: string;
   private category: string;
   parent: string;
-  portfolioItems: PortfolioItemModel[];
+  portfolioItems: ProductItemModel[];
 
-  constructor(private portfolioService: PortfolioService,
+  constructor(private portfolioService: ProductService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -34,11 +34,11 @@ export class PortfolioComponent implements OnInit {
     this.route.parent.url.subscribe(parent => this.parent = parent[0].path);
   }
 
-  toDetails(item: PortfolioItemModel) {
+  toDetails(item: ProductItemModel) {
     this.router.navigate([`${this.parent}/${item.type}/${item.category}/${item.id}`]);
   }
 
-  filterBy(items: PortfolioItemModel[]): PortfolioItemModel[] {
+  filterBy(items: ProductItemModel[]): ProductItemModel[] {
     return items.filter(item =>
       this.active === 'all' || (item.type === this.active &&
       (this.category === 'all' || item.category === this.category))
