@@ -8,9 +8,8 @@ import { Component } from '@angular/core';
 export class FooterComponent {
 
   readonly contactValues: {type: string, contact: string}[] = [
-    { type: 'E-mail', contact: 'foo@bar.com' },
-    { type: 'Phone', contact: '+496969420' },
-    {  type: 'Something', contact: 'Some contact'}
+    { type: 'Tel.', contact: '015229259032' },
+    { type: 'E-mail', contact: '11sevenDome@gmx.de' }
   ];
 
   readonly linkValues: {name: string, ref: string}[] = [
