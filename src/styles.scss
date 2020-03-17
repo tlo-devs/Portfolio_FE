@@ -25,12 +25,7 @@ body {
   &-next, &-prev, &-indicators {
     cursor: pointer;
     z-index: 20;
-  }
-  &-next {
-    right: 1vw;
-  }
-  &-prev {
-    left: 1vw;
+    width: 10%;
   }
 }
 

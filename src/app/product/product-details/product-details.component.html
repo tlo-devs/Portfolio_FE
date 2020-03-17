@@ -16,4 +16,20 @@
   </ngb-carousel>
 </div>
 
+<article class="my-5 py-3">
+  <section class="d-flex justify-content-around">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <span class="pb-2 product-details">JAHR</span>
+      <strong class="product-details">{{ product.year }}</strong>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <span class="pb-2 product-details">KLIENT</span>
+      <strong class="product-details">{{ product.client | uppercase }}</strong>
+    </div>
+  </section>
+  <section class="d-flex justify-content-center align-items-center mt-5">
+    <p>{{ product.description }}</p>
+  </section>
+</article>
+
 <ng-template #videoView></ng-template>
