@@ -1,0 +1,23 @@
+.product {
+  &-container {
+    background-color: black;
+    width: inherit;
+    height: 100%;
+    overflow: hidden;
+    object-position: center;
+    object-fit: cover;
+
+  }
+  &-content {
+    height: 100%;
+    object-fit: cover;
+    min-width: 100vw;
+  }
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}

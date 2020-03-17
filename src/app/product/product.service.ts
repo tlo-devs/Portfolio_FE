@@ -28,8 +28,8 @@ export class ProductService {
     return this.previewCache$;
   }
 
-  portfolio(id: number): Observable<ProductItemModel> {
-    return this.rest.get(this.url + id);
+  product(id: number, type: string): Observable<ProductItemModel> {
+    return this.rest.get(this.url + id, {params: {type}});
   }
 
 }

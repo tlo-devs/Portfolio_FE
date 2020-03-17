@@ -9,12 +9,12 @@ import {ProductItemModel} from '../../_models/product-item.model';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  portfolio: ProductItemModel;
+  product: ProductItemModel;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.portfolio = this.route.snapshot.data.portfolioItem;
+    this.product = this.route.snapshot.data.product[0];
   }
 
 }

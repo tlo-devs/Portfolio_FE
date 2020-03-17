@@ -17,7 +17,10 @@ const routes: Routes = [
   },
   {
     path: 'image/:category/:id',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    resolve: {
+      product: ProductItemResolver
+    }
   },
   {
     path: 'image/:category',

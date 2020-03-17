@@ -7,18 +7,9 @@ import {ProductService} from './product.service';
 @Injectable()
 export class ProductItemResolver implements Resolve<ProductItemModel> {
 
-  constructor(private portfolioService: ProductService) {}
+  constructor(private productService: ProductService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<ProductItemModel> {
-    // return this.portfolioService.product(route.params.id);
-    // fixme mock
-    return of({
-      id: route.params.id,
-      preview: {
-        alt: 'hdrseh',
-        uri: 'dhrxth'
-      },
-      title: 'srthgsrg'
-    });
+    return this.productService.product(route.params.id, route.url[0].path);
   }
 }
