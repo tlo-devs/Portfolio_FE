@@ -18,6 +18,10 @@
     object-position: center;
     object-fit: cover;
   }
+  &-scroll {
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
 }
 
 .absolute {

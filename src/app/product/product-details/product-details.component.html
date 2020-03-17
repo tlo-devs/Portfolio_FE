@@ -5,6 +5,9 @@
   <ngb-carousel #carousel class="w-100 product-carousel" *ngIf="product.type === 'image'; else videoView">
     <ng-container *ngFor="let image of product.content">
       <ng-template ngbSlide>
+        <div class="carousel-caption">
+          <p class="product-scroll">Scroll down</p>
+        </div>
         <div class="picsum-img-wrapper">
           <img class="product-content" [appImg]="image.uri" [alt]="image.alt">
         </div>
