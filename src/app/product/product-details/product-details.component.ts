@@ -15,6 +15,13 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.product = this.route.snapshot.data.product[0];
+    // fixme MOCK
+    this.product.content = [
+      ...this.product.content,
+      {uri: 'sdsf', alt: 'sds'},
+      {uri: 'sdsf', alt: 'sds'},
+      {uri: 'sdsf', alt: 'sds'}
+    ];
   }
 
 }

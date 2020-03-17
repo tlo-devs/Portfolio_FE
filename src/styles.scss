@@ -19,3 +19,31 @@ body {
 .hover-animation {
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
+// image carousel styles
+.carousel-control {
+  &-next, &-prev, &-indicators {
+    cursor: pointer;
+    z-index: 20;
+  }
+  &-next {
+    right: 1vw;
+  }
+  &-prev {
+    left: 1vw;
+  }
+}
+
+.carousel-item {
+  display: flex !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, visibility 1s;
+  z-index: -1;
+}
+
+.carousel-item.active{
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}

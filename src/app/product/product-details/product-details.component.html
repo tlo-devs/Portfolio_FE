@@ -1,11 +1,16 @@
 <!--suppress RequiredAttributes -->
 <app-nav lighten="true" class="absolute"></app-nav>
+
 <div class="product-container d-flex justify-content-center align-items-center">
-  <ng-container *ngIf="product.type === 'image'; else videoView">
+  <ngb-carousel class="w-100 product-carousel" *ngIf="product.type === 'image'; else videoView">
     <ng-container *ngFor="let image of product.content">
-      <img class="product-content" [appImg]="image.uri" [alt]="image.alt">
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img class="product-content" [appImg]="image.uri" [alt]="image.alt">
+        </div>
+      </ng-template>
     </ng-container>
-  </ng-container>
+  </ngb-carousel>
 </div>
 
 <ng-template #videoView></ng-template>

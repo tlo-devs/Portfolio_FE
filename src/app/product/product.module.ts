@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProductRoutingModule} from './product-routing.module';
+import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../_shared/shared.module';
+
 import {ProductService} from './product.service';
 import {ProductItemResolver} from './product-item.resolver';
 import {ProductGuard} from './product.guard';
@@ -20,7 +22,8 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
   imports: [
     CommonModule,
     ProductRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbCarouselModule
   ],
   providers: [ProductService, ProductItemResolver, ProductGuard]
 })
