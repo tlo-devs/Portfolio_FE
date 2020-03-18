@@ -12,7 +12,7 @@ export class AuthGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | boolean {
-    if (localStorage.getItem('jwt') === 'admin') {
+    if (localStorage.getItem('access_token')) {
       return true;
     } else {
       this.router.navigateByUrl('/login');

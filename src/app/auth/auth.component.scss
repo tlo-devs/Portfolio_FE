@@ -13,8 +13,10 @@
     transform: translateX(-50%);
     color: white;
   }
+  &-success {
+    color: green;
+  }
   &-error {
-    text-align: center;
     color: var(--color-danger);
   }
 }

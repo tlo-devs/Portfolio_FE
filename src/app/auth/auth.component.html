@@ -1,15 +1,13 @@
 <div class="auth-container d-flex flex-column justify-content-center align-items-center h-100 w-100">
-  <h3 class="auth-head">Administration console login</h3>
+  <h3 class="auth-head">Administration panel login</h3>
   <form #authForm="ngForm" class="auth-form">
     <div class="form-group">
-      <strong class="mb-4 auth-error" *ngIf="authForm.submitted && authForm.invalid && !valid">
-        Invalid credentials</strong>
-      <label for="username">Username</label>
+      <strong class="mb-4 {{ valid ? 'auth-success' : 'auth-error' }}" *ngIf="authForm.submitted">
+        {{ valid ? 'Login successful' : 'Invalid credentials' }}</strong>
       <input ngModel required type="text" class="form-control" name="username" id="username" aria-describedby="username"
              placeholder="Username">
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
       <input ngModel required type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
     <button class="btn btn-primary" (click)="onSubmit(authForm)">Submit</button>
