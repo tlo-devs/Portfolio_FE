@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {RestService} from '../_core/rest.service';
+import {RestService} from '../_shared/rest.service';
 import {Observable, ReplaySubject} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {HttpParams} from '@angular/common/http';
