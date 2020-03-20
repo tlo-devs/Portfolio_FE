@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminConfig} from './admin-config';
 import {NgForm} from '@angular/forms';
-import {fromEvent} from 'rxjs';
-import {FileStore, FileStoreItem} from './file-store';
+import {FileStore} from './file-store';
+import {ActivatedRoute} from '@angular/router';
+import {AdminType} from '../_models/admin-type.type';
+import {AdminMode} from '../_models/admin-mode.type';
 
 @Component({
   selector: 'app-admin',
@@ -11,16 +13,38 @@ import {FileStore, FileStoreItem} from './file-store';
 })
 export class AdminComponent implements OnInit {
 
-  files: FileStore;
+  previewStore: FileStore;
+  contentStore: FileStore;
 
-  constructor() { }
+  fileType: 'image' | 'video';
 
-  ngOnInit(): void {
-    this.files = new FileStore();
+  constructor(private route: ActivatedRoute) {
   }
 
-  onCreate(form: NgForm, type: 'portfolio' | 'shop') {
-    console.log(form, type);
+  ngOnInit(): void {
+    AdminConfig.type = this.route.routeConfig.path as AdminType;
+    this.previewStore = new FileStore();
+    this.contentStore = new FileStore();
+  }
+
+  onCreate(form: NgForm) {
+    console.log(form);
+  }
+
+  addFile(event, mode: AdminMode) {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      if (file) {
+        this[mode + 'Store'].add(file);
+      }
+    } else {
+      const video = event.target.value;
+      console.log(video);
+    }
+  }
+
+  removeFile(name: string, mode: AdminMode) {
+    this[mode + 'Store'].remove(name);
   }
 
   get shopConfig(): any[] {
@@ -31,14 +55,7 @@ export class AdminComponent implements OnInit {
     return AdminConfig.portfolioConfig;
   }
 
-  addFile(event) {
-    const file = event.target.files[0];
-    if (file) {
-      this.files.add(file);
-    }
-  }
-
-  removeFile(name: string) {
-    this.files.remove(name);
+  get type(): AdminType {
+    return AdminConfig.type;
   }
 }
