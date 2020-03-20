@@ -14,20 +14,12 @@
   </mat-toolbar>
 
   <div class="m-5">
-    <ng-container *ngIf="portfolioLink.isActive; then portfolioT"></ng-container>
-    <ng-container *ngIf="shopLink.isActive; then shopT"></ng-container>
+    <ng-container *ngTemplateOutlet="createT"></ng-container>
+
   </div>
 </div>
 
-<ng-template #portfolioT>
-  <ng-container *ngTemplateOutlet="createT; context: {config: portfolioConfig}"></ng-container>
-</ng-template>
-
-<ng-template #shopT>
-  <ng-container *ngTemplateOutlet="createT; context: {config: shopConfig}"></ng-container>
-</ng-template>
-
-<ng-template #createT let-config="config">
+<ng-template #createT>
   <form #createForm="ngForm">
     <div class="admin-create mb-3">
       <h4>Create {{ type }} item</h4>
@@ -114,9 +106,9 @@
 
   <ng-container *ngIf="fileType === 'video' && mode !== 'preview'">
     <div class="d-inline-flex">
-      <input placeholder="Insert video url" class="form-control video-input" required ngModel type="url"
-             [id]="type + 'contentvideo'" [name]="type + 'contentvideo'" (change)="addFile($event, 'content')">
-      <button class="btn btn-secondary add-video">Add</button>
+      <input #videoInput placeholder="Insert video url" class="form-control video-input" required ngModel type="url"
+             [id]="type + 'contentvideo'" [name]="type + 'contentvideo'">
+      <button type="button" class="btn btn-secondary add-video" (click)="addFile(videoInput, 'content')">Add</button>
     </div>
   </ng-container>
 

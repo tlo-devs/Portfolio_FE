@@ -25,6 +25,10 @@ export class FileStore {
     fromEvent(reader, 'loadend').pipe(first()).subscribe(r => this.store.push({name: file.name, src: r.target.result}));
   }
 
+  addVideo(url: string) {
+    this.store.push({name: url, src: url});
+  }
+
   remove(name: string) {
     this.store = this.store.filter(f => f.name !== name);
   }

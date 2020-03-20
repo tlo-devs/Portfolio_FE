@@ -32,14 +32,14 @@ export class AdminComponent implements OnInit {
   }
 
   addFile(event, mode: AdminMode) {
-    if (event.target.files) {
+    if (event.target) {
       const file = event.target.files[0];
       if (file) {
         this[mode + 'Store'].add(file);
       }
     } else {
-      const video = event.target.value;
-      console.log(video);
+      this[mode + 'Store'].addVideo(event.value);
+      event.value = '';
     }
   }
 
