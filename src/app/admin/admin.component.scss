@@ -1,0 +1,33 @@
+.admin {
+  &-container {
+    background-color: var(--color-background-light);
+  }
+  &-create {
+    color: white;
+  }
+}
+
+.auth-success {
+  color: green;
+}
+.auth-error {
+  color: var(--color-danger);
+}
+
+.file {
+  &-name {
+    color: white;
+    font-style: italic;
+    &:first-child {
+      margin-top: .5rem;
+    }
+  }
+  &-delete {
+    color: var(--color-danger);
+    cursor: pointer;
+    font-size: 1.25rem;
+    &:hover {
+      color: var(--color-danger-hover);
+    }
+  }
+}

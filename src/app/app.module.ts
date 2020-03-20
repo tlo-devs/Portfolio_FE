@@ -7,6 +7,7 @@ import {AuthGuard} from './auth/auth.guard';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import {ErrorInterceptor} from './admin/error.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ErrorInterceptor} from './admin/error.interceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuard, {
     provide: HTTP_INTERCEPTORS,

@@ -1,3 +1,103 @@
-<div class="h-100">
+<div class="admin-container h-100">
+  <mat-toolbar>
+    <h3 class="mr-5">Administration Panel</h3>
+    <button #portfolioLink="routerLinkActive" routerLinkActive class="mr-4" mat-raised-button
+            [color]="portfolioLink.isActive ? 'primary' : 'accent'"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLink="/admin/portfolio">Portfolio
+    </button>
+    <button #shopLink="routerLinkActive" routerLinkActive mat-raised-button
+            [color]="shopLink.isActive ? 'primary' : 'accent'"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLink="/admin/shop">Shop
+    </button>
+  </mat-toolbar>
 
+  <div class="m-5">
+    <ng-container *ngIf="portfolioLink.isActive; then portfolioT"></ng-container>
+    <ng-container *ngIf="shopLink.isActive; then shopT"></ng-container>
+  </div>
 </div>
+
+<ng-template #portfolioT>
+  <ng-container *ngTemplateOutlet="createT; context: {config: portfolioConfig}"></ng-container>
+</ng-template>
+
+<ng-template #shopT>
+  <ng-container *ngTemplateOutlet="createT; context: {config: shopConfig}"></ng-container>
+</ng-template>
+
+<ng-template #createT let-config="config">
+  <form #createForm="ngForm">
+    <div class="admin-create mb-3">
+      <h4>Create {{config.type}} item</h4>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <div class="form-row">
+          <div style="width: 20rem" class="form-group mr-2">
+            <strong class="mb-4 {{ createForm.valid ? 'auth-success' : 'auth-error' }}" *ngIf="createForm.submitted">
+              {{ createForm.valid ? 'Operation successful' : 'An error occurred' }}</strong>
+            <label class="sr-only" for="title"></label>
+            <input ngModel required type="text" class="form-control mr-2" name="title" id="title"
+                   aria-describedby="title" placeholder="Title">
+          </div>
+
+          <div style="width: 10rem" class="form-group">
+            <label class="sr-only" for="year"></label>
+            <input ngModel required type="number" class="form-control" name="year" id="year" placeholder="Year">
+          </div>
+        </div>
+
+        <div style="width: 30.5rem" class="ml-n1 form-group">
+          <label class="sr-only" for="description"></label>
+          <textarea ngModel required rows="3" class="form-control" name="description" id="description"
+                    placeholder="Description"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group ml-3 mt-n2">
+        <label style="color: white" for="type">Type</label>
+        <select ngModel required class="custom-select mb-2" id="type" name="type">
+          <option value="1">Image</option>
+          <option value="2">Video</option>
+        </select>
+
+        <label style="color: white" class="my-1" for="category">Category</label>
+        <select ngModel required class="custom-select" id="category" name="category">
+          <option value="1">Image</option>
+          <option value="2">Video</option>
+        </select>
+      </div>
+
+      <div style="width: 20rem" class="form-group ml-3">
+        <div style="color: white" class="custom-file">
+          <input accept="image/x-png" class="custom-file-input" (change)="addFile($event)" required type="file"
+                 id="image">
+          <label class="custom-file-label" for="image">Choose image</label>
+        </div>
+        <div class="d-inline-flex flex-column">
+          <ng-container *ngFor="let file of files.store">
+            <div class="d-inline-flex">
+              <div class="file-name">{{ file.name }}</div>
+              <div class="d-flex justify-content-center align-items-center file-delete ml-2 mt-1"
+                   (click)="removeFile(file.name)">x
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="my-1" type="submit" mat-raised-button color="primary" (click)="onCreate(createForm, config.type)">
+        Create
+      </button>
+      <button class="ml-1 my-1" type="reset" mat-button color="warn">
+        Reset
+      </button>
+    </div>
+  </form>
+</ng-template>
