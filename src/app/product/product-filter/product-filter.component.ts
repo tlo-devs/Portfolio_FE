@@ -27,7 +27,8 @@ export class ProductFilterComponent implements OnInit {
       categories: [
         {name: 'alles', key: 'all'},
         {name: 'Imagevideos', key: 'imagevideo'},
-        {name: 'Werbevideos', key: 'promotionalvideo'},
+        {name: 'Aftermovies', key: 'aftermovie'},
+        {name: 'Kurzfilme', key: 'shortmovie'},
         {name: 'Musikvideos', key: 'musicvideo'}
       ]
     },

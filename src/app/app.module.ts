@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import {ErrorInterceptor} from './admin/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {JwtInterceptor} from './admin/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthGuard, {
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    /*{
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorInterceptor,
     multi: true
-  }],
+  }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

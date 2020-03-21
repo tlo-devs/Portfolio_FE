@@ -1,13 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AdminComponent} from './admin.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {AdminRoutingModule} from './admin-routing.module';
 import {FormsModule} from '@angular/forms';
 
 import {AdminService} from './admin.service';
-import {ErrorInterceptor} from './error.interceptor';
-import {JwtInterceptor} from './jwt.interceptor';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -35,18 +33,7 @@ import {MatInputModule} from '@angular/material/input';
     MatSortModule,
     MatInputModule
   ],
-  providers: [
-    AdminService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    }]
+  providers: [AdminService]
 })
 export class AdminModule {
 }

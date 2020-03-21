@@ -11,6 +11,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ProductItemModel} from '../_models/product-item.model';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {Category} from './category.enum';
 
 @Component({
   selector: 'app-admin',
@@ -47,13 +48,11 @@ export class AdminComponent implements OnInit {
   }
 
   onCreate(form: NgForm) {
-    const fileType = form.value.type;
     const submission = {...form.value};
-
     delete submission.type;
-
     const data = FileStore.toDto(submission, this.previewStore, this.contentStore);
-    this.adminService.post(this.type, data, fileType).subscribe(console.log);
+
+    this.adminService.post(this.type, data, this.fileType).subscribe(console.log);
   }
 
   addFile(event, mode: AdminMode) {
@@ -83,6 +82,10 @@ export class AdminComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  translate(value: string): string {
+    return Category[value];
   }
 
   get shopConfig(): any[] {

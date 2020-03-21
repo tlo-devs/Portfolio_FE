@@ -50,7 +50,7 @@
 
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
-          <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+          <td mat-cell *matCellDef="let row"> {{translate(row.type)}} </td>
         </ng-container>
 
         <ng-container matColumnDef="year">
@@ -60,7 +60,7 @@
 
         <ng-container matColumnDef="category">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
-          <td mat-cell *matCellDef="let row">{{row.category}}</td>
+          <td mat-cell *matCellDef="let row">{{ translate(row.category)}}</td>
         </ng-container>
 
         <ng-container matColumnDef="client">
@@ -69,7 +69,7 @@
         </ng-container>
 
         <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10rem"> </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10rem"></th>
           <td mat-cell *matCellDef="let row">
             <button mat-button color="accent">Edit</button>
             <button mat-button color="warn">Delete</button>
@@ -139,18 +139,30 @@
         </div>
       </div>
 
-      <div class="form-group ml-3 mt-n2">
+      <div style="width: 13rem" class="form-group ml-3 mt-n2">
         <label style="color: white" for="type">Type</label>
         <select [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
-          <option value="image">Image</option>
+          <option value="image">Bild</option>
           <option value="video">Video</option>
         </select>
 
-        <label style="color: white" class="my-1" for="category">Category</label>
-        <select ngModel required class="custom-select" id="category" name="category">
-          <option value="image">Image</option>
-          <option value="video">Video</option>
-        </select>
+        <ng-container *ngIf="fileType">
+          <label style="color: white" class="my-1" for="category">Kategorie</label>
+          <select ngModel required class="custom-select" id="category" name="category">
+            <ng-container *ngIf="fileType === 'image'">
+              <option value="landscape">Landschaftsphotographie</option>
+              <option value="portrait">Portrait</option>
+              <option value="architecture">Architektur</option>
+            </ng-container>
+
+            <ng-container *ngIf="fileType === 'video'">
+              <option value="musicvideo">Musikvideo</option>
+              <option value="aftermovie">Aftermovie</option>
+              <option value="shortmovie">Kurzfilm</option>
+              <option value="imagevideo">Imagevideo</option>
+            </ng-container>
+          </select>
+        </ng-container>
       </div>
 
       <div style="width: 20rem" class="form-group ml-3">
