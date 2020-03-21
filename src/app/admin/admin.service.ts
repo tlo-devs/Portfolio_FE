@@ -3,6 +3,7 @@ import {RestService} from '../_shared/rest.service';
 import {ProductItemModel} from '../_models/product-item.model';
 import {Observable} from 'rxjs';
 import {AdminType} from '../_models/admin-type.type';
+import {HttpParams} from '@angular/common/http';
 
 type FileType = 'image' | 'video';
 
@@ -20,6 +21,10 @@ export class AdminService {
 
   get(route: AdminType): Observable<ProductItemModel[]> {
     return this.rest.get(this[route + 'Url']);
+  }
+
+  delete(route: AdminType, params): Observable<void> {
+    return this.rest.delete(this[route + 'Url'], {params});
   }
 
 }

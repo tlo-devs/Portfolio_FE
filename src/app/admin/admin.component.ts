@@ -12,7 +12,6 @@ import {ProductItemModel} from '../_models/product-item.model';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Category} from './category.enum';
-import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin',
@@ -23,6 +22,10 @@ export class AdminComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('editForm', {static: false}) editForm: NgForm;
+
+  editMode = false;
+  editing: ProductItemModel;
 
   previewStore: FileStore;
   contentStore: FileStore;
@@ -89,6 +92,39 @@ export class AdminComponent implements OnInit {
 
   translate(value: string): string {
     return Category[value];
+  }
+
+  openEdit(file) {
+    this.editMode = true;
+    this.editing = file;
+
+    // copy the object to safely delete properties and assign values to the edit form
+    const values = {...this.editing};
+
+    // delete because they are not available for edit thus not in the edit form
+    delete values.content;
+    delete values.preview;
+    delete values.id;
+
+    // timeout so setValue waits until the edit form is rendered
+    setTimeout(() => this.editForm.setValue(values));
+  }
+
+  confirmEdit() {
+    const item = this.dataSource.data.find(d => d.id === this.editing.id && d.type === this.editing.type);
+    const value = this.editForm.value;
+
+    item.title = value.title;
+    item.description = value.description;
+    item.client = value.client;
+    item.year = value.year;
+    item.category = value.category;
+
+    this.editMode = false;
+  }
+
+  delete(file) {
+    this.adminService.delete(this.type, {type: file.type, id: file.id}).subscribe(console.log);
   }
 
   get shopConfig(): any[] {

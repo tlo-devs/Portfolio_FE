@@ -71,8 +71,8 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10rem"></th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button color="accent">Edit</button>
-            <button mat-button color="warn">Delete</button>
+            <button mat-button color="accent" (click)="openEdit(row)">Edit</button>
+            <button mat-button color="warn" (click)="delete(row)">Delete</button>
           </td>
         </ng-container>
 
@@ -214,3 +214,72 @@
     </ng-container>
   </div>
 </ng-template>
+
+
+<div *ngIf="editMode" class="edit-form-container">
+  <div class="edit-form-content">
+    <form #editForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+          <div class="form-row">
+            <div style="width: 18rem" class="form-group mr-2">
+              <label class="sr-only" for="titleEdit"></label>
+              <input ngModel required type="text" class="form-control mr-2" name="title" id="titleEdit"
+                     aria-describedby="title" placeholder="Titel">
+            </div>
+
+            <div style="width: 11.5rem" class="form-group">
+              <label class="sr-only" for="clientEdit"></label>
+              <input ngModel required type="text" class="form-control" name="client" id="clientEdit"
+                     aria-describedby="client" placeholder="Klient">
+            </div>
+
+            <div style="width: 6rem" class="form-group ml-2">
+              <label class="sr-only" for="yearEdit"></label>
+              <input ngModel required type="number" min="1900" class="form-control" name="year" id="yearEdit"
+                     placeholder="Jahr">
+            </div>
+          </div>
+
+          <div style="width: 36.5rem" class="ml-n1 form-group">
+            <label class="sr-only" for="descriptionEdit"></label>
+            <textarea ngModel required rows="3" class="form-control" name="description" id="descriptionEdit"
+                      placeholder="Beschreibung"></textarea>
+          </div>
+        </div>
+
+        <div style="width: 13rem" class="form-group ml-3 mt-n2">
+          <label style="color: white" for="typeEdit">Art</label>
+          <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
+            <option value="image">Bild</option>
+            <option value="video">Video</option>
+          </select>
+
+          <label style="color: white" class="my-1" for="categoryEdit">Kategorie</label>
+          <select ngModel required class="custom-select" id="categoryEdit" name="category">
+            <ng-container *ngIf="editing.type === 'image'">
+              <option value="landscape">Landschaftsphotographie</option>
+              <option value="portrait">Portrait</option>
+              <option value="architecture">Architektur</option>
+            </ng-container>
+
+            <ng-container *ngIf="editing.type === 'video'">
+              <option value="musicvideo">Musikvideo</option>
+              <option value="aftermovie">Aftermovie</option>
+              <option value="shortmovie">Kurzfilm</option>
+              <option value="imagevideo">Imagevideo</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button type="button" mat-raised-button color="primary" (click)="confirmEdit()">
+          Confirm
+        </button>
+        <button type="button" mat-button color="warn" (click)="editMode = false">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

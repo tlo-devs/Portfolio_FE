@@ -3,6 +3,7 @@
     background-color: var(--color-background-light);
     height: min-content
   }
+
   &-create {
     color: white;
   }
@@ -11,6 +12,7 @@
 .auth-success {
   color: green;
 }
+
 .auth-error {
   color: var(--color-danger);
 }
@@ -19,14 +21,17 @@
   &-name {
     color: white;
     font-style: italic;
+
     &:first-child {
       margin-top: .5rem;
     }
   }
+
   &-delete {
     color: var(--color-danger);
     cursor: pointer;
     font-size: 1.25rem;
+
     &:hover {
       color: var(--color-danger-hover);
     }
@@ -41,4 +46,29 @@
 .video-input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.edit-form {
+  &-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+  }
+  &-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-background);
+    height: 17rem;
+    width: 55rem;
+    border-radius: 3px;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
