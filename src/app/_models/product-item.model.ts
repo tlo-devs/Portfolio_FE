@@ -1,7 +1,7 @@
 import {ProductItemType} from './product-item.type';
 
 export interface ProductItemModel {
-  id: number;
+  id?: number;
   title: string;
   type?: ProductItemType;
   preview?: {alt: string, uri: string};
@@ -10,7 +10,6 @@ export interface ProductItemModel {
   year?: number;
   client?: string;
   description?: string;
-
 }
 
 

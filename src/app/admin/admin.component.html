@@ -11,10 +11,94 @@
             [routerLinkActiveOptions]="{exact: true}"
             routerLink="/admin/shop">Shop
     </button>
+    <div class="ml-auto mr-3">
+      <button mat-button color="accent" (click)="logout()">Log Out</button>
+    </div>
   </mat-toolbar>
 
   <div class="m-5">
     <ng-container *ngTemplateOutlet="createT"></ng-container>
+
+    <div class="admin-create mb-3 mt-5">
+      <h4>Overview</h4>
+      <mat-divider></mat-divider>
+    </div>
+
+    <mat-form-field style="width: 20rem; color: white" class="ml-3">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <!--order of the columns is determined in displayedColumns in the ts file-->
+      <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td style="width: 5rem" mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Title</th>
+          <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.title}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+          <td class="w-50" mat-cell *matCellDef="let row"> {{row.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+          <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Year</th>
+          <td mat-cell *matCellDef="let row"> {{row.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+          <td mat-cell *matCellDef="let row">{{row.category}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
+          <td mat-cell *matCellDef="let row"> {{row.client}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10rem"> </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-button color="accent">Edit</button>
+            <button mat-button color="warn">Delete</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="preview">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Preview</th>
+          <td mat-cell *matCellDef="let row"> {{row.preview?.uri}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Content</th>
+          <td mat-cell *matCellDef="let row">
+            <!--supressed because there is an uri property received from the backend-->
+            <!--suppress TypeScriptUnresolvedVariable -->
+            <ng-container *ngFor="let item of row.content">
+              {{ item.uri }}
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
 
   </div>
 </div>
@@ -30,8 +114,6 @@
       <div class="form-group">
         <div class="form-row">
           <div style="width: 18rem" class="form-group mr-2">
-            <strong class="mb-4 {{ createForm.valid ? 'auth-success' : 'auth-error' }}" *ngIf="createForm.submitted">
-              {{ createForm.valid ? 'Operation successful' : 'An error occurred' }}</strong>
             <label class="sr-only" for="title"></label>
             <input ngModel required type="text" class="form-control mr-2" name="title" id="title"
                    aria-describedby="title" placeholder="Title">
@@ -66,8 +148,8 @@
 
         <label style="color: white" class="my-1" for="category">Category</label>
         <select ngModel required class="custom-select" id="category" name="category">
-          <option value="1">Image</option>
-          <option value="2">Video</option>
+          <option value="image">Image</option>
+          <option value="video">Video</option>
         </select>
       </div>
 
@@ -88,6 +170,8 @@
         Reset
       </button>
     </div>
+    <strong class="mb-4 {{ createForm.valid ? 'auth-success' : 'auth-error' }}" *ngIf="createForm.submitted">
+      {{ createForm.valid ? 'Operation successful' : 'The form is invalid' }}</strong>
   </form>
 </ng-template>
 
