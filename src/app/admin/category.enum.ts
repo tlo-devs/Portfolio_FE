@@ -4,6 +4,9 @@ export enum Category {
   'video' = 'Video',
   'image' = 'Bild',
 
+  'preview_image' = 'Thumbnail',
+  'content_image' = 'Bild',
+
   'imagevideo' = 'Imagevideo',
   'aftermovie' = 'Aftermovie',
   'shortmovie' = 'Kurzfilm',

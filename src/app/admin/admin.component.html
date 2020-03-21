@@ -1,6 +1,6 @@
 <div class="admin-container h-100">
   <mat-toolbar>
-    <h3 class="mr-5">Administration Panel</h3>
+    <h3 class="mr-5">Admin Panel</h3>
     <button #portfolioLink="routerLinkActive" routerLinkActive class="mr-4" mat-raised-button
             [color]="portfolioLink.isActive ? 'primary' : 'accent'"
             [routerLinkActiveOptions]="{exact: true}"
@@ -20,7 +20,7 @@
     <ng-container *ngTemplateOutlet="createT"></ng-container>
 
     <div class="admin-create mb-3 mt-5">
-      <h4>Overview</h4>
+      <h4>Übersicht</h4>
       <mat-divider></mat-divider>
     </div>
 
@@ -39,32 +39,32 @@
         </ng-container>
 
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Title</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel</th>
           <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.title}}</td>
         </ng-container>
 
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Beschreibung</th>
           <td class="w-50" mat-cell *matCellDef="let row"> {{row.description}} </td>
         </ng-container>
 
         <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Art</th>
           <td mat-cell *matCellDef="let row"> {{translate(row.type)}} </td>
         </ng-container>
 
         <ng-container matColumnDef="year">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Year</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Jahr</th>
           <td mat-cell *matCellDef="let row"> {{row.year}} </td>
         </ng-container>
 
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Kategorie</th>
           <td mat-cell *matCellDef="let row">{{ translate(row.category)}}</td>
         </ng-container>
 
         <ng-container matColumnDef="client">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Client</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Klient</th>
           <td mat-cell *matCellDef="let row"> {{row.client}} </td>
         </ng-container>
 
@@ -106,7 +106,7 @@
 <ng-template #createT>
   <form #createForm="ngForm">
     <div class="admin-create mb-3">
-      <h4>Create {{ type }} item</h4>
+      <h4>{{ type === 'portfolio' ? 'Erstelle ein Portfolioprojekt' : 'Erstelle ein Shopprojekt' }}</h4>
       <mat-divider></mat-divider>
     </div>
 
@@ -116,31 +116,31 @@
           <div style="width: 18rem" class="form-group mr-2">
             <label class="sr-only" for="title"></label>
             <input ngModel required type="text" class="form-control mr-2" name="title" id="title"
-                   aria-describedby="title" placeholder="Title">
+                   aria-describedby="title" placeholder="Titel">
           </div>
 
           <div style="width: 11.5rem" class="form-group">
             <label class="sr-only" for="client"></label>
             <input ngModel required type="text" class="form-control" name="client" id="client"
-                   aria-describedby="client" placeholder="Client">
+                   aria-describedby="client" placeholder="Klient">
           </div>
 
           <div style="width: 6rem" class="form-group ml-2">
             <label class="sr-only" for="year"></label>
             <input ngModel required type="number" min="1900" class="form-control" name="year" id="year"
-                   placeholder="Year">
+                   placeholder="Jahr">
           </div>
         </div>
 
         <div style="width: 36.5rem" class="ml-n1 form-group">
           <label class="sr-only" for="description"></label>
           <textarea ngModel required rows="3" class="form-control" name="description" id="description"
-                    placeholder="Description"></textarea>
+                    placeholder="Beschreibung"></textarea>
         </div>
       </div>
 
       <div style="width: 13rem" class="form-group ml-3 mt-n2">
-        <label style="color: white" for="type">Type</label>
+        <label style="color: white" for="type">Art</label>
         <select [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
           <option value="image">Bild</option>
           <option value="video">Video</option>
@@ -174,14 +174,9 @@
       </div>
     </div>
 
-    <div class="btn-group">
-      <button class="my-1" type="submit" mat-raised-button color="primary" (click)="onCreate(createForm)">
-        Create
-      </button>
-      <button class="ml-1 my-1" type="reset" mat-button color="warn">
-        Reset
-      </button>
-    </div>
+    <button class="my-1" type="submit" mat-raised-button color="primary" (click)="onCreate(createForm)">
+      Create
+    </button>
     <strong class="mb-4 {{ createForm.valid ? 'auth-success' : 'auth-error' }}" *ngIf="createForm.submitted">
       {{ createForm.valid ? 'Operation successful' : 'The form is invalid' }}</strong>
   </form>
@@ -196,13 +191,13 @@
              type="file"
              [name]="type + mode + 'image'"
              [id]="type + mode + 'image'">
-      <label class="custom-file-label" [for]="type + mode + 'image'">Choose {{ mode + ' image' }}</label>
+      <label class="custom-file-label" [for]="type + mode + 'image'">{{ translate(mode + '_image') }} hochladen</label>
     </div>
   </ng-container>
 
   <ng-container *ngIf="fileType === 'video' && mode !== 'preview'">
     <div class="d-inline-flex">
-      <input #videoInput placeholder="Insert video url" class="form-control video-input" required ngModel type="url"
+      <input #videoInput placeholder="Video hochladen" class="form-control video-input" required ngModel type="url"
              [id]="type + 'contentvideo'" [name]="type + 'contentvideo'">
       <button type="button" class="btn btn-secondary add-video" (click)="addFile(videoInput, 'content')">Add</button>
     </div>

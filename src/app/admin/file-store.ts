@@ -16,11 +16,11 @@ export class FileStore {
   }
 
   static toDto(value: ProductItemModel, preview: FileStore, content: FileStore): ProductItemModel {
-    return {...value, ...preview.extract(value.title), ...content.extract(value.title)};
+    return {...value, preview: preview.extract(value.title)[0], content: content.extract(value.title)};
   }
 
-  private extract(alt?: string): Array<{src: string, alt: string} | string> {
-    return this.store.map(obj => alt ? {src: obj.src, alt} : obj.src);
+  private extract(alt?: string): Array<{uri: string, alt: string} | string> {
+    return this.store.map(obj => alt ? {uri: obj.src, alt} : obj.src);
   }
 
   addImage(file: File) {
