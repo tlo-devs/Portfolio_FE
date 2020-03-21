@@ -14,5 +14,7 @@ export enum Category {
 
   'landscape' = 'Landschaftsphotographie',
   'architecture' = 'Architektur',
-  'portrait' = 'Portrait'
+  'portrait' = 'Portrait',
+
+  'price' = 'Preis'
 }

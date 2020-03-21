@@ -1,7 +1,8 @@
 .admin {
   &-container {
     background-color: var(--color-background-light);
-    height: min-content
+    height: max-content;
+    padding-bottom: 5rem;
   }
 
   &-create {

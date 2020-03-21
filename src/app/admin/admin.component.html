@@ -120,19 +120,27 @@
           </div>
 
           <div style="width: 11.5rem" class="form-group">
-            <label class="sr-only" for="client"></label>
-            <input ngModel required type="text" class="form-control" name="client" id="client"
-                   aria-describedby="client" placeholder="Klient">
+            <ng-container *ngIf="type === 'portfolio'">
+              <label class="sr-only" for="client"></label>
+              <input ngModel required type="text" class="form-control" name="client" id="client"
+                     aria-describedby="client" placeholder="Klient">
+            </ng-container>
+
+            <ng-container *ngIf="type === 'shop'">
+              <label class="sr-only" for="price"></label>
+              <input ngModel required type="number" class="form-control" name="price" id="price"
+                     aria-describedby="price" placeholder="Preis">
+            </ng-container>
           </div>
 
-          <div style="width: 6rem" class="form-group ml-2">
+          <div style="width: 6rem" class="form-group ml-2" *ngIf="type === 'portfolio'">
             <label class="sr-only" for="year"></label>
             <input ngModel required type="number" min="1900" class="form-control" name="year" id="year"
                    placeholder="Jahr">
           </div>
         </div>
 
-        <div style="width: 36.5rem" class="ml-n1 form-group">
+        <div style="width: 36.5rem" class="ml-n1 form-group" *ngIf="type === 'portfolio'">
           <label class="sr-only" for="description"></label>
           <textarea ngModel required rows="3" class="form-control" name="description" id="description"
                     placeholder="Beschreibung"></textarea>
@@ -140,16 +148,18 @@
       </div>
 
       <div style="width: 13rem" class="form-group ml-3 mt-n2">
-        <label style="color: white" for="type">Art</label>
-        <select [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
-          <option value="image">Bild</option>
-          <option value="video">Video</option>
-        </select>
+        <ng-container *ngIf="type === 'portfolio'">
+          <label style="color: white" for="type">Art</label>
+          <select [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
+            <option value="image">Bild</option>
+            <option value="video">Video</option>
+          </select>
+        </ng-container>
 
-        <ng-container *ngIf="fileType">
+        <ng-container *ngIf="fileType || type === 'shop'">
           <label style="color: white" class="my-1" for="category">Kategorie</label>
           <select ngModel required class="custom-select" id="category" name="category">
-            <ng-container *ngIf="fileType === 'image'">
+            <ng-container *ngIf="fileType === 'image' || type === 'shop'">
               <option value="landscape">Landschaftsphotographie</option>
               <option value="portrait">Portrait</option>
               <option value="architecture">Architektur</option>
@@ -183,7 +193,7 @@
 </ng-template>
 
 <ng-template #fileAdder let-mode="mode">
-  <ng-container *ngIf="fileType === 'image' || mode === 'preview'">
+  <ng-container *ngIf="fileType === 'image' || mode === 'preview' || type === 'shop'">
     <div style="color: white" class="custom-file">
       <input [disabled]="!!previewStore.store.length" [accept]="this[type + 'Config'].image.accept"
              class="custom-file-input" (change)="addFile($event, mode)"

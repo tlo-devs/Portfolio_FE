@@ -11,8 +11,8 @@ export interface ProductItemModel {
   client?: string;
   description?: string;
   sales?: string;
-  price?: string;
-  oldPrice?: string;
+  current_price?: string;
+  base_price?: string;
 }
 
 
