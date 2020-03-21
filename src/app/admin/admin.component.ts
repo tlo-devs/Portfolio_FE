@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
   contentStore: FileStore;
 
   fileType: 'image' | 'video';
-  displayedColumns: string[] = ['id', 'title', 'description', 'category',  'type', 'client',  'year', 'edit'];
+  displayedColumns: string[] = ['id', 'title', 'description', 'category', 'type', 'client', 'year', 'edit'];
   dataSource: MatTableDataSource<ProductItemModel>;
 
   constructor(private route: ActivatedRoute,
@@ -54,11 +54,9 @@ export class AdminComponent implements OnInit {
   onCreate(form: NgForm) {
     const submission = {...form.value};
     delete submission.type;
-    const data = FileStore.toDto(submission, this.previewStore, this.contentStore);
+    const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
 
-    this.adminService.post(this.type, data, this.fileType).subscribe(r => {
-      this.dataSource.data = [...this.dataSource.data, r];
-    });
+    this.adminService.post(this.type, data, this.fileType).subscribe(r => this.dataSource.data = [...this.dataSource.data, r]);
   }
 
   addFile(event, mode: AdminMode) {

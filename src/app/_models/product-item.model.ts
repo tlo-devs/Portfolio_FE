@@ -6,7 +6,7 @@ export interface ProductItemModel {
   type?: ProductItemType;
   preview?: Array<{alt: string, uri: string} | string> | {alt: string, uri: string} | string;
   category?: string;
-  content?: Array<{alt: string, uri: string} | string>;
+  content?: Array<{alt: string, uri: string} | string> | {alt: string, uri: string} | string;
   year?: number;
   client?: string;
   description?: string;

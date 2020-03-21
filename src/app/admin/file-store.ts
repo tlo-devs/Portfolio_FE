@@ -15,12 +15,14 @@ export class FileStore {
     this.store = [];
   }
 
-  static toDto(value: ProductItemModel, preview: FileStore, content: FileStore): ProductItemModel {
-    return {...value, preview: preview.extract(value.title)[0], content: content.extract(value.title)};
+  static toDto(value: ProductItemModel, preview: FileStore, content: FileStore, type): ProductItemModel {
+    return {...value, preview: preview.extract(value.title)[0], content: content.extract(type === 'video' ? '' : value.title)};
   }
 
-  private extract(alt?: string): Array<{uri: string, alt: string} | string> {
-    return this.store.map(obj => alt ? {uri: obj.src, alt} : obj.src);
+  private extract(alt?: string): Array<{uri: string, alt: string} | string> | {uri: string, alt: string} | string {
+    return alt
+      ? this.store.map(obj => ({uri: obj.src, alt}))
+      : this.store.map(obj => obj.src)[0];
   }
 
   addImage(file: File) {

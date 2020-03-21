@@ -185,7 +185,8 @@
 <ng-template #fileAdder let-mode="mode">
   <ng-container *ngIf="fileType === 'image' || mode === 'preview'">
     <div style="color: white" class="custom-file">
-      <input [accept]="this[type + 'Config'].image.accept" class="custom-file-input" (change)="addFile($event, mode)"
+      <input [disabled]="!!previewStore.store.length" [accept]="this[type + 'Config'].image.accept"
+             class="custom-file-input" (change)="addFile($event, mode)"
              required
              ngModel
              type="file"
@@ -197,7 +198,8 @@
 
   <ng-container *ngIf="fileType === 'video' && mode !== 'preview'">
     <div class="d-inline-flex">
-      <input #videoInput placeholder="Video hochladen" class="form-control video-input" required ngModel type="url"
+      <input [disabled]="!!contentStore.store.length" #videoInput placeholder="Video hochladen"
+             class="form-control video-input" required ngModel type="url"
              [id]="type + 'contentvideo'" [name]="type + 'contentvideo'">
       <button type="button" class="btn btn-secondary add-video" (click)="addFile(videoInput, 'content')">Add</button>
     </div>
