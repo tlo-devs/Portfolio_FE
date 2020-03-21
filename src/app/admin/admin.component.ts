@@ -12,6 +12,7 @@ import {ProductItemModel} from '../_models/product-item.model';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Category} from './category.enum';
+import {flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin',
@@ -52,7 +53,9 @@ export class AdminComponent implements OnInit {
     delete submission.type;
     const data = FileStore.toDto(submission, this.previewStore, this.contentStore);
 
-    this.adminService.post(this.type, data, this.fileType).subscribe(console.log);
+    this.adminService.post(this.type, data, this.fileType).subscribe(r => {
+      this.dataSource.data = [...this.dataSource.data, r];
+    });
   }
 
   addFile(event, mode: AdminMode) {

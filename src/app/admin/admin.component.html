@@ -1,4 +1,4 @@
-<div class="admin-container h-100">
+<div class="admin-container">
   <mat-toolbar>
     <h3 class="mr-5">Admin Panel</h3>
     <button #portfolioLink="routerLinkActive" routerLinkActive class="mr-4" mat-raised-button
@@ -16,7 +16,7 @@
     </div>
   </mat-toolbar>
 
-  <div class="m-5">
+  <div class="mx-5 py-5">
     <ng-container *ngTemplateOutlet="createT"></ng-container>
 
     <div class="admin-create mb-3 mt-5">

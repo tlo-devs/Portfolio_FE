@@ -10,6 +10,9 @@ export interface ProductItemModel {
   year?: number;
   client?: string;
   description?: string;
+  sales?: string;
+  price?: string;
+  oldPrice?: string;
 }
 
 
