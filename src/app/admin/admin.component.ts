@@ -119,13 +119,17 @@ export class AdminComponent implements OnInit {
     const item = this.dataSource.data.find(d => d.id === this.editing.id && d.type === this.editing.type);
     const value = this.editForm.value;
 
-    item.title = value.title;
-    item.description = value.description;
-    item.client = value.client;
-    item.year = value.year;
-    item.category = value.category;
-
-    this.adminService.patch(this.type, item.id, value, item.type).subscribe(console.log);
+    this.adminService.patch(this.type, item.id, value, item.type).subscribe(
+      noop,
+      err => console.error(err.message),
+      () => {
+        item.title = value.title;
+        item.description = value.description;
+        item.client = value.client;
+        item.year = value.year;
+        item.category = value.category;
+      }
+    );
 
     this.editMode = false;
   }
@@ -133,7 +137,7 @@ export class AdminComponent implements OnInit {
   delete(file) {
     this.adminService.delete(this.type, file.id, {type: file.type}).subscribe(
       noop,
-      err => console.log(err.message),
+      err => console.error(err.message),
       () => this.dataSource.data = this.dataSource.data.filter(d => !(d.id === file.id && d.type === file.type))
     );
   }
