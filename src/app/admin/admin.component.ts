@@ -57,6 +57,9 @@ export class AdminComponent implements OnInit {
 
   onCreate(form: NgForm) {
     const submission = {...form.value};
+    if (this.type === 'shop') {
+      form.value.type = 'digital';
+    }
     delete submission.type;
     const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
 
@@ -122,6 +125,8 @@ export class AdminComponent implements OnInit {
     item.year = value.year;
     item.category = value.category;
 
+    this.adminService.patch(this.type, item.id, value, item.type).subscribe(console.log);
+
     this.editMode = false;
   }
 
@@ -129,7 +134,7 @@ export class AdminComponent implements OnInit {
     this.adminService.delete(this.type, file.id, {type: file.type}).subscribe(
       noop,
       err => console.log(err.message),
-      () => this.dataSource.data = this.dataSource.data.filter(d => d.id !== file.id && d.type !== file.type)
+      () => this.dataSource.data = this.dataSource.data.filter(d => !(d.id === file.id && d.type === file.type))
     );
   }
 

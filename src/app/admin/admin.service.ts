@@ -3,9 +3,8 @@ import {RestService} from '../_shared/rest.service';
 import {ProductItemModel} from '../_models/product-item.model';
 import {Observable} from 'rxjs';
 import {AdminType} from '../_models/admin-type.type';
-import {HttpParams} from '@angular/common/http';
 
-type FileType = 'image' | 'video';
+type FileType = 'image' | 'video' | 'digital';
 
 @Injectable()
 export class AdminService {
@@ -17,6 +16,10 @@ export class AdminService {
 
   post(route: AdminType, body: {}, fileType: FileType): Observable<ProductItemModel> {
     return this.rest.post(this[route + 'Url'], body, {params: {type: fileType}});
+  }
+
+  patch(route: AdminType, id: number, body: {}, fileType: FileType): Observable<ProductItemModel> {
+    return this.rest.patch(this[route + 'Url'] + id, body, {params: {type: fileType}});
   }
 
   get(route: AdminType): Observable<ProductItemModel[]> {
