@@ -27,13 +27,7 @@ export class ProductComponent implements OnInit {
       flatMap(p => {
         this.category = p.category;
         return this.productService.preview();
-      }),
-      map(items => items.map(item => {
-        // surpressed because the is uri on preview
-        // @ts-ignore
-        item.preview.uri = environment.imgUrl + item.preview.uri;
-        return item;
-      }))
+      })
     ).subscribe(items => {
       this.active = this.route.snapshot.url[0].path;
       this.portfolioItems = this.filterBy(items);

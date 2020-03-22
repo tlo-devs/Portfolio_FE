@@ -3,8 +3,9 @@ import {RestService} from '../_shared/rest.service';
 import {Observable, ReplaySubject} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {HttpParams} from '@angular/common/http';
-import {flatMap} from 'rxjs/operators';
+import {flatMap, map} from 'rxjs/operators';
 import {ImageService} from '../_shared/image.service';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ProductService {
@@ -23,6 +24,12 @@ export class ProductService {
       const params = {params: new HttpParams().append('fields', previewParams.join(','))};
       return this.rest.get(this.url, params).pipe(flatMap(items => {
         this.previewCache$ = new ReplaySubject<ProductItemModel[]>(1);
+        items = items.map(item => {
+          // surpressed because the is uri on preview
+          // @ts-ignore
+          item.preview.uri = environment.imgUrl + item.preview.uri;
+          return item;
+        });
         this.previewCache$.next(items);
         return this.previewCache$;
       }));

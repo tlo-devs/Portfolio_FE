@@ -18,11 +18,12 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.product = this.route.snapshot.data.product[0];
+    this.product = this.route.snapshot.data.product;
   }
 
   ngAfterViewInit(): void {
-    this.carousel.pause();
+    if (this.carousel) {
+      this.carousel.pause();
+    }
   }
-
 }
