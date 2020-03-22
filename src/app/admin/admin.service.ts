@@ -15,7 +15,7 @@ export class AdminService {
 
   constructor(private rest: RestService) { }
 
-  post(route: AdminType, body, fileType: FileType): Observable<ProductItemModel> {
+  post(route: AdminType, body: {}, fileType: FileType): Observable<ProductItemModel> {
     return this.rest.post(this[route + 'Url'], body, {params: {type: fileType}});
   }
 
@@ -23,8 +23,8 @@ export class AdminService {
     return this.rest.get(this[route + 'Url']);
   }
 
-  delete(route: AdminType, params): Observable<void> {
-    return this.rest.delete(this[route + 'Url'], {params});
+  delete(route: AdminType, id: number, params: {}): Observable<void> {
+    return this.rest.delete(this[route + 'Url'] + id, {params});
   }
 
 }

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductItemModel} from '../../_models/product-item.model';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
+import {ProductService} from '../product.service';
 
 @Component({
   selector: 'app-product-details',

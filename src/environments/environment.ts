@@ -4,6 +4,7 @@
 
 export const environment = {
   apiUrl: 'http://52.57.51.214/demo/11sevendome/api/',
+  imgUrl: 'http://52.57.51.214/demo/img/',
   production: false
 };
 

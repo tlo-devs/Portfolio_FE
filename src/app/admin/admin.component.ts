@@ -12,6 +12,7 @@ import {ProductItemModel} from '../_models/product-item.model';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Category} from './category.enum';
+import {noop} from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -36,8 +37,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
-              private adminService: AdminService) {
-  }
+              private adminService: AdminService) { }
 
   ngOnInit(): void {
     AdminConfig.type = this.route.routeConfig.path as AdminType;
@@ -126,7 +126,11 @@ export class AdminComponent implements OnInit {
   }
 
   delete(file) {
-    this.adminService.delete(this.type, {type: file.type, id: file.id}).subscribe(console.log);
+    this.adminService.delete(this.type, file.id, {type: file.type}).subscribe(
+      noop,
+      err => console.log(err.message),
+      () => this.dataSource.data = this.dataSource.data.filter(d => d.id !== file.id && d.type !== file.type)
+    );
   }
 
   get shopConfig(): any[] {

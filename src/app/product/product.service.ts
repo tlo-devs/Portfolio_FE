@@ -4,6 +4,7 @@ import {Observable, ReplaySubject} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {HttpParams} from '@angular/common/http';
 import {flatMap} from 'rxjs/operators';
+import {ImageService} from '../_shared/image.service';
 
 @Injectable()
 export class ProductService {
@@ -12,7 +13,8 @@ export class ProductService {
 
   previewCache$: ReplaySubject<ProductItemModel[]>;
 
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService,
+              private imageService: ImageService) {
   }
 
   preview(): Observable<ProductItemModel[]> {
@@ -30,6 +32,10 @@ export class ProductService {
 
   product(id: number, type: string): Observable<ProductItemModel> {
     return this.rest.get(this.url + id, {params: {type}});
+  }
+
+  image(url: string): Observable<any> {
+    return this.imageService.get(url);
   }
 
 }
