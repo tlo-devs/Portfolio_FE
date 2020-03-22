@@ -68,6 +68,21 @@
           <td mat-cell *matCellDef="let row"> {{row.client}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="base_price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Standard-Preis</th>
+          <td mat-cell *matCellDef="let row"> {{row.base_price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="current_price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Aktueller Preis</th>
+          <td mat-cell *matCellDef="let row"> {{row.current_price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sale">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale (in %)</th>
+          <td mat-cell *matCellDef="let row"> {{row.sale}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10rem"></th>
           <td mat-cell *matCellDef="let row">
@@ -241,19 +256,27 @@
             </div>
 
             <div style="width: 11.5rem" class="form-group">
-              <label class="sr-only" for="clientEdit"></label>
-              <input ngModel required type="text" class="form-control" name="client" id="clientEdit"
+              <ng-container *ngIf="type === 'portfolio'">
+                <label class="sr-only" for="clientEdit"></label>
+                <input ngModel required type="text" class="form-control" name="client" id="clientEdit"
                      aria-describedby="client" placeholder="Klient">
+              </ng-container>
+
+              <ng-container *ngIf="type === 'shop'">
+                <label class="sr-only" for="priceEdit"></label>
+                <input ngModel required type="number" class="form-control" name="price" id="priceEdit"
+                       aria-describedby="price" placeholder="Preis">
+              </ng-container>
             </div>
 
-            <div style="width: 6rem" class="form-group ml-2">
+            <div style="width: 6rem" class="form-group ml-2" *ngIf="type === 'portfolio'">
               <label class="sr-only" for="yearEdit"></label>
               <input ngModel required type="number" min="1900" class="form-control" name="year" id="yearEdit"
                      placeholder="Jahr">
             </div>
           </div>
 
-          <div style="width: 36.5rem" class="ml-n1 form-group">
+          <div style="width: 36.5rem" class="ml-n1 form-group" *ngIf="type === 'portfolio'">
             <label class="sr-only" for="descriptionEdit"></label>
             <textarea ngModel required rows="3" class="form-control" name="description" id="descriptionEdit"
                       placeholder="Beschreibung"></textarea>
@@ -261,15 +284,17 @@
         </div>
 
         <div style="width: 13rem" class="form-group ml-3 mt-n2">
-          <label style="color: white" for="typeEdit">Art</label>
-          <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
-            <option value="image">Bild</option>
-            <option value="video">Video</option>
-          </select>
+          <ng-container *ngIf="type === 'portfolio'">
+            <label style="color: white" for="typeEdit">Art</label>
+            <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
+              <option value="image">Bild</option>
+              <option value="video">Video</option>
+            </select>
+          </ng-container>
 
           <label style="color: white" class="my-1" for="categoryEdit">Kategorie</label>
           <select ngModel required class="custom-select" id="categoryEdit" name="category">
-            <ng-container *ngIf="editing.type === 'image'">
+            <ng-container *ngIf="editing.type === 'image' || type === 'shop'">
               <option value="landscape">Landschaftsphotographie</option>
               <option value="portrait">Portrait</option>
               <option value="architecture">Architektur</option>

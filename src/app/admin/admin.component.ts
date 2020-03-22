@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
   contentStore: FileStore;
 
   fileType: 'image' | 'video';
-  displayedColumns: string[] = ['id', 'title', 'description', 'category', 'type', 'client', 'year', 'edit'];
+  displayedColumns: string[];
   dataSource: MatTableDataSource<ProductItemModel>;
 
   constructor(private route: ActivatedRoute,
@@ -41,6 +41,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     AdminConfig.type = this.route.routeConfig.path as AdminType;
+    this.displayedColumns = this.type === 'shop'
+      ? ['id', 'title', 'description', 'category', 'base_price', 'current_price', 'sale', 'edit']
+      : ['id', 'title', 'description', 'category', 'type', 'client', 'year', 'edit'];
+
     this.previewStore = new FileStore();
     this.contentStore = new FileStore();
 
