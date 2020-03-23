@@ -142,9 +142,9 @@
             </ng-container>
 
             <ng-container *ngIf="type === 'shop'">
-              <label class="sr-only" for="price"></label>
-              <input ngModel required type="number" class="form-control" name="price" id="price"
-                     aria-describedby="price" placeholder="Preis">
+              <label class="sr-only" for="base_price"></label>
+              <input ngModel required type="number" class="form-control" name="base_price" id="base_price"
+                     aria-describedby="base_price" placeholder="Preis">
             </ng-container>
           </div>
 
@@ -263,16 +263,24 @@
               </ng-container>
 
               <ng-container *ngIf="type === 'shop'">
-                <label class="sr-only" for="priceEdit"></label>
-                <input ngModel required type="number" class="form-control" name="price" id="priceEdit"
-                       aria-describedby="price" placeholder="Preis">
+                <label class="sr-only" for="base_priceEdit"></label>
+                <input ngModel required type="number" class="form-control" name="base_price" id="base_priceEdit"
+                       aria-describedby="base_price" placeholder="Standard-Preis">
               </ng-container>
             </div>
 
-            <div style="width: 6rem" class="form-group ml-2" *ngIf="type === 'portfolio'">
-              <label class="sr-only" for="yearEdit"></label>
-              <input ngModel required type="number" min="1900" class="form-control" name="year" id="yearEdit"
+            <div style="width: 6rem" class="form-group ml-2">
+              <ng-container *ngIf="type === 'portfolio'">
+                <label class="sr-only" for="yearEdit"></label>
+                <input ngModel required type="number" min="1900" class="form-control" name="year" id="yearEdit"
                      placeholder="Jahr">
+              </ng-container>
+
+              <ng-container *ngIf="type === 'shop'">
+                <label class="sr-only" for="saleEdit"></label>
+                <input ngModel required type="number" class="form-control" name="sale" id="saleEdit"
+                       aria-describedby="sale" placeholder="Sale">
+              </ng-container>
             </div>
           </div>
 

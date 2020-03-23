@@ -62,8 +62,7 @@ export class AdminComponent implements OnInit {
     }
     delete submission.type;
     const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
-
-    this.adminService.post(this.type, data, this.fileType).subscribe(r => this.dataSource.data = [...this.dataSource.data, r]);
+    this.adminService.post(this.type, data, form.value.type).subscribe(r => this.dataSource.data = [...this.dataSource.data, r]);
   }
 
   addFile(event, mode: AdminMode) {
