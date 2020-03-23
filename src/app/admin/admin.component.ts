@@ -42,7 +42,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     AdminConfig.type = this.route.routeConfig.path as AdminType;
     this.displayedColumns = this.type === 'shop'
-      ? ['id', 'title', 'description', 'category', 'base_price', 'current_price', 'sale', 'edit']
+      ? ['id', 'title', 'description', 'base_price', 'current_price', 'sale', 'edit']
       : ['id', 'title', 'description', 'category', 'type', 'client', 'year', 'edit'];
 
     this.previewStore = new FileStore();

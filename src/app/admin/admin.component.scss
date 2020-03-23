@@ -65,11 +65,22 @@
     transform: translate(-50%, -50%);
     background-color: var(--color-background);
     height: 17rem;
-    width: 55rem;
     border-radius: 3px;
     padding-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+}
+
+.description-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 40vw;
+}
+
+.price-suffix::after {
+  content: '€';
+  width: 1rem;
+  height: 1rem;
 }
