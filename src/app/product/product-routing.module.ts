@@ -32,7 +32,10 @@ const routes: Routes = [
   },
   {
     path: 'video/:category/:id',
-    component: ProductDetailsComponent
+    component: ProductDetailsComponent,
+    resolve: {
+      product: ProductItemResolver
+    }
   },
   {
     path: 'video/:category',

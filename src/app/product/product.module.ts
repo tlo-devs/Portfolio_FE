@@ -11,6 +11,7 @@ import {ProductGuard} from './product.guard';
 import {ProductComponent} from './product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     CommonModule,
     ProductRoutingModule,
     SharedModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    YouTubePlayerModule
   ],
   providers: [ProductService, ProductItemResolver, ProductGuard]
 })

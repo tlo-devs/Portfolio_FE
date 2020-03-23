@@ -210,7 +210,7 @@
 <ng-template #fileAdder let-mode="mode">
   <ng-container *ngIf="fileType === 'image' || mode === 'preview' || type === 'shop'">
     <div style="color: white" class="custom-file">
-      <input [disabled]="!!previewStore.store.length" [accept]="this[type + 'Config'].image.accept"
+      <input [disabled]="!!this[mode  + 'Store'].store.length" [accept]="this[type + 'Config'].image.accept"
              class="custom-file-input" (change)="addFile($event, mode)"
              required
              ngModel
