@@ -33,7 +33,7 @@ body {
   display: flex !important;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 1s ease-in-out, visibility 1s;
+  transition: opacity .4s ease-in-out, visibility .4s;
   z-index: -1;
 }
 

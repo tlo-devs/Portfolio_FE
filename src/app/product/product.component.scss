@@ -23,9 +23,6 @@
       .portfolio-img {
         opacity: .4;
       }
-      .portfolio-img-title {
-        opacity: 1;
-      }
     }
     @media only screen and (min-width: 1600px) {
       margin: 0 -1.3333px;
@@ -39,11 +36,10 @@
     &-title {
       position: absolute;
       z-index: 3;
-      opacity: 0;
-      top: 50%;
+      bottom: 7%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
       font-weight: bold;
       color: white;
       transition: .5s opacity ease;

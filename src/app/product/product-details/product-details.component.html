@@ -2,7 +2,8 @@
 <app-nav lighten="true" class="absolute"></app-nav>
 
 <div class="product-container d-flex justify-content-center align-items-center">
-  <ngb-carousel #carousel class="w-100 product-carousel" *ngIf="product.type === 'image'; else videoView">
+  <ngb-carousel #carousel class="w-100 product-carousel"
+                *ngIf="product.type === 'image' || parent === 'shop'; else videoView">
     <ng-container *ngFor="let image of product.content">
       <ng-template ngbSlide>
         <div class="carousel-caption">
