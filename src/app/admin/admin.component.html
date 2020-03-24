@@ -280,6 +280,10 @@
                   <div class="input-group-append">
                     <span class="input-group-text">€</span>
                   </div>
+
+                  <label class="sr-only" for="current_priceEdit"></label>
+                  <input ngModel hidden type="number" class="form-control" name="current_price" id="current_priceEdit"
+                         aria-describedby="current_price">
                 </div>
               </ng-container>
             </div>
@@ -311,14 +315,14 @@
           </div>
         </div>
 
-        <div style="width: 13rem" class="form-group ml-3 mt-n2" *ngIf="type === 'portfolio'">
-          <label style="color: white" for="typeEdit">Art</label>
-          <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
-            <option value="image">Bild</option>
-            <option value="video">Video</option>
-          </select>
-
+        <div style="width: 13rem" class="form-group ml-3 mt-n2">
           <ng-container *ngIf="type === 'portfolio'">
+            <label style="color: white" for="typeEdit">Art</label>
+            <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
+              <option value="image">Bild</option>
+              <option value="video">Video</option>
+            </select>
+
             <label style="color: white" class="my-1" for="categoryEdit">Kategorie</label>
             <select ngModel required class="custom-select" id="categoryEdit" name="category">
               <ng-container *ngIf="editing.type === 'image'">
@@ -334,6 +338,11 @@
                 <option value="imagevideo">Imagevideo</option>
               </ng-container>
             </select>
+          </ng-container>
+          <ng-container *ngIf="type === 'shop'">
+            <label class="sr-only" for="shopTypeEdit"></label>
+            <input ngModel hidden type="text" class="form-control" name="type" id="shopTypeEdit"
+                   aria-describedby="type">
           </ng-container>
         </div>
       </div>

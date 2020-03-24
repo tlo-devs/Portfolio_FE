@@ -119,15 +119,8 @@ export class AdminComponent implements OnInit {
     const value = this.editForm.value;
 
     this.adminService.patch(this.type, item.id, value, item.type).subscribe(
-      noop,
-      err => console.error(err.message),
-      () => {
-        item.title = value.title;
-        item.description = value.description;
-        item.client = value.client;
-        item.year = value.year;
-        item.category = value.category;
-      }
+      d => Object.keys(item).forEach(key => item[key] = d[key]),
+      err => console.error(err.message)
     );
 
     this.editMode = false;
