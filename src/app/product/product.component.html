@@ -5,7 +5,14 @@
   <article class="portfolio-grid mt-5">
     <ng-container *ngFor="let item of portfolioItems">
       <figure (click)="toDetails(item)" class="portfolio-item">
-        <figcaption class="portfolio-img-title">{{ item.title }}</figcaption>
+        <div class="portfolio-img-sale" *ngIf="item.sale">-{{ item.sale }}%</div>
+        <figcaption class="portfolio-img-title">
+          <div>{{ item.title | uppercase }}</div>
+          <div class="portfolio-img-price d-flex justify-content-center position-relative">
+            <span class="portfolio-img-base" *ngIf="item.sale">{{ item.base_price }}€</span>
+            <span>{{ item.current_price}}€</span>
+          </div>
+        </figcaption>
         <!--suppress RequiredAttributes -->
         <!--suppressed because appImg directive provides the src attribute-->
         <img class="portfolio-img" [appImg]="item.preview.uri"
