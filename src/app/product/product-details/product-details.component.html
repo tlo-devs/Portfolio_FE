@@ -43,6 +43,10 @@
       <strong class="product-details big mt-2">{{ product.current_price }}€</strong>
     </div>
   </section>
+
+  <section *ngIf="parent === 'shop'" class="d-flex justify-content-center align-items-center mt-5 mb-n3">
+    <ngx-paypal [config]="paypalConfig"></ngx-paypal>
+  </section>
 </article>
 
 <ng-template #videoView>

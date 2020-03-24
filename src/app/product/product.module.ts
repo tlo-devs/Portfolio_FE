@@ -7,11 +7,13 @@ import {SharedModule} from '../_shared/shared.module';
 import {ProductService} from './product.service';
 import {ProductItemResolver} from './product-item.resolver';
 import {ProductGuard} from './product.guard';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 import {ProductComponent} from './product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
-import { YouTubePlayerModule } from '@angular/youtube-player';
+
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     ProductRoutingModule,
     SharedModule,
     NgbCarouselModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    NgxPayPalModule
   ],
   providers: [ProductService, ProductItemResolver, ProductGuard]
 })
