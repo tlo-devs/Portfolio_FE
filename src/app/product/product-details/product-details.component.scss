@@ -47,3 +47,14 @@
   align-items: center;
   width: 100%;
 }
+
+.big {
+  font-size: 1.125rem;
+}
+
+.sale-price {
+  color: var(--color-danger);
+  text-decoration: line-through;
+  font-weight: bold;
+  font-size: .75rem;
+}

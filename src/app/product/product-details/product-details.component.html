@@ -17,7 +17,7 @@
 </div>
 
 <article class="my-5 py-3">
-  <section class="d-flex justify-content-around mb-5">
+  <section class="d-flex justify-content-around mb-5" *ngIf="parent === 'portfolio'">
     <div class="d-flex flex-column justify-content-center align-items-center">
       <span class="pb-2 product-details">JAHR</span>
       <strong class="product-details">{{ product.year }}</strong>
@@ -27,13 +27,25 @@
       <strong class="product-details">{{ product.client | uppercase }}</strong>
     </div>
   </section>
+
+  <header class="d-flex justify-content-center align-items-center" *ngIf="parent === 'shop'">
+    <strong class="product-details big">{{ product.title | uppercase }}</strong>
+  </header>
+
   <section class="w-75 m-auto d-flex justify-content-center align-items-center px-5 pt-5">
     <p class="product-description">{{ product.description }}</p>
+  </section>
+
+  <section class="mt-5" *ngIf="parent === 'shop'">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <span *ngIf="product.sale" class="sale-price">{{ product.base_price }}€</span>
+      <strong class="product-details big mt-2">{{ product.current_price }}€</strong>
+    </div>
   </section>
 </article>
 
 <ng-template #videoView>
-<!--  <youtube-player height="100%" width="100%" [videoId]="product.content"></youtube-player>-->
-  <iframe  width="100%" height="100%" [src]="createUrl(product.content)"
+  <!--  <youtube-player height="100%" width="100%" [videoId]="product.content"></youtube-player>-->
+  <iframe width="100%" height="100%" [src]="createUrl(product.content)"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </ng-template>

@@ -16,6 +16,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'all/digital/:id',
+    component: ProductDetailsComponent,
+    resolve: {
+      product: ProductItemResolver
+    }
+  },
+  {
     path: 'image/:category/:id',
     component: ProductDetailsComponent,
     resolve: {

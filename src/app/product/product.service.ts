@@ -45,7 +45,8 @@ export class ProductService {
   }
 
   product(id: number, route: AdminType, type?: string): Observable<ProductItemModel> {
-    return this.rest.get(this[route + 'Url'] + id, {params: {type}});
+    const params = type ? {params: {type}} : undefined;
+    return this.rest.get(this[route + 'Url'] + id, params);
   }
 
   image(url: string): Observable<any> {

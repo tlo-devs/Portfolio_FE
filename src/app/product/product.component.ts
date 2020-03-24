@@ -39,7 +39,10 @@ export class ProductComponent implements OnInit {
   }
 
   toDetails(item: ProductItemModel) {
-    this.router.navigate([`${this.parent}/${item.type}/${item.category}/${item.id}`]);
+    const route = this.parent === 'shop'
+      ? `${this.parent}/all/digital/${item.id}`
+      : `${this.parent}/${item.type}/${item.category}/${item.id}`;
+    this.router.navigate([route]);
   }
 
   filterBy(items: ProductItemModel[]): ProductItemModel[] {

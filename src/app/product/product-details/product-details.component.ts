@@ -4,6 +4,7 @@ import {ProductItemModel} from '../../_models/product-item.model';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 import {ProductService} from '../product.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {AdminType} from '../../_models/admin-type.type';
 
 @Component({
   selector: 'app-product-details',
@@ -13,6 +14,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   product: ProductItemModel;
+  parent: AdminType;
 
   @ViewChild('carousel', {static: false}) carousel: NgbCarousel;
 
@@ -21,6 +23,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.product = this.route.snapshot.data.product;
+    this.parent = this.route.snapshot.parent.url[0].path as AdminType;
   }
 
   ngAfterViewInit(): void {

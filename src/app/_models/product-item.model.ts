@@ -10,7 +10,7 @@ export interface ProductItemModel {
   year?: number;
   client?: string;
   description?: string;
-  sales?: string;
+  sale?: string;
   current_price?: string;
   base_price?: string;
 }
