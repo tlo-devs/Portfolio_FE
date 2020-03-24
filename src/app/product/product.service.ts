@@ -3,42 +3,49 @@ import {RestService} from '../_shared/rest.service';
 import {Observable, ReplaySubject} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {HttpParams} from '@angular/common/http';
-import {flatMap, map} from 'rxjs/operators';
+import {flatMap} from 'rxjs/operators';
 import {ImageService} from '../_shared/image.service';
 import {environment} from '../../environments/environment';
+import {AdminType} from '../_models/admin-type.type';
 
 @Injectable()
 export class ProductService {
 
-  private readonly url = 'portfolio/';
+  private readonly portfolioUrl = 'portfolio/';
+  private readonly shopUrl = 'shop/';
 
-  previewCache$: ReplaySubject<ProductItemModel[]>;
+  portfolioCache$: ReplaySubject<ProductItemModel[]>;
+  shopCache$: ReplaySubject<ProductItemModel[]>;
 
   constructor(private rest: RestService,
               private imageService: ImageService) {
   }
 
-  preview(): Observable<ProductItemModel[]> {
-    if (!this.previewCache$) {
-      const previewParams = ['id', 'title', 'preview', 'type', 'category'];
+  preview(route: AdminType): Observable<ProductItemModel[]> {
+    if (!this[route + 'Cache$']) {
+
+      const previewParams = route === 'portfolio'
+        ? ['id', 'title', 'preview', 'type', 'category']
+        : ['id', 'title', 'preview', 'current_price', 'base_price', 'sale'];
+
       const params = {params: new HttpParams().append('fields', previewParams.join(','))};
-      return this.rest.get(this.url, params).pipe(flatMap(items => {
-        this.previewCache$ = new ReplaySubject<ProductItemModel[]>(1);
+      return this.rest.get(this[route + 'Url'], params).pipe(flatMap(items => {
+        this[route + 'Cache$'] = new ReplaySubject<ProductItemModel[]>(1);
         items = items.map(item => {
-          // surpressed because the is uri on preview
+          // surpressed because there is uri on preview
           // @ts-ignore
           item.preview.uri = environment.imgUrl + item.preview.uri;
           return item;
         });
-        this.previewCache$.next(items);
-        return this.previewCache$;
+        this[route + 'Cache$'].next(items);
+        return this[route + 'Cache$'] as Observable<ProductItemModel[]>;
       }));
     }
-    return this.previewCache$;
+    return this[route + 'Cache$'] as Observable<ProductItemModel[]>;
   }
 
-  product(id: number, type: string): Observable<ProductItemModel> {
-    return this.rest.get(this.url + id, {params: {type}});
+  product(id: number, route: AdminType, type?: string): Observable<ProductItemModel> {
+    return this.rest.get(this[route + 'Url'] + id, {params: {type}});
   }
 
   image(url: string): Observable<any> {

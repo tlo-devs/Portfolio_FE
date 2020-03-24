@@ -6,6 +6,7 @@ import {ProductService} from './product.service';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {isArray} from 'util';
+import {AdminType} from '../_models/admin-type.type';
 
 @Injectable()
 export class ProductItemResolver implements Resolve<ProductItemModel> {
@@ -13,7 +14,11 @@ export class ProductItemResolver implements Resolve<ProductItemModel> {
   constructor(private productService: ProductService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<ProductItemModel> {
-    return this.productService.product(route.params.id, route.url[0].path).pipe(map(d => {
+
+    const parent: AdminType = route.parent.url[0].path as AdminType;
+    const param = parent === 'shop' ? undefined : route.url[0].path;
+
+    return this.productService.product(route.params.id, parent, param).pipe(map(d => {
 
       // surpressed because the is uri on preview
       // @ts-ignore

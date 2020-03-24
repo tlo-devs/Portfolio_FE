@@ -21,7 +21,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.product = this.route.snapshot.data.product;
-    console.log(this.product);
   }
 
   ngAfterViewInit(): void {
@@ -30,7 +29,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  createUrl(id: string) {
+  createUrl(id: any) {
     const url = `//www.youtube.com/embed/${id}?origin=http://localhost:4200/&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }

@@ -26,6 +26,11 @@
     letter-spacing: 1px;
     font-size: .875rem;
   }
+  &-description {
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 100%;
+  }
 }
 
 .absolute {
