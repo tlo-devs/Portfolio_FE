@@ -134,6 +134,10 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  resetContent() {
+    this.contentStore = new FileStore();
+  }
+
   get shopConfig(): any[] {
     return AdminConfig.shopConfig;
   }

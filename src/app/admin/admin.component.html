@@ -174,7 +174,7 @@
       <div style="width: 13rem" class="form-group ml-3 mt-n2" *ngIf="type === 'portfolio'">
         <ng-container *ngIf="type === 'portfolio'">
           <label style="color: white" for="type">Art</label>
-          <select [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
+          <select (change)="resetContent()" [(ngModel)]="fileType" required class="custom-select mb-2" id="type" name="type">
             <option value="image">Bild</option>
             <option value="video">Video</option>
           </select>
@@ -240,7 +240,7 @@
     </div>
   </ng-container>
 
-  <div class="d-inline-flex flex-column">
+  <div class="d-inline-flex flex-column" *ngIf="fileType !== 'video' || mode === 'preview'">
     <ng-container *ngFor="let file of this[mode + 'Store'].store">
       <div class="d-inline-flex">
         <div class="file-name">{{ file.name }}</div>
