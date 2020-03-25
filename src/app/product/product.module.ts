@@ -8,13 +8,10 @@ import {ProductService} from './product.service';
 import {ProductItemResolver} from './product-item.resolver';
 import {ProductGuard} from './product.guard';
 import { NgxPayPalModule } from 'ngx-paypal';
-import { YouTubePlayerModule } from '@angular/youtube-player';
 
 import {ProductComponent} from './product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
-
-
 
 @NgModule({
   declarations: [
@@ -27,7 +24,6 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     ProductRoutingModule,
     SharedModule,
     NgbCarouselModule,
-    YouTubePlayerModule,
     NgxPayPalModule
   ],
   providers: [ProductService, ProductItemResolver, ProductGuard]
