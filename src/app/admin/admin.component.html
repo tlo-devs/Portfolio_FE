@@ -240,7 +240,7 @@
     </div>
   </ng-container>
 
-  <div class="d-inline-flex flex-column" *ngIf="fileType !== 'video' || mode === 'preview'">
+  <div class="d-inline-flex flex-column">
     <ng-container *ngFor="let file of this[mode + 'Store'].store">
       <div class="d-inline-flex">
         <div class="file-name">{{ file.name }}</div>

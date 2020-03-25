@@ -6,12 +6,14 @@
     <ng-container *ngFor="let item of portfolioItems">
       <figure (click)="toDetails(item)" class="portfolio-item">
         <div class="portfolio-img-sale" *ngIf="item.sale">-{{ item.sale }}%</div>
-        <figcaption class="portfolio-img-title">
+        <figcaption class="portfolio-img-title w-100">
           <div>{{ item.title | uppercase }}</div>
-          <div class="portfolio-img-price d-flex justify-content-center position-relative">
-            <span class="portfolio-img-base" *ngIf="item.sale">{{ item.base_price }}€</span>
-            <span>{{ item.current_price}}€</span>
-          </div>
+            <div class="portfolio-img-price d-flex justify-content-center position-relative">
+              <ng-container *ngIf="parent === 'shop'">
+                <span class="portfolio-img-base" *ngIf="item.sale">{{ item.base_price }}€</span>
+                <span>{{ item.current_price}}€</span>
+              </ng-container>
+            </div>
         </figcaption>
         <!--suppress RequiredAttributes -->
         <!--suppressed because appImg directive provides the src attribute-->
