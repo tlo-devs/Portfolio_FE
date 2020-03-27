@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
 
   editMode = false;
   editing: ProductItemModel;
-  validation: {value?: boolean, type?: string, finished: boolean} = {finished: false};
+  validation: {value?: boolean, type?: string, started?: boolean, finished: boolean} = {finished: false};
 
   previewStore: FileStore;
   contentStore: FileStore;
@@ -58,6 +58,7 @@ export class AdminComponent implements OnInit {
   }
 
   onCreate(form: NgForm) {
+    this.validation.started = true;
     if (form.valid) {
       const submission = {...form.value};
       if (this.type === 'shop') {
@@ -66,13 +67,13 @@ export class AdminComponent implements OnInit {
       delete submission.type;
       const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
       this.adminService.post(this.type, data, form.value.type).subscribe(r => {
-          this.validation = {...this.validation, finished: true, value: true};
+          this.validation = {...this.validation, finished: true, value: true, started: false};
           this.dataSource.data = [...this.dataSource.data, r];
         },
-        () => this.validation = {...this.validation, value: false, type: 'REQUEST_INVALID'}
+        () => this.validation = {...this.validation, value: false, type: 'REQUEST_INVALID', started: false}
       );
     } else {
-      this.validation = {...this.validation, value: false, type: 'FORM_INVALID'};
+      this.validation = {...this.validation, value: false, type: 'FORM_INVALID', started: false};
     }
   }
 

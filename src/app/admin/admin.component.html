@@ -211,8 +211,9 @@
     <button class="my-1" type="submit" mat-raised-button color="primary" (click)="onCreate(createForm)">
       Create
     </button>
-    <strong class="mb-4 {{ validation.value ? 'auth-success' : 'auth-error' }}" *ngIf="validation.finished">
+    <strong class="mb-4 ml-3 {{ validation.value ? 'auth-success' : 'auth-error' }}" *ngIf="validation.finished">
       {{ validation.value ? 'Operation successful' : error() }}</strong>
+    <strong class="mb-4 ml-3 auth-waiting" *ngIf="validation.started">Processing...</strong>
   </form>
 </ng-template>
 

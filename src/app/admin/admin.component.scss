@@ -9,14 +9,18 @@
     color: white;
   }
 }
-
-.auth-success {
-  color: green;
+.auth {
+  &-success {
+    color: green;
+  }
+  &-error {
+    color: var(--color-danger);
+  }
+  &-waiting {
+    color: #6ccfff;
+  }
 }
 
-.auth-error {
-  color: var(--color-danger);
-}
 
 .file {
   &-name {
