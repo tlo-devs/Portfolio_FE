@@ -32,66 +32,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private initConfig(): void {
-    this.paypalConfig = {
-      currency: 'EUR',
-      clientId: 'sb',
-      // tslint:disable-next-line:no-angle-bracket-type-assertion
-      createOrderOnClient: (data) => <ICreateOrderRequest> {
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: 'EUR',
-              value: this.product.current_price,
-              breakdown: {
-                item_total: {
-                  currency_code: 'EUR',
-                  value: this.product.current_price
-                }
-              }
-            },
-            items: [
-              {
-                name: this.product.title,
-                quantity: '1',
-                category: 'DIGITAL_GOODS',
-                unit_amount: {
-                  currency_code: 'EUR',
-                  value: this.product.current_price,
-                },
-              }
-            ]
-          }
-        ]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical'
-      },
-      onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
-        });
-      },
-      onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      },
-      onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-      },
-      onError: err => {
-        console.log('OnError', err);
-      },
-      onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-      },
-    };
-  }
+  private initConfig(): void {}
 
   ngAfterViewInit(): void {
     if (this.carousel) {

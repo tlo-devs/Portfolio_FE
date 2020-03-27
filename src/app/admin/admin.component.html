@@ -211,8 +211,8 @@
     <button class="my-1" type="submit" mat-raised-button color="primary" (click)="onCreate(createForm)">
       Create
     </button>
-    <strong class="mb-4 {{ createForm.valid ? 'auth-success' : 'auth-error' }}" *ngIf="createForm.submitted">
-      {{ createForm.valid ? 'Operation successful' : 'The form is invalid' }}</strong>
+    <strong class="mb-4 {{ validation.value ? 'auth-success' : 'auth-error' }}" *ngIf="validation.finished">
+      {{ validation.value ? 'Operation successful' : error() }}</strong>
   </form>
 </ng-template>
 
@@ -255,8 +255,8 @@
 
 <div *ngIf="editMode" class="edit-form-container">
   <div class="edit-form-content" [style.width.rem]="type === 'shop' ? 42 : 55">
-    <form #editForm="ngForm">
-      <div class="form-row">
+    <form #editForm="ngForm" class="w-100">
+      <div class="form-row d-flex justify-content-center">
         <div class="form-group">
           <div class="form-row">
             <div style="width: 18rem" class="form-group mr-2">
@@ -346,7 +346,7 @@
           </ng-container>
         </div>
       </div>
-      <div class="btn-group">
+      <div class="btn-group ml-5">
         <button type="button" mat-raised-button color="primary" (click)="confirmEdit()">
           Confirm
         </button>

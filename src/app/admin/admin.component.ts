@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
 
   editMode = false;
   editing: ProductItemModel;
+  validation: {value?: boolean, type?: string, finished: boolean} = {finished: false};
 
   previewStore: FileStore;
   contentStore: FileStore;
@@ -49,6 +50,7 @@ export class AdminComponent implements OnInit {
     this.contentStore = new FileStore();
 
     this.adminService.get(this.type).subscribe(data => {
+      console.log(data);
       this.dataSource = new MatTableDataSource<ProductItemModel>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -56,13 +58,22 @@ export class AdminComponent implements OnInit {
   }
 
   onCreate(form: NgForm) {
-    const submission = {...form.value};
-    if (this.type === 'shop') {
-      form.value.type = 'digital';
+    if (form.valid) {
+      const submission = {...form.value};
+      if (this.type === 'shop') {
+        form.value.type = 'digital';
+      }
+      delete submission.type;
+      const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
+      this.adminService.post(this.type, data, form.value.type).subscribe(r => {
+          this.validation = {...this.validation, finished: true, value: true};
+          this.dataSource.data = [...this.dataSource.data, r];
+        },
+        () => this.validation = {...this.validation, value: false, type: 'REQUEST_INVALID'}
+      );
+    } else {
+      this.validation = {...this.validation, value: false, type: 'FORM_INVALID'};
     }
-    delete submission.type;
-    const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
-    this.adminService.post(this.type, data, form.value.type).subscribe(r => this.dataSource.data = [...this.dataSource.data, r]);
   }
 
   addFile(event, mode: AdminMode) {
@@ -136,6 +147,15 @@ export class AdminComponent implements OnInit {
 
   resetContent() {
     this.contentStore = new FileStore();
+  }
+
+  error(): string {
+    switch (this.validation.type) {
+      case 'FORM_INVALID':
+        return 'The form is invalid.';
+      case 'REQUEST_INVALID':
+        return 'An error has occurred. Please try again or reload the page.';
+    }
   }
 
   get shopConfig(): any[] {
