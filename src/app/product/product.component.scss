@@ -61,9 +61,6 @@
       transition: .5s background-color ease;
     }
     &-base {
-      position: absolute;
-      bottom: 0;
-      left: -1.25rem;
       color: var(--color-danger);
       text-decoration: line-through;
       font-weight: bold;
