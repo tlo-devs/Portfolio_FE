@@ -14,7 +14,7 @@ import {ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
-  paypalConfig: IPayPalConfig;
+  payPalConfig: IPayPalConfig;
   product: ProductItemModel;
   parent: AdminType;
 
@@ -32,7 +32,39 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private initConfig(): void {}
+  private initConfig(): void {
+    this.payPalConfig = {
+      clientId: 'sb',
+      // for creating orders (transactions) on server see
+      // https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
+      createOrderOnServer: (data) => fetch('/my-server/create-paypal-transaction')
+        .then((res) => res.json())
+        .then((order) => data.orderID),
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+       //  this.showSuccess = true;
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+        // this.showCancel = true;
+
+      },
+      onError: err => {
+        console.log('OnError', err);
+        // this.showError = true;
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+        // this.resetStatus();
+      },
+    };
+  }
 
   ngAfterViewInit(): void {
     if (this.carousel) {
