@@ -58,7 +58,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
       },
       onError: err => {
-        console.log('OnError', err);
+        console.error('OnError', err);
         // this.showError = true;
       },
       onClick: (data, actions) => {
