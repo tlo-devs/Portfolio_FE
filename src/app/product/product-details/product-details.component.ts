@@ -35,6 +35,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   private initConfig(): void {
     this.payPalConfig = {
       clientId: 'sb',
+      advanced: { extraQueryParams: [ { name: 'disable-funding', value: 'card' } ] },
+      style: {label: 'pay'},
       // for creating orders (transactions) on server see
       // https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
       createOrderOnServer: (data) => fetch('/my-server/create-paypal-transaction')
