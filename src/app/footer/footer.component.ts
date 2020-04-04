@@ -13,7 +13,7 @@ export class FooterComponent {
   ];
 
   readonly linkValues: {name: string, ref: string}[] = [
-    { name: 'about', ref: '/' },
+    { name: 'about', ref: '/about' },
     { name: 'impressum', ref: '/impressum' },
     { name: 'datenschutz', ref: '/data-protection' }
   ];
