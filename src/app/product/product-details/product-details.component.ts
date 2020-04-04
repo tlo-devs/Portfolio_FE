@@ -21,7 +21,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('carousel', {static: false}) carousel: NgbCarousel;
 
   constructor(private route: ActivatedRoute,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     this.product = this.route.snapshot.data.product;
@@ -34,36 +35,31 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   private initConfig(): void {
     this.payPalConfig = {
-      clientId: 'sb',
-      advanced: { extraQueryParams: [ { name: 'disable-funding', value: 'card' } ] },
+      clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
+      advanced: {extraQueryParams: [{name: 'disable-funding', value: 'card'}]},
       style: {label: 'pay'},
-      // for creating orders (transactions) on server see
-      // https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
-      createOrderOnServer: (data) => fetch('/my-server/create-paypal-transaction')
+      createOrderOnServer: () => fetch(`/api/shop/${this.product.id}/payment/`)
         .then((res) => res.json())
-        .then((order) => data.orderID),
+        .then((order) => order.orderID),
       onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        console.warn('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
+          console.warn('onApprove - you can get full order details inside onApprove: ', details);
         });
+
       },
       onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-       //  this.showSuccess = true;
+        console.warn('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-        // this.showCancel = true;
+        console.warn('OnCancel', data, actions);
 
       },
       onError: err => {
         console.error('OnError', err);
-        // this.showError = true;
       },
       onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-        // this.resetStatus();
+        console.warn('onClick', data, actions);
       },
     };
   }
