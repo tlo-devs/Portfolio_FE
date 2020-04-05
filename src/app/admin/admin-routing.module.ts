@@ -7,17 +7,17 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'portfolio',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'portfolio',
     component: AdminComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'shop',
     component: AdminComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ];
 
