@@ -45,3 +45,22 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+//better scrollbar
+::-webkit-scrollbar {
+  width: 11px;
+
+  &-thumb {
+    border-radius: 10px;
+    background: gray;
+
+    &:hover {
+      background: darken(gray, 5%);
+    }
+
+    &:active {
+      background: darken(gray, 5%);
+    }
+  }
+}

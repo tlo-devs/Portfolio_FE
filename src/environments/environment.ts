@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'http://52.57.51.214/demo/11sevendome/api/',
-  imgUrl: 'http://52.57.51.214/demo/img/',
+  apiUrl: 'https://api.tlo-devs.com/stag/11sevendome/api/',
+  imgUrl: 'https://api.tlo-devs.com/stag/img/',
   production: false
 };
 

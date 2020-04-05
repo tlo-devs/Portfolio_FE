@@ -6,17 +6,18 @@ import {AuthGuard} from '../auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'portfolio'
+    redirectTo: 'portfolio',
+    // canActivate: [AuthGuard]
   },
   {
     path: 'portfolio',
     component: AdminComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'shop',
     component: AdminComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   }
 ];
 
