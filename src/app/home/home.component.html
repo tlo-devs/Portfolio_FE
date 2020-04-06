@@ -7,9 +7,9 @@
   </div>
   <div class="front-video-container d-flex justify-content-center align-items-center">
     <video #video id="front-video">
-      <source *ngIf="isMobile()" src="assets/videos/showreel-mobile.mp4"
+      <source *ngIf="isMobile()" src="../../assets/videos/showreel-mobile.mp4"
               type="video/mp4">
-      <source *ngIf="!isMobile()" src="assets/videos/showreel-desk.mp4"
+      <source *ngIf="!isMobile()" src="../../assets/videos/showreel-desk.mp4"
               type="video/mp4">
     </video>
   </div>
@@ -18,6 +18,6 @@
 <ng-template #socialT let-social>
   <a target="_blank" class="social-link" [href]="social.ref" (mouseout)="hover(social.name, 'out')"
      (mouseover)="hover(social.name, 'over')">
-    <img class="social-icon" [src]="'assets/images/' + social.src" [alt]="social.name">
+    <img class="social-icon" [src]="'../../assets/images/' + social.src" [alt]="social.name">
   </a>
 </ng-template>

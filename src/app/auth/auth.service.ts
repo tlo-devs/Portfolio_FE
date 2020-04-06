@@ -20,11 +20,11 @@ export class AuthService {
     location.reload();
   }
 
-  addToken(token: string) {
+  set token(token: string) {
     localStorage.setItem('access_token', token);
   }
 
-  token(): string {
+  get token(): string {
     return localStorage.getItem('access_token');
   }
 }

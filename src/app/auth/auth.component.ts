@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
+
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -21,7 +22,7 @@ export class AuthComponent {
       ? this.authService.tryLogin(form.value).subscribe(
       jwt => {
         form.reset();
-        this.authService.addToken(jwt.access_token);
+        this.authService.token = jwt.access_token;
         this.router.navigateByUrl('/admin');
       },
       err => {
