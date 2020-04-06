@@ -50,7 +50,6 @@ export class AdminComponent implements OnInit {
     this.contentStore = new FileStore();
 
     this.adminService.get(this.type).subscribe(data => {
-      console.log(data);
       this.dataSource = new MatTableDataSource<ProductItemModel>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

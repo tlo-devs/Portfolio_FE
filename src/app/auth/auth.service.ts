@@ -18,7 +18,6 @@ export class AuthService {
   isExpired(): boolean {
     if (this.token) {
       const jwtExpiry = JSON.parse(atob(this.token.split('.')[1])).exp;
-      console.log((jwtExpiry * 1000), Date.now());
       return !jwtExpiry || (jwtExpiry * 1000) < (Date.now());
     }
     return true;
