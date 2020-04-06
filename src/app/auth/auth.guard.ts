@@ -1,16 +1,23 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, CanLoad, Router, UrlTree} from '@angular/router';
+import {AuthService} from './auth.service';
+import {error} from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad, CanActivate {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private auth: AuthService) {
   }
 
   canLoad(): boolean {
-    if (localStorage.getItem('access_token')) {
+    if (this.auth.token) {
+      if (this.auth.isExpired()) {
+        this.router.navigateByUrl('/login');
+        return false;
+      }
       return true;
     } else {
       this.router.navigateByUrl('/login');
@@ -19,13 +26,12 @@ export class AuthGuard implements CanLoad, CanActivate {
   }
 
   canActivate(): boolean | UrlTree {
-    const jwt = localStorage.getItem('access_token');
-    if (jwt) {
-      const expired = (): boolean => {
-        const jwtExpiry = new Date(JSON.parse(atob(jwt.split('.')[1])).iat).getTime();
-        return false;
-      };
-      return !expired() || this.router.parseUrl('/login');
+    if (this.auth.token) {
+      if (this.auth.isExpired()) {
+        this.auth.logout();
+        return this.router.parseUrl('/login');
+      }
+      return true;
     }
     return this.router.parseUrl('/login');
   }

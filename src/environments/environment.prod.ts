@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrl: '/api/',
-  imgUrl: '/img/',
+  apiUrl: 'https://api.tlo-devs.com/stag/11sevendome/',
+  imgUrl: 'https://api.tlo-devs.com/stag/11sevendome/',
   production: true
 };

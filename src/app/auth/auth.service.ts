@@ -15,6 +15,15 @@ export class AuthService {
     return this.restService.post(this.url, credentials);
   }
 
+  isExpired(): boolean {
+    if (this.token) {
+      const jwtExpiry = JSON.parse(atob(this.token.split('.')[1])).exp;
+      console.log((jwtExpiry * 1000), Date.now());
+      return !jwtExpiry || (jwtExpiry * 1000) < (Date.now());
+    }
+    return true;
+  }
+
   logout() {
     localStorage.removeItem('access_token');
     location.reload();
@@ -25,6 +34,6 @@ export class AuthService {
   }
 
   get token(): string {
-    return localStorage.getItem('access_token');
+    return localStorage.access_token;
   }
 }
