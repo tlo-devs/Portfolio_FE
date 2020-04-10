@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AdminComponent} from './admin.component';
 import {AuthGuard} from '../auth/auth.guard';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {JwtInterceptor} from '../auth/jwt.interceptor';
 
 const routes: Routes = [
   {

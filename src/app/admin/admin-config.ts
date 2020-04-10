@@ -8,7 +8,8 @@ export class AdminConfig {
     image: {accept: 'image/x-png'}
   };
   private static readonly SHOP_CONFIG = {
-    image: {accept: 'image/x-png'}
+    image: {accept: 'image/x-png'},
+    file: {accept: '.zip, application/zip'}
   };
 
   static get portfolioConfig(): any {

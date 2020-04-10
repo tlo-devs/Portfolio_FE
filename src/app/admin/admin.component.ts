@@ -31,6 +31,7 @@ export class AdminComponent implements OnInit {
 
   previewStore: FileStore;
   contentStore: FileStore;
+  shopFile: {data: FormData, name: string};
 
   fileType: 'image' | 'video';
   displayedColumns: string[];
@@ -48,6 +49,9 @@ export class AdminComponent implements OnInit {
 
     this.previewStore = new FileStore();
     this.contentStore = new FileStore();
+    if (this.type === 'shop') {
+      this.shopFile = {data: new FormData(), name: ''};
+    }
 
     this.adminService.get(this.type).subscribe(data => {
       this.dataSource = new MatTableDataSource<ProductItemModel>(data);
@@ -64,12 +68,24 @@ export class AdminComponent implements OnInit {
         form.value.type = 'digital';
       }
       delete submission.type;
+      if (submission.shopFile) {
+        delete submission.shopFile;
+      }
       const data = FileStore.toDto(submission, this.previewStore, this.contentStore, form.value.type);
-      this.adminService.post(this.type, data, form.value.type).subscribe(r => {
+      if (this.type === 'shop') {
+        this.shopFile.data.append('data', JSON.stringify(data));
+      }
+      this.adminService.post(this.type, this.type === 'shop' ? this.shopFile.data : data, form.value.type).subscribe(r => {
           this.validation = {...this.validation, finished: true, value: true, started: false};
           this.dataSource.data = [...this.dataSource.data, r];
+          form.resetForm();
+          this.previewStore = new FileStore();
+          this.contentStore = new FileStore();
+          if (this.type === 'shop') {
+            this.shopFile = {data: new FormData(), name: ''};
+          }
         },
-        () => this.validation = {...this.validation, value: false, type: 'REQUEST_INVALID', started: false}
+        () => this.validation = {...this.validation, value: false, finished: true, type: 'REQUEST_INVALID', started: false}
       );
     } else {
       this.validation = {...this.validation, value: false, type: 'FORM_INVALID', started: false};
@@ -90,6 +106,17 @@ export class AdminComponent implements OnInit {
 
   removeFile(name: string, mode: AdminMode) {
     this[mode + 'Store'].remove(name);
+  }
+
+  addShopFile(event) {
+    if (event.target.files.length > 0) {
+      this.shopFile.data.append('file', event.target.files[0], event.target.files[0].name);
+      this.shopFile.name = event.target.files[0].name;
+    }
+  }
+
+  removeShopFile() {
+    this.shopFile.data.delete('file');
   }
 
   logout() {

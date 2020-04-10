@@ -7,6 +7,7 @@ import {AuthGuard} from './auth/auth.guard';
 import {AppComponent} from './app.component';
 import {FooterComponent} from './footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {JwtInterceptor} from './auth/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

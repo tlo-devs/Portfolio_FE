@@ -18,12 +18,6 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
     return next.handle(request).pipe(
-      tap(() => {
-        if (this.auth.isExpired()) {
-          this.auth.logout();
-          return throwError('Could not authorize.');
-        }
-      }),
       catchError(err => {
         if (err.status === 401) {
           this.auth.logout();
