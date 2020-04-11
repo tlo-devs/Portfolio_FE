@@ -69,7 +69,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
         this.validation.alert = 'Processing...';
         return fetch(`https://api.tlo-devs.com/stag/11sevendome/shop/${this.product.id}/payment/`)
           .then((res) => res.json())
-          .then((order) => order.orderID);
+          .then((order) => order.order_id);
       },
       onClientAuthorization: data => {
         this.productService.shopItem(data.id).subscribe(
