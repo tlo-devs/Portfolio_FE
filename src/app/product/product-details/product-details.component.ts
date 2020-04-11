@@ -99,6 +99,9 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   private checkExpiry(): boolean {
+    if (!this.shopItem) {
+      return true;
+    }
     return Date.now() > this.shopItem.expiry || this.shopItem.tries === 0;
   }
 
