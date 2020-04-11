@@ -20,11 +20,10 @@ export class ProductItemResolver implements Resolve<ProductItemModel> {
 
     return this.productService.product(route.params.id, parent, param).pipe(map(d => {
 
-      if (isArray(d)) {
-        d[0].preview.uri = environment.imgUrl + d[0].preview.uri;
-      } else {
-        (d.preview as {uri: string, alt: string}).uri = environment.imgUrl + (d.preview as {uri: string, alt: string}).uri;
-      }
+      d = isArray(d) ? d[0] : d;
+      // surpressed because the is uri on preview
+      // @ts-ignore
+      d.preview.uri = environment.imgUrl + d.preview.uri;
 
       if (isArray(d.content)) {
         // same here
