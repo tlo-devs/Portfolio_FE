@@ -19,8 +19,8 @@
         </figcaption>
         <!--suppress RequiredAttributes -->
         <!--suppressed because appImg directive provides the src attribute-->
-        <img class="portfolio-img" [appImg]="item.preview.uri"
-             [alt]="item.preview.uri">
+        <img class="portfolio-img" [src]="item.preview.uri"
+             [alt]="item.preview.alt">
       </figure>
     </ng-container>
   </article>
