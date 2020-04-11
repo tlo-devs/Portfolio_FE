@@ -88,7 +88,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     };
   }
 
-  createUrl(id: string) {
+  // id string
+  createUrl(id: any) {
     const url = `//www.youtube.com/embed/${id}?origin=http://localhost:4200/&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
