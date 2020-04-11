@@ -11,9 +11,9 @@ export class ImagePreloadDirective {
   @Input() appImg: string;
 
   constructor(private el: ElementRef) {
-    el.nativeElement.src = 'src/assets/images/loading.png';
-    fromEvent(el.nativeElement, 'error')
-      .pipe(first()).subscribe(() => this.el.nativeElement.src = 'src/assets/images/img-not-found.png');
+    // el.nativeElement.src = 'src/assets/images/loading.png';
+    // fromEvent(el.nativeElement, 'error')
+    //   .pipe(first()).subscribe(() => this.el.nativeElement.src = 'src/assets/images/img-not-found.png');
     fromEvent(el.nativeElement, 'load')
       .pipe(first()).subscribe(() => this.el.nativeElement.src = environment.imgUrl + this.appImg);
   }
