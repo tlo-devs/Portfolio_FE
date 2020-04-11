@@ -44,7 +44,7 @@
     </div>
   </section>
 
-  <section *ngIf="parent === 'shop'" class="d-flex justify-content-center align-items-center mt-5 mb-n3">
+  <section *ngIf="parent === 'shop'" class="d-flex flex-column justify-content-center align-items-center mt-5 mb-n3">
     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
     <strong *ngIf="validation.started || validation.finished"
             [ngClass]="{
