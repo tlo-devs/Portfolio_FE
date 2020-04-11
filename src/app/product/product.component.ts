@@ -33,7 +33,8 @@ export class ProductComponent implements OnInit {
       })
     ).subscribe(items => {
       this.active = this.route.snapshot.url[0].path;
-      this.portfolioItems = this.filterBy(items);
+
+      this.portfolioItems = this.filterBy(Array.isArray(items) ? items : [items]);
     });
   }
 
