@@ -61,14 +61,13 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
   private initConfig(): void {
     this.payPalConfig = {
-      clientId: 'sb',
-      // clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
+      clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
       advanced: {extraQueryParams: [{name: 'disable-funding', value: 'card'}]},
       style: {label: 'pay'},
       createOrderOnServer: () => {
         this.validation.started = true;
         this.validation.alert = 'Processing...';
-        return fetch(`/api/shop/${this.product.id}/payment/`)
+        return fetch(`https://api.tlo-devs.com/stag/11sevendome/shop/${this.product.id}/payment/`)
           .then((res) => res.json())
           .then((order) => order.orderID);
       },
