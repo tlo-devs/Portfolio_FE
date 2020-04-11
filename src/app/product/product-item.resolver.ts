@@ -22,7 +22,7 @@ export class ProductItemResolver implements Resolve<ProductItemModel> {
 
       // surpressed because the is uri on preview
       // @ts-ignore
-      d.preview.uri = environment.imgUrl + d.preview.uri;
+      (isArray(d) ? d[0].preview.uri : d.preview.uri) = environment.imgUrl + d.preview.uri;
 
       if (isArray(d.content)) {
         // same here
