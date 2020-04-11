@@ -187,11 +187,11 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  get shopConfig(): any[] {
+  get shopConfig(): any {
     return AdminConfig.shopConfig;
   }
 
-  get portfolioConfig(): any[] {
+  get portfolioConfig(): any {
     return AdminConfig.portfolioConfig;
   }
 
