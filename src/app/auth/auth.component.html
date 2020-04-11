@@ -3,7 +3,7 @@
   <form #authForm="ngForm" class="auth-form">
     <div class="form-group">
       <strong class="mb-4 {{ valid ? 'auth-success' : 'auth-error' }}" *ngIf="authForm.submitted">
-        {{ valid ? 'Login successful' : 'Invalid credentials' }}</strong>
+        {{ message }}</strong>
       <input ngModel required type="text" class="form-control" name="username" id="username" aria-describedby="username"
              placeholder="Username">
     </div>
