@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProductItemModel} from '../_models/product-item.model';
 import {ProductService} from './product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {flatMap, map, takeUntil} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
+import {flatMap} from 'rxjs/operators';
 import {AdminType} from '../_models/admin-type.type';
 import {zip} from 'rxjs';
 

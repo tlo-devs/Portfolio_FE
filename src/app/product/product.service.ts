@@ -53,4 +53,8 @@ export class ProductService {
     return this.imageService.get(url);
   }
 
+  shopItem(id: string): Observable<any> {
+    return this.rest.get(`orders/${id}/`);
+  }
+
 }

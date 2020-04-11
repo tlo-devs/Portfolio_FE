@@ -69,3 +69,15 @@
   color: white;
   pointer-events: none;
 }
+
+.transaction {
+  &-success {
+    color: green;
+  }
+  &-error {
+    color: var(--color-danger);
+  }
+  &-waiting {
+    color: #6ccfff;
+  }
+}

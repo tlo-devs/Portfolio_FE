@@ -13,6 +13,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {Category} from './category.enum';
 import {noop} from 'rxjs';
+import {ValidationModel} from '../_models/validation.model';
 
 @Component({
   selector: 'app-admin',
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
 
   editMode = false;
   editing: ProductItemModel;
-  validation: {value?: boolean, type?: string, started?: boolean, finished: boolean} = {finished: false};
+  validation: ValidationModel = {finished: false};
 
   previewStore: FileStore;
   contentStore: FileStore;
@@ -85,10 +86,10 @@ export class AdminComponent implements OnInit {
             this.shopFile = {data: new FormData(), name: ''};
           }
         },
-        () => this.validation = {...this.validation, value: false, finished: true, type: 'REQUEST_INVALID', started: false}
+        () => this.validation = {...this.validation, value: false, finished: true, alert: 'REQUEST_INVALID', started: false}
       );
     } else {
-      this.validation = {...this.validation, value: false, type: 'FORM_INVALID', started: false};
+      this.validation = {...this.validation, value: false, alert: 'FORM_INVALID', started: false};
     }
   }
 
@@ -177,7 +178,7 @@ export class AdminComponent implements OnInit {
   }
 
   error(): string {
-    switch (this.validation.type) {
+    switch (this.validation.alert) {
       case 'FORM_INVALID':
         return 'The form is invalid.';
       case 'REQUEST_INVALID':

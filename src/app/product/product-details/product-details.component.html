@@ -46,6 +46,15 @@
 
   <section *ngIf="parent === 'shop'" class="d-flex justify-content-center align-items-center mt-5 mb-n3">
     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    <strong *ngIf="validation.started || validation.finished"
+            [ngClass]="{
+            'transaction-waiting': validation.started,
+            'transaction-success': validation.finished && validation.value,
+            'transaction-error': validation.finished && !validation.value
+            }"
+            class="pt-2"> {{ validation.alert }} </strong>
+
+    <button *ngIf="shopItem" class="btn btn-success" (click)="downloadItem()">Download</button>
   </section>
 </article>
 
