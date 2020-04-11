@@ -7,6 +7,7 @@ import {flatMap} from 'rxjs/operators';
 import {ImageService} from '../_shared/image.service';
 import {environment} from '../../environments/environment';
 import {AdminType} from '../_models/admin-type.type';
+import {isArray} from 'util';
 
 @Injectable()
 export class ProductService {
@@ -30,6 +31,9 @@ export class ProductService {
 
       const params = {params: new HttpParams().append('fields', previewParams.join(','))};
       return this.rest.get(this[route + 'Url'], params).pipe(flatMap(items => {
+        if (!isArray(items)) {
+          items = [items];
+        }
         this[route + 'Cache$'] = new ReplaySubject<ProductItemModel[]>(1);
         items = items.map(item => {
           // surpressed because there is uri on preview
