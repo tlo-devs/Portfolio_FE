@@ -18,8 +18,8 @@ body {
 }
 
 .hover-animation {
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out,
+  border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 // image carousel styles
@@ -37,7 +37,7 @@ body {
   display: flex !important;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease-in-out, visibility 0.4s;
+  transition: opacity .4s ease-in-out, visibility .4s;
   z-index: -1;
 }
 
@@ -51,6 +51,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -58,7 +59,7 @@ body {
 
 //better scrollbar
 ::-webkit-scrollbar {
-  width: 0.5%;
+  width: .5%;
 
   &-thumb {
     border-radius: 10px;
