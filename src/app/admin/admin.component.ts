@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit {
 
   previewStore: FileStore;
   contentStore: FileStore;
-  shopFile: {data: FormData, name: string};
+  shopFile: { data: FormData, name: string };
 
   fileType: 'image' | 'video';
   displayedColumns: string[];
@@ -40,7 +40,8 @@ export class AdminComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
-              private adminService: AdminService) { }
+              private adminService: AdminService) {
+  }
 
   ngOnInit(): void {
     AdminConfig.type = this.route.routeConfig.path as AdminType;
@@ -55,7 +56,7 @@ export class AdminComponent implements OnInit {
     }
 
     this.adminService.get(this.type).subscribe(data => {
-      this.dataSource = new MatTableDataSource<ProductItemModel>(data);
+      this.dataSource = new MatTableDataSource<ProductItemModel>(Array.isArray(data) ? data : [data]);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
