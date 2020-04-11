@@ -90,7 +90,7 @@ export class AdminComponent implements OnInit {
         () => this.validation = {...this.validation, value: false, finished: true, alert: 'REQUEST_INVALID', started: false}
       );
     } else {
-      this.validation = {...this.validation, value: false, alert: 'FORM_INVALID', started: false};
+      this.validation = {...this.validation, value: false, alert: 'FORM_INVALID', started: false, finished: true};
     }
   }
 
