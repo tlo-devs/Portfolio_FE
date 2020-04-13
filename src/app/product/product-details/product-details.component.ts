@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {AdminType} from '../../_models/admin-type.type';
 import {IPayPalConfig} from 'ngx-paypal';
 import {ValidationModel} from '../../_models/validation.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-product-details',
@@ -108,7 +109,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
   downloadItem() {
     if (!this.checkExpiry()) {
-      window.open(this.shopItem.rel, '_blank');
+      window.open(environment.apiUrl + '11sevendome/orders/' + this.shopItem.rel, '_blank');
       this.shopItem.tries--;
       localStorage.setItem('shopItem', JSON.stringify(this.shopItem));
     } else {

@@ -340,6 +340,7 @@
           <ng-container *ngIf="type === 'portfolio'">
             <label style="color: white" for="typeEdit">Art</label>
             <select disabled ngModel class="custom-select mb-2" id="typeEdit" name="type">
+              <option value=""></option>
               <option value="image">Bild</option>
               <option value="video">Video</option>
             </select>
@@ -347,12 +348,14 @@
             <label style="color: white" class="my-1" for="categoryEdit">Kategorie</label>
             <select ngModel required class="custom-select" id="categoryEdit" name="category">
               <ng-container *ngIf="editing.type === 'image'">
+                <option value=""></option>
                 <option value="landscape">Landschaftsphotographie</option>
                 <option value="portrait">Portrait</option>
                 <option value="architecture">Architektur</option>
               </ng-container>
 
               <ng-container *ngIf="editing.type === 'video'">
+                <option value=""></option>
                 <option value="musicvideo">Musikvideo</option>
                 <option value="aftermovie">Aftermovie</option>
                 <option value="shortmovie">Kurzfilm</option>
