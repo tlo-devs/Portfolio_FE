@@ -16,20 +16,20 @@
   }
   &-item {
     position: relative;
-    margin: 0 -1px;
+    // margin: 0 -1px;
     margin-bottom: -.5px;
     cursor: pointer;
     &:hover {
       .portfolio-img {
         opacity: .4;
       }
-      .portfolio-img-sale {
+      .portfolio-img-sale, .portfolio-img-title {
         background-color: rgba(0,0,0,0);
       }
     }
-    @media only screen and (min-width: 1600px) {
-      margin: 0 -1.3333px;
-    }
+    //@media only screen and (min-width: 1600px) {
+    //  margin: 0 -1.3333px;
+    //}
   }
   &-img {
     width: 100%;
@@ -38,6 +38,9 @@
     transition: .5s opacity ease;
     &-title {
       position: absolute;
+      background-color: rgba(0,0,0,.4);
+      padding: .3rem .5rem;
+      transition: .5s background-color ease;
       z-index: 3;
       bottom: 5%;
       left: 50%;

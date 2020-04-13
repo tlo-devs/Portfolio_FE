@@ -10,7 +10,7 @@
           <div>{{ item.title | uppercase }}</div>
             <div class="portfolio-img-price d-flex justify-content-center position-relative">
               <ng-container *ngIf="parent === 'shop'">
-                <span class="w-25 position-relative portfolio-img-sale">
+                <span class="w-25 position-relative">
                   <span class="portfolio-img-base" *ngIf="item.sale">{{ item.base_price }}€</span>
                   {{ item.current_price}}€
                   </span>

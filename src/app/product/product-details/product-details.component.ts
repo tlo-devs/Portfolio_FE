@@ -35,12 +35,13 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     this.parent = this.route.snapshot.parent.url[0].path as AdminType;
 
     if (this.parent === 'shop') {
-      if (this.checkExpiry()) {
-        this.shopItem = undefined;
-        localStorage.removeItem('shopItem');
-      }
       if (localStorage.shopItem) {
         this.shopItem = JSON.parse(localStorage.shopItem);
+        if (this.checkExpiry()) {
+          this.shopItem = undefined;
+          localStorage.removeItem('shopItem');
+          return;
+        }
         this.shopTimeout = setTimeout(() => {
           this.shopItem = undefined;
           localStorage.removeItem('shopItem');
@@ -64,7 +65,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     this.payPalConfig = {
       clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
       currency: 'EUR',
-      advanced: {extraQueryParams: [{name: 'disable-funding', value: 'card'}]},
+      advanced: {extraQueryParams: [{name: 'disable-funding', value: 'card,sepa'}]},
       style: {label: 'pay'},
       createOrderOnServer: () => {
         this.validation.started = true;
@@ -104,17 +105,21 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     if (!this.shopItem) {
       return true;
     }
-    return Date.now() > this.shopItem.expiry || this.shopItem.tries === 0;
+    return Date.now() > this.shopItem.expiry || this.shopItem.tries <= 0;
   }
 
   downloadItem() {
     if (!this.checkExpiry()) {
-      window.open(environment.apiUrl + '11sevendome/orders/' + this.shopItem.rel, '_blank');
+      window.open(environment.apiUrl + 'orders/download/' + this.shopItem.rel, '_blank');
       this.shopItem.tries--;
       localStorage.setItem('shopItem', JSON.stringify(this.shopItem));
     } else {
       this.shopItem = undefined;
       localStorage.removeItem('shopItem');
     }
+  }
+
+  get downloadExpiry(): Date {
+    return new Date(this.shopItem.expiry);
   }
 }

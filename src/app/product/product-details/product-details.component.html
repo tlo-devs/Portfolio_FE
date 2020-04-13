@@ -54,7 +54,8 @@
             }"
             class="pt-2"> {{ validation.alert }} </strong>
 
-    <button *ngIf="shopItem" class="btn btn-success" (click)="downloadItem()">Download</button>
+    <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">Download</button>
+    <small *ngIf="shopItem && shopItem.tries > 0">The download link is valid 2 times and until {{ downloadExpiry | date: 'medium' }}</small>
   </section>
 </article>
 
