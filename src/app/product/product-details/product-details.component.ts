@@ -8,6 +8,7 @@ import {AdminType} from '../../_models/admin-type.type';
 import {IPayPalConfig} from 'ngx-paypal';
 import {ValidationModel} from '../../_models/validation.model';
 import {environment} from '../../../environments/environment';
+import {ShopItemModel} from '../../_models/shop-item.model';
 
 @Component({
   selector: 'app-product-details',
@@ -17,8 +18,9 @@ import {environment} from '../../../environments/environment';
 export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private shopTimeout;
+  // tslint:disable-next-line:variable-name
+  private shop_item: ShopItemModel;
   validation: ValidationModel = {finished: false};
-  shopItem: { rel?: string, expiry: number, tries: number };
   payPalConfig: IPayPalConfig;
   product: ProductItemModel;
   parent: AdminType;
@@ -35,16 +37,16 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     this.parent = this.route.snapshot.parent.url[0].path as AdminType;
 
     if (this.parent === 'shop') {
-      if (localStorage.shopItem) {
-        this.shopItem = JSON.parse(localStorage.shopItem);
+      if (localStorage['shop_item_' + this.product.id]) {
+        this.shopItem = JSON.parse(localStorage['shop_item_' + this.product.id]);
         if (this.checkExpiry()) {
           this.shopItem = undefined;
-          localStorage.removeItem('shopItem');
+          localStorage.removeItem('shop_item_' + this.product.id);
           return;
         }
         this.shopTimeout = setTimeout(() => {
           this.shopItem = undefined;
-          localStorage.removeItem('shopItem');
+          localStorage.removeItem('shop_item_' + this.product.id);
         }, this.shopItem.expiry - Date.now());
       }
       this.initConfig();
@@ -80,7 +82,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
             this.shopItem = {rel, expiry: Date.now() + 21600000, tries: 2};
             this.finishValidation(true,
               'Transaction successful. Click the button below to start downloading the product.');
-            localStorage.setItem('shopItem', JSON.stringify(this.shopItem));
+            localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this.shopItem));
           },
           err => this.finishValidation(false, err.error.message)
         );
@@ -112,14 +114,22 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     if (!this.checkExpiry()) {
       window.open(environment.apiUrl + 'orders/download/' + this.shopItem.rel, '_blank');
       this.shopItem.tries--;
-      localStorage.setItem('shopItem', JSON.stringify(this.shopItem));
+      localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this.shopItem));
     } else {
       this.shopItem = undefined;
-      localStorage.removeItem('shopItem');
+      localStorage.removeItem('shop_item_' + this.product.id);
     }
   }
 
   get downloadExpiry(): Date {
     return new Date(this.shopItem.expiry);
+  }
+
+  get shopItem(): ShopItemModel {
+    return this.shop_item;
+  }
+
+  set shopItem(value: ShopItemModel) {
+    this.shop_item = value;
   }
 }

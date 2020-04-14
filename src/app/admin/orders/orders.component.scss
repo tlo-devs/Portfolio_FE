@@ -1,0 +1,8 @@
+.orders {
+  &-container {
+    background-color: var(--color-background-light);
+    height: max-content;
+    min-height: 100%;
+    padding-bottom: 5rem;
+  }
+}

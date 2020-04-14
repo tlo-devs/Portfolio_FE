@@ -39,7 +39,6 @@ export class AdminComponent implements OnInit {
   dataSource: MatTableDataSource<ProductItemModel>;
 
   constructor(private route: ActivatedRoute,
-              private auth: AuthService,
               private adminService: AdminService) {
   }
 
@@ -119,10 +118,6 @@ export class AdminComponent implements OnInit {
 
   removeShopFile() {
     this.shopFile.data.delete('file');
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
   applyFilter(event: Event) {
