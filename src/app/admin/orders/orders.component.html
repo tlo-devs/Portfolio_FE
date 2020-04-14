@@ -1,0 +1,36 @@
+<div class="orders-container">
+  <app-admin-nav></app-admin-nav>
+
+  <mat-form-field style="width: 20rem; color: white" class="ml-3 mt-5">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="product_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product ID</th>
+        <td style="width: 5rem" mat-cell *matCellDef="let row"> {{row.product_id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="purchased_on">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Purchased on</th>
+        <td style="width: 30%" mat-cell *matCellDef="let row"> {{row.purchased_on | date: 'medium'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="buyer_email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Buyer email</th>
+        <td style="width: 30%" mat-cell *matCellDef="let row"> {{row.buyer_email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="downloads_remaining">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Downloads remaining</th>
+        <td style="width: 15%" mat-cell *matCellDef="let row"> {{row.downloads_remaining}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

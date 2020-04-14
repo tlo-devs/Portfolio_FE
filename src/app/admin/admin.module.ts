@@ -15,9 +15,11 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
+import { OrdersComponent } from './orders/orders.component';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
 
 @NgModule({
-  declarations: [AdminComponent],
+  declarations: [AdminComponent, OrdersComponent, AdminNavComponent],
   imports: [
     CommonModule,
     FormsModule,

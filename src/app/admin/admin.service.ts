@@ -3,6 +3,7 @@ import {RestService} from '../_shared/rest.service';
 import {ProductItemModel} from '../_models/product-item.model';
 import {Observable} from 'rxjs';
 import {AdminType} from '../_models/admin-type.type';
+import {OrdersModel} from '../_models/orders.model';
 
 type FileType = 'image' | 'video' | 'digital';
 
@@ -11,6 +12,7 @@ export class AdminService {
 
   private readonly portfolioUrl = 'portfolio/';
   private readonly shopUrl = 'shop/';
+  private readonly ordersUrl = 'orders/';
 
   constructor(private rest: RestService) { }
 
@@ -28,6 +30,10 @@ export class AdminService {
 
   delete(route: AdminType, id: number, params: {}): Observable<void> {
     return this.rest.delete(this[route + 'Url'] + id, {params});
+  }
+
+  orders(): Observable<OrdersModel[]> {
+    return this.rest.get(this.ordersUrl);
   }
 
 }
