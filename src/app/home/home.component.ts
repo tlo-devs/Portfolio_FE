@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {SocialModel} from '../_models/social.model';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { SocialModel } from '../_models/social.model';
 
 @Component({
   selector: 'app-home',
@@ -8,25 +8,26 @@ import {SocialModel} from '../_models/social.model';
 })
 export class HomeComponent implements AfterViewInit {
 
-  @ViewChild('video', {static: false}) private video: ElementRef;
+  @ViewChild('video', { static: false }) private video: ElementRef;
 
   socialLinks: SocialModel[] = [
     {
       name: 'Instagram',
-      ref: 'https://www.instagram.com/',
+      ref: 'https://www.instagram.com/11sevendome/',
       src: 'instagram.png'
     },
     {
       name: 'YouTube',
-      ref: 'https://www.youtube.com/',
+      ref: 'https://www.youtube.com/channel/UCiptfcvb-m5wErL_0Cx2A-A/',
       src: 'youtube.png'
     },
     {
       name: 'Spotify',
-      ref: 'https://www.spotify.com/',
+      ref: 'https://open.spotify.com/user/21lji7srmfwjcgsnwu4nfsj2a/',
       src: 'spotify.png'
     }
   ];
+
 
   ngAfterViewInit(): void {
     this.video.nativeElement.muted = 'muted';
