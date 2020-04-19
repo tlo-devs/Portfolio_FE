@@ -4,7 +4,8 @@
     <ng-container *ngFor="let contact of contactValues">
       <address class="d-flex mb-1 contact-details">
         <span class="pr-1">{{ contact.type }}:</span>
-        <span>{{ contact.contact }}</span>
+        <a *ngIf="contact.type === 'E-Mail'" [href]=" 'mailto:' + contact.contact">{{ contact.contact }}</a>
+        <span *ngIf="contact.type !== 'E-Mail'">{{ contact.contact }}</span>
       </address>
     </ng-container>
   </section>
