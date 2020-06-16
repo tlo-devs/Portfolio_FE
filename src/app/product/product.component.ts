@@ -29,6 +29,10 @@ export class ProductComponent implements OnInit {
         this.category = res[1].category;
         this.parent = res[0][0].path as AdminType;
 
+        if (this.parent === 'portfolio') {
+
+        }
+
         return this.productService.preview(this.parent);
       })
     ).subscribe(items => {

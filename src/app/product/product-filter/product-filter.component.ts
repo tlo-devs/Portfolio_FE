@@ -11,12 +11,7 @@ export class ProductFilterComponent implements OnInit {
 
   // parent is only portfolio right now but it can be used to have the component work on multiple pages
   @Input() private parent: string;
-
-  width: number;
-  active: string;
-  selected = false;
-
-  types: ProductFilterModel[] = [
+  @Input() productFilters: ProductFilterModel[] = [
     {
       name: 'alles',
       key: 'all',
@@ -45,6 +40,10 @@ export class ProductFilterComponent implements OnInit {
     }
   ];
 
+  width: number;
+  active: string;
+  selected = false;
+
   constructor(private route: ActivatedRoute) {
   }
 
@@ -62,6 +61,6 @@ export class ProductFilterComponent implements OnInit {
   }
 
   categories(): ProductFilterModel[] {
-    return this.types.find(t => t.key === this.active).categories;
+    return this.productFilters.find(t => t.key === this.active).categories;
   }
 }

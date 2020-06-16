@@ -8,6 +8,7 @@ import {ImageService} from '../_shared/image.service';
 import {environment} from '../../environments/environment';
 import {AdminType} from '../_models/admin-type.type';
 import {isArray} from 'util';
+import {ParamsConfigModel} from '../_models/params-config.model';
 
 @Injectable()
 export class ProductService {
@@ -23,39 +24,53 @@ export class ProductService {
   }
 
   preview(route: AdminType): Observable<ProductItemModel[]> {
-    const previewParams = ['id', 'title', 'preview'];
+    const paramsConfig: ParamsConfigModel = {type: 'fields', params: ['id', 'title', 'preview']};
 
     switch (route) {
       case 'portfolio':
         if (this.portfolioCache$) {
           return this.portfolioCache$.asObservable();
         }
-        return this.createRequest$(this.portfolioUrl, [...previewParams, 'type', 'category'])
+        paramsConfig.params.push('type', 'category');
+        return this.createRequest$<ProductItemModel[]>(this.portfolioUrl, paramsConfig)
           .pipe(flatMap(items => this.initCache$(route, items)));
       case 'shop':
         if (this.shopCache$) {
           return this.shopCache$.asObservable();
         }
-        return this.createRequest$(this.shopUrl, [...previewParams, 'current_price', 'base_price', 'sale'])
+        paramsConfig.params.push('current_price', 'base_price', 'sale');
+        return this.createRequest$<ProductItemModel[]>(this.shopUrl, paramsConfig)
           .pipe(flatMap(items => this.initCache$(route, items)));
     }
   }
 
   product(id: number, route: AdminType, type?: string): Observable<ProductItemModel> {
-    const params = type ? {params: {type}} : undefined;
-    return this.rest.get(this[route + 'Url'] + id, params);
+    let url: string;
+    let paramsConfig: ParamsConfigModel;
+    switch (route) {
+      case 'portfolio':
+        url = this.portfolioUrl;
+        paramsConfig = {type: 'type', params: [type]};
+        break;
+      case 'shop':
+        url = this.shopUrl;
+        break;
+    }
+    return this.createRequest$<ProductItemModel>(url + id, paramsConfig);
   }
 
-  image(url: string): Observable<any> {
+  image<T>(url: string): Observable<T> {
     return this.imageService.get(url);
   }
 
-  shopItem(id: string): Observable<any> {
+  shopItem<T>(id: string): Observable<T> {
     return this.rest.get(`orders/${id}/`);
   }
 
-  private createRequest$(url: string, params: string[]): Observable<ProductItemModel[]> {
-    return this.rest.get(url, params ? {params: new HttpParams().append('fields', params.join(','))} : undefined)
+  private createRequest$<T>(url: string, paramsConfig?: ParamsConfigModel): Observable<T> {
+    return this.rest.get(url, paramsConfig
+      ? {params: new HttpParams().append(paramsConfig.type, paramsConfig.params.join(','))}
+      : undefined)
       .pipe(map(i => isArray(i) ? i : [i]));
   }
 

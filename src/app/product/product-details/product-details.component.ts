@@ -77,7 +77,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
           .then((order) => order.order_id);
       },
       onClientAuthorization: data => {
-        this.productService.shopItem(data.id).subscribe(
+        this.productService.shopItem<string>(data.id).subscribe(
           rel => {
             this.shopItem = {rel, expiry: Date.now() + 21600000, tries: 2};
             this.finishValidation(true,
