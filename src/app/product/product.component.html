@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<app-product-filter *ngIf="parent === 'portfolio'" [parent]="parent"></app-product-filter>
+<app-product-filter *ngIf="parent === 'portfolio' && filters" [parent]="parent" [productFilters]="filters"></app-product-filter>
 
 <main class="portfolio">
   <article class="portfolio-grid mt-5">

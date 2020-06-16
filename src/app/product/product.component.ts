@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {flatMap} from 'rxjs/operators';
 import {AdminType} from '../_models/admin-type.type';
 import {zip} from 'rxjs';
+import {ProductFilterModel} from '../_models/product-filter.model';
 
 @Component({
   selector: 'app-product',
@@ -16,6 +17,7 @@ export class ProductComponent implements OnInit {
   private active: string;
   private category: string;
   parent: AdminType;
+  filters: ProductFilterModel[];
   portfolioItems: ProductItemModel[];
 
   constructor(private productService: ProductService,
@@ -30,7 +32,7 @@ export class ProductComponent implements OnInit {
         this.parent = res[0][0].path as AdminType;
 
         if (this.parent === 'portfolio') {
-
+          this.productService.filters$().subscribe(f => this.filters = f);
         }
 
         return this.productService.preview(this.parent);

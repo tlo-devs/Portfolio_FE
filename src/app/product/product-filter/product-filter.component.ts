@@ -9,36 +9,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductFilterComponent implements OnInit {
 
+  @Input() productFilters: ProductFilterModel[];
   // parent is only portfolio right now but it can be used to have the component work on multiple pages
   @Input() private parent: string;
-  @Input() productFilters: ProductFilterModel[] = [
-    {
-      name: 'alles',
-      key: 'all',
-      categories: []
-    },
-    {
-      name: 'videos',
-      key: 'video',
-      categories: [
-        {name: 'alles', key: 'all'},
-        {name: 'Imagevideos', key: 'imagevideo'},
-        {name: 'Aftermovies', key: 'aftermovie'},
-        {name: 'Kurzfilme', key: 'shortmovie'},
-        {name: 'Musikvideos', key: 'musicvideo'}
-      ]
-    },
-    {
-      name: 'bilder',
-      key: 'image',
-      categories: [
-        {name: 'alles', key: 'all'},
-        {name: 'Landschaftsphotographie', key: 'landscape'},
-        {name: 'Architektur', key: 'architecture'},
-        {name: 'Portraits', key: 'portrait'}
-      ]
-    }
-  ];
 
   width: number;
   active: string;
