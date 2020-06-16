@@ -3,7 +3,7 @@ import {RestService} from '../_shared/rest.service';
 import {Observable, ReplaySubject} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {HttpParams} from '@angular/common/http';
-import {flatMap} from 'rxjs/operators';
+import {flatMap, map} from 'rxjs/operators';
 import {ImageService} from '../_shared/image.service';
 import {environment} from '../../environments/environment';
 import {AdminType} from '../_models/admin-type.type';
@@ -23,29 +23,22 @@ export class ProductService {
   }
 
   preview(route: AdminType): Observable<ProductItemModel[]> {
-    if (!this[route + 'Cache$']) {
+    const previewParams = ['id', 'title', 'preview'];
 
-      const previewParams = route === 'portfolio'
-        ? ['id', 'title', 'preview', 'type', 'category']
-        : ['id', 'title', 'preview', 'current_price', 'base_price', 'sale'];
-
-      const params = {params: new HttpParams().append('fields', previewParams.join(','))};
-      return this.rest.get(this[route + 'Url'], params).pipe(flatMap(items => {
-        if (!isArray(items)) {
-          items = [items];
+    switch (route) {
+      case 'portfolio':
+        if (this.portfolioCache$) {
+          return this.portfolioCache$.asObservable();
         }
-        this[route + 'Cache$'] = new ReplaySubject<ProductItemModel[]>(1);
-        items = items.map(item => {
-          // surpressed because there is uri on preview
-          // @ts-ignore
-          item.preview.uri = environment.imgUrl + item.preview.uri;
-          return item;
-        });
-        this[route + 'Cache$'].next(items);
-        return this[route + 'Cache$'] as Observable<ProductItemModel[]>;
-      }));
+        return this.createRequest$(this.portfolioUrl, [...previewParams, 'type', 'category'])
+          .pipe(flatMap(items => this.initCache$(route, items)));
+      case 'shop':
+        if (this.shopCache$) {
+          return this.shopCache$.asObservable();
+        }
+        return this.createRequest$(this.shopUrl, [...previewParams, 'current_price', 'base_price', 'sale'])
+          .pipe(flatMap(items => this.initCache$(route, items)));
     }
-    return this[route + 'Cache$'] as Observable<ProductItemModel[]>;
   }
 
   product(id: number, route: AdminType, type?: string): Observable<ProductItemModel> {
@@ -61,4 +54,26 @@ export class ProductService {
     return this.rest.get(`orders/${id}/`);
   }
 
+  private createRequest$(url: string, params: string[]): Observable<ProductItemModel[]> {
+    return this.rest.get(url, params ? {params: new HttpParams().append('fields', params.join(','))} : undefined)
+      .pipe(map(i => isArray(i) ? i : [i]));
+  }
+
+  private mapPreviewUri(items: ProductItemModel[]): ProductItemModel[] {
+    return (items as Array<ProductItemModel & { preview: { uri: string, alt: string } }>).map(i => {
+      i.preview.uri = environment.imgUrl + i.preview.uri;
+      return i;
+    });
+  }
+
+  private initCache$(cacheType: AdminType, items: ProductItemModel[]): Observable<ProductItemModel[]> {
+    switch (cacheType) {
+      case 'portfolio':
+        (this.portfolioCache$ = new ReplaySubject<ProductItemModel[]>(1)).next(this.mapPreviewUri(items));
+        return this.portfolioCache$.asObservable();
+      case 'shop':
+        (this.shopCache$ = new ReplaySubject<ProductItemModel[]>(1)).next(this.mapPreviewUri(items));
+        return this.shopCache$;
+    }
+  }
 }
