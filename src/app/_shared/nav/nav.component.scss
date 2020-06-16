@@ -6,7 +6,7 @@
 .nav-link {
   position: relative;
   color: black;
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   letter-spacing: 2px;
   cursor: pointer;
   &:after {

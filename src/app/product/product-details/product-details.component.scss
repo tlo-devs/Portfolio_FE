@@ -25,7 +25,7 @@
     object-fit: cover;
   }
   &-scroll {
-    font-weight: bold;
+    font-weight: var(--weight-bold);
     letter-spacing: 3px;
   }
   &-details {
@@ -62,7 +62,7 @@
 .sale-price {
   color: var(--color-danger);
   text-decoration: line-through;
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   font-size: .75rem;
 }
 
