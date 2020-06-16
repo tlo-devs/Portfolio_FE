@@ -67,7 +67,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     this.payPalConfig = {
       clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
       currency: 'EUR',
-      advanced: {extraQueryParams: [{name: 'disable-funding', value: 'card,sepa'}]},
+      advanced: {extraQueryParams: [{name: 'disable-funding', value: 'sepa'}]},
       style: {label: 'pay'},
       createOrderOnServer: () => {
         this.validation.started = true;
