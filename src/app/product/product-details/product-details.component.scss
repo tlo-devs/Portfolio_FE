@@ -59,6 +59,11 @@
   font-size: 1.125rem;
 }
 
+.video-frame {
+  border: none;
+  margin-top: auto;
+}
+
 .sale-price {
   color: var(--color-danger);
   text-decoration: line-through;
