@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ProductItemResolver} from '../product/product-item.resolver';
 import {ShopItemComponent} from './shop-item/shop-item.component';
-import {ProductComponent} from '../product/product.component';
+import {ShopComponent} from './shop.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'all',
-    component: ProductComponent,
+    component: ShopComponent,
     pathMatch: 'full'
   },
   {

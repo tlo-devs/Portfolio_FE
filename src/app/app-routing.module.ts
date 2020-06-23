@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule)},
   {path: 'data-protection', loadChildren: () => import('./data-protection/data-protection.module').then(m => m.DataProtectionModule)},
   {path: 'portfolio', loadChildren: () => import('./product/product.module').then(m => m.ProductModule)},
-  {path: 'shop', loadChildren: () => import('./product/product.module').then(m => m.ProductModule)},
+  {path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)},
   {path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canLoad: [AuthGuard]},
   {path: '**', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)}
