@@ -1,36 +1,25 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs';
+import {ActivatedRouteSnapshot, Resolve, Router} from '@angular/router';
+import {Observable, of} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
 import {ProductService} from './product.service';
-import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {isArray} from 'util';
 import {AdminType} from '../_models/admin-type.type';
+import {ProductItemType} from '../_models/product-item.type';
+import {ShopItemModel} from '../_models/shop-item.model';
+import {PortfolioItemModel} from '../_models/portfolio-item.model';
 
 @Injectable()
 export class ProductItemResolver implements Resolve<ProductItemModel> {
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<ProductItemModel> {
-
+  resolve(route: ActivatedRouteSnapshot): Observable<ShopItemModel | PortfolioItemModel> {
     const parent: AdminType = route.parent.url[0].path as AdminType;
-    const param = parent === 'shop' ? undefined : route.url[0].path;
+    const item = this.router.getCurrentNavigation()?.extras?.state?.item;
+    if (item) {
+      return of(item as ShopItemModel | PortfolioItemModel);
+    }
 
-    return this.productService.product(route.params.id, parent, param).pipe(map(d => {
-
-      d = isArray(d) ? d[0] : d;
-      // surpressed because the is uri on preview
-      // @ts-ignore
-      d.preview.uri = environment.imgUrl + d.preview.uri;
-
-      if (isArray(d.content)) {
-        // same here
-        // @ts-ignore
-        d.content.map(c => c.uri = environment.imgUrl + c.uri);
-      }
-      return d;
-    }));
+    return this.productService.product(route.params.id, parent, route.url[0].path as ProductItemType);
   }
 }

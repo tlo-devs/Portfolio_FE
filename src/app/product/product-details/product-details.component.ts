@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ProductItemModel} from '../../_models/product-item.model';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
+import {PortfolioItemModel} from '../../_models/portfolio-item.model';
 
 @Component({
   selector: 'app-product-details',
@@ -11,7 +11,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
-  product: ProductItemModel;
+  product: PortfolioItemModel;
 
   @ViewChild('carousel', {static: false}) carousel: NgbCarousel;
 
@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   }
 
   createUrl(id: string) {
-    const url = `//www.youtube.com/embed/${id}?origin=http://localhost:4200/&rel=0`;
+    const url = `//www.youtube.com/embed/${id}?origin=${location.origin}&rel=0`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

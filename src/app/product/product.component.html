@@ -1,15 +1,15 @@
 <app-nav></app-nav>
-<app-product-filter [parent]="'portfolio'" *ngIf="(filters$ | async) as filters" [productFilters]="filters">
+<app-product-filter [parent]="'portfolio'" *ngIf="(filters$() | async) as filters" [productFilters]="filters">
 </app-product-filter>
 
 <main class="portfolio">
-  <article class="portfolio-grid mt-5" *ngIf="(portfolioItems$ | async) as items">
+  <article class="portfolio-grid mt-5" *ngIf="(portfolioItems$() | async) as items">
     <ng-container *ngFor="let item of items">
       <figure (click)="toDetails(item)" class="portfolio-item">
         <figcaption class="portfolio-img-title w-100">
           <div>{{ item.title | uppercase }}</div>
         </figcaption>
-        <img class="portfolio-img" [src]="item.preview.uri" [alt]="item.preview.alt">
+        <img class="portfolio-img" [src]="item.thumbnail" [alt]="item.title">
       </figure>
     </ng-container>
   </article>

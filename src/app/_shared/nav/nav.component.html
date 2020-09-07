@@ -25,8 +25,8 @@
 
 <ng-template #navLink let-name="name" let-ref="ref">
   <div class="nav-container d-flex justify-content-center align-items-end my-3 my-md-0 mx-sm-2 mx-md-3 mx-lg-5">
-    <span routerLinkActive #rla="routerLinkActive"
-          [ngClass]="{'lighten': lighten, 'active': rla.isActive, 'inactive': !rla.isActive}"
+    <span [routerLinkActive]="'active'" #rla="routerLinkActive"
+          [ngClass]="{'lighten': lighten, 'inactive': !rla.isActive}"
           class="hover-animation nav-link p-0 pb-2 mx-md-3 mx-lg-5"
           [routerLink]="ref">{{ name | uppercase }}</span>
   </div>

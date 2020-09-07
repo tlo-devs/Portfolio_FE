@@ -1,15 +1,13 @@
 import {Injectable} from '@angular/core';
 import {RestService} from '../_shared/rest.service';
-import {Observable, of, ReplaySubject} from 'rxjs';
+import {Observable, of, ReplaySubject, zip} from 'rxjs';
 import {ProductItemModel} from '../_models/product-item.model';
-import {HttpParams} from '@angular/common/http';
 import {flatMap, map} from 'rxjs/operators';
-import {ImageService} from '../_shared/image.service';
-import {environment} from '../../environments/environment';
 import {AdminType} from '../_models/admin-type.type';
-import {isArray} from 'util';
-import {ParamsConfigModel} from '../_models/params-config.model';
 import {ProductFilterModel} from '../_models/product-filter.model';
+import {PortfolioItemModel} from '../_models/portfolio-item.model';
+import {ShopItemModel} from '../_models/shop-item.model';
+import {ProductItemType} from '../_models/product-item.type';
 
 @Injectable()
 export class ProductService {
@@ -17,48 +15,41 @@ export class ProductService {
   private readonly portfolioUrl = 'portfolio/';
   private readonly shopUrl = 'shop/';
 
-  portfolioCache$: ReplaySubject<ProductItemModel[]>;
-  shopCache$: ReplaySubject<ProductItemModel[]>;
-  filtersCache$: ReplaySubject<ProductFilterModel[]>;
+  private portfolioCache$: ReplaySubject<PortfolioItemModel[]>;
+  private shopCache$: ReplaySubject<ShopItemModel[]>;
+  private filtersCache$: ReplaySubject<ProductFilterModel[]>;
 
-  constructor(private rest: RestService,
-              private imageService: ImageService) {
+  constructor(private rest: RestService) {
   }
 
-  preview(route: AdminType): Observable<ProductItemModel[]> {
-    const paramsConfig: ParamsConfigModel = {type: 'fields', params: ['id', 'title', 'preview']};
-
+  preview(route: AdminType): Observable<Array<PortfolioItemModel | ShopItemModel>> {
     switch (route) {
       case 'portfolio':
         if (this.portfolioCache$) {
           return this.portfolioCache$;
         }
-        paramsConfig.params.push('type', 'category');
-        return this.createRequest$<ProductItemModel[]>(this.portfolioUrl, paramsConfig)
-          .pipe(flatMap(items => this.initCache$(route, items))) as Observable<ProductItemModel[]>;
+        return this.getAll$<PortfolioItemModel>(this.portfolioUrl)
+          .pipe(flatMap(items => this.initCache$(route, items))) as Observable<PortfolioItemModel[]>;
       case 'shop':
         if (this.shopCache$) {
-          return this.shopCache$;
+          return this.shopCache$.asObservable();
         }
-        paramsConfig.params.push('current_price', 'base_price', 'sale');
-        return this.createRequest$<ProductItemModel[]>(this.shopUrl, paramsConfig)
-          .pipe(flatMap(items => this.initCache$(route, items))) as Observable<ProductItemModel[]>;
+        return this.rest.get<ShopItemModel[]>(this.shopUrl)
+          .pipe(flatMap(items => this.initCache$(route, items))) as Observable<ShopItemModel[]>;
     }
   }
 
-  product(id: number, route: AdminType, type?: string): Observable<ProductItemModel> {
+  product(id: number, route: AdminType, type: ProductItemType): Observable<ShopItemModel | PortfolioItemModel> {
     let url: string;
-    let paramsConfig: ParamsConfigModel;
     switch (route) {
       case 'portfolio':
-        url = this.portfolioUrl;
-        paramsConfig = {type: 'type', params: [type]};
+        url = `${this.portfolioUrl}${type}/${id}/`;
         break;
       case 'shop':
-        url = this.shopUrl;
+        url = `${this.shopUrl}${id}/`;
         break;
     }
-    return this.createRequest$<ProductItemModel>(url + id, paramsConfig);
+    return this.rest.get(url);
   }
 
   filters$(): Observable<ProductFilterModel[]> {
@@ -95,37 +86,23 @@ export class ProductService {
     ]) as Observable<ProductFilterModel[]>;
   }
 
-  image<T>(url: string): Observable<T> {
-    return this.imageService.get(url);
-  }
-
-  shopItem<T>(id: string): Observable<T> {
-    return this.rest.get(`orders/${id}/`);
-  }
-
-  private createRequest$<T>(url: string, paramsConfig?: ParamsConfigModel): Observable<T> {
-    return this.rest.get(url, paramsConfig
-      ? {params: new HttpParams().append(paramsConfig.type, paramsConfig.params.join(','))}
-      : undefined)
-      .pipe(map(i => isArray(i) ? i : [i]));
-  }
-
-  private mapPreviewUri(items: ProductItemModel[]): ProductItemModel[] {
-    return (items as Array<ProductItemModel & { preview: { uri: string, alt: string } }>).map(i => {
-      i.preview.uri = environment.imgUrl + i.preview.uri;
-      return i;
-    });
+  private getAll$<T>(url: string): Observable<T[]> {
+    return zip(
+      this.rest.get<T[]>(url + 'image/'),
+      this.rest.get<T[]>(url + 'video/')
+    ).pipe(map(d => [...d[0], ...d[1]]));
   }
 
   private initCache$(
     cacheType: AdminType,
-    items: Array<ProductItemModel | ProductFilterModel>): Observable<Array<ProductItemModel | ProductFilterModel>> {
+    items: Array<PortfolioItemModel | ShopItemModel | ProductFilterModel>
+  ): Observable<Array<PortfolioItemModel | ShopItemModel | ProductFilterModel>> {
     switch (cacheType) {
       case 'portfolio':
-        (this.portfolioCache$ = new ReplaySubject<ProductItemModel[]>(1)).next(this.mapPreviewUri(items as ProductItemModel[]));
+        (this.portfolioCache$ = new ReplaySubject<PortfolioItemModel[]>(1)).next(items as PortfolioItemModel[]);
         return this.portfolioCache$;
       case 'shop':
-        (this.shopCache$ = new ReplaySubject<ProductItemModel[]>(1)).next(this.mapPreviewUri(items as ProductItemModel[]));
+        (this.shopCache$ = new ReplaySubject<ShopItemModel[]>(1)).next(items as ShopItemModel[]);
         return this.shopCache$;
       case 'filters':
         (this.filtersCache$ = new ReplaySubject<ProductFilterModel[]>(1)).next(items as ProductFilterModel[]);

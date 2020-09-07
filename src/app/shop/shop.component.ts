@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {ProductService} from '../product/product.service';
+import {ShopItemModel} from '../_models/shop-item.model';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-shop',
-  templateUrl: './shop.component.html'
+  templateUrl: './shop.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
-  ngOnInit(): void {
+  shopItems$(): Observable<ShopItemModel[]> {
+    return this.productService
+      .preview('shop')
+      .pipe(map(d => d as ShopItemModel[]));
   }
 
-  toDetails(itemId: string) {
-    this.router.navigate([`shop/all/digital/${itemId}`]);
+  toDetails(item: ShopItemModel): void {
+    this.router.navigate([`shop/all/digital/${item.id}`], {
+      state: {item}
+    });
   }
-
-
 }

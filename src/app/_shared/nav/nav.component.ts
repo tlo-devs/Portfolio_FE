@@ -12,8 +12,6 @@ export class NavComponent implements OnInit {
   @Input() lighten = false;
   width: number;
 
-  constructor() { }
-
   ngOnInit() {
     this.width = window.innerWidth;
     fromEvent(window, 'resize').pipe(

@@ -10,19 +10,19 @@ export class RestService {
 
   constructor(private http: HttpClient) { }
 
-  get(url: string, options?: {}): Observable<any> {
-    return this.http.get(environment.apiUrl + url, options);
+  get<T>(url: string, options?: {}): Observable<T> {
+    return this.http.get<T>(environment.apiUrl + url, options);
   }
 
-  post(url: string, body: {}, options?: {}): Observable<any> {
-    return this.http.post(environment.apiUrl + url, body, options);
+  post<T>(url: string, body: {}, options?: {}): Observable<T> {
+    return this.http.post<T>(environment.apiUrl + url, body, options);
   }
 
-  patch(url: string, body: {}, options?: {}): Observable<any> {
-    return this.http.patch(environment.apiUrl + url, body, options);
+  patch<T>(url: string, body: {}, options?: {}): Observable<T> {
+    return this.http.patch<T>(environment.apiUrl + url, body, options);
   }
 
-  delete(url: string, options?: {}): Observable<any> {
-    return this.http.delete(environment.apiUrl + url, options);
+  delete<T>(url: string, options?: {}): Observable<T> {
+    return this.http.delete<T>(environment.apiUrl + url, options);
   }
 }

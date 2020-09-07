@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {ShopItemModel} from '../../_models/shop-item.model';
+import {ShopStateModel} from '../../_models/shop-state.model';
 import {ValidationModel} from '../../_models/validation.model';
 import {IPayPalConfig} from 'ngx-paypal';
 import {ProductItemModel} from '../../_models/product-item.model';
@@ -19,7 +19,7 @@ export class ShopItemComponent implements OnInit, OnDestroy {
   product: ProductItemModel;
   private shopTimeout;
   // tslint:disable-next-line:variable-name
-  private shop_item: ShopItemModel;
+  private shop_item: ShopStateModel;
 
   constructor(private route: ActivatedRoute, private shopService: ShopService) {
   }
@@ -101,11 +101,11 @@ export class ShopItemComponent implements OnInit, OnDestroy {
     return new Date(this.shopItem.expiry);
   }
 
-  get shopItem(): ShopItemModel {
+  get shopItem(): ShopStateModel {
     return this.shop_item;
   }
 
-  set shopItem(value: ShopItemModel) {
+  set shopItem(value: ShopStateModel) {
     this.shop_item = value;
   }
 }

@@ -1,40 +1,39 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductItemModel} from '../_models/product-item.model';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ProductService} from './product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject, zip} from 'rxjs';
+import {Observable, zip} from 'rxjs';
 import {ProductFilterModel} from '../_models/product-filter.model';
 import {map} from 'rxjs/operators';
+import {PortfolioItemModel} from '../_models/portfolio-item.model';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html'
+  templateUrl: './product.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnInit {
-
-  portfolioItems$: Subject<ProductItemModel[]>;
-  filters$: Subject<ProductFilterModel[]>;
+export class ProductComponent {
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
               private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.portfolioItems$ = new Subject<ProductItemModel[]>();
-    this.filters$ = new Subject<ProductFilterModel[]>();
-    this.productService.filters$()
-      .subscribe(this.filters$);
-    zip(this.route.params, this.productService.preview('portfolio'))
-      .pipe(map(zipped => this.filterBy(Array.isArray(zipped[1]) ? zipped[1] : [zipped[1]], zipped[0].category)))
-      .subscribe(this.portfolioItems$);
+  filters$(): Observable<ProductFilterModel[]> {
+    return this.productService.filters$();
   }
 
-  toDetails(item: ProductItemModel) {
-    this.router.navigate([`portfolio/${item.type}/${item.category}/${item.id}`]);
+  portfolioItems$(): Observable<PortfolioItemModel[]> {
+    return zip(this.route.params, this.productService.preview('portfolio'))
+      .pipe(map(zipped => this.filterBy(zipped[1] as PortfolioItemModel[], zipped[0].category)));
   }
 
-  filterBy(items: ProductItemModel[], category: string): ProductItemModel[] {
+  toDetails(item: PortfolioItemModel): void {
+    this.router.navigate([`portfolio/${item.type}/${item.category}/${item.id}`], {
+      state: {item}
+    });
+  }
+
+  private filterBy(items: PortfolioItemModel[], category: string): PortfolioItemModel[] {
     const active = this.route.snapshot.url[0].path;
     return items.filter(item =>
       active === 'all' || (item.type === active &&

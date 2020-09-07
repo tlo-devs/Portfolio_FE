@@ -1,18 +1,8 @@
-import {ProductItemType} from './product-item.type';
-
 export interface ProductItemModel {
   id?: number;
   title: string;
-  type?: ProductItemType;
-  preview?: Array<{alt: string, uri: string} | string> | {alt: string, uri: string} | string;
-  category?: string;
-  content?: Array<{alt: string, uri: string} | string> | {alt: string, uri: string} | string;
-  year?: number;
-  client?: string;
+  thumbnail?: string;
   description?: string;
-  sale?: string;
-  current_price?: string;
-  base_price?: string;
 }
 
 
