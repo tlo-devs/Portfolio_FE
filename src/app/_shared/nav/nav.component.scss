@@ -1,0 +1,64 @@
+.nav {
+  @media only screen and (max-width: 768px) {
+    justify-content: space-around !important;
+  }
+}
+.nav-link {
+  position: relative;
+  color: black;
+  font-weight: var(--weight-bold);
+  letter-spacing: 2px;
+  cursor: pointer;
+  &:after {
+    content: '';
+    display: block;
+    border-bottom: 2px solid black;
+    width: 0;
+    position: absolute;
+    left: 4%;
+    transition: .5s ease;
+  }
+  @media only screen and (max-width: 767px) {
+      width: auto;
+  }
+}
+
+.nav-container {
+  position: relative;
+  width: 10rem;
+  @media only screen and (max-width: 767px) {
+    width: 7rem;
+  }
+}
+
+.logo {
+  color: black;
+  letter-spacing: 5px;
+  font-size: 2.5rem;
+  cursor: pointer;
+  text-align: center;
+  @media only screen and (max-width: 400px) {
+    font-size: 2rem;
+  }
+}
+
+.lighten {
+  color: white;
+  &:after {
+    border-color: white;
+  }
+}
+
+.inactive {
+  &:hover {
+    &:after {
+      width: 90%;
+    }
+  }
+}
+.active {
+  &:after {
+    width: 90%;
+    transition: unset;
+  }
+}

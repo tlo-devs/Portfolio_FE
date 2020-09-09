@@ -1,0 +1,47 @@
+@import "src/theme/product-item";
+
+.transaction {
+  &-success {
+    color: green;
+  }
+
+  &-error {
+    color: var(--color-danger);
+  }
+
+  &-waiting {
+    color: #6ccfff;
+  }
+}
+
+.sale-price {
+  color: var(--color-danger);
+  text-decoration: line-through;
+  font-weight: var(--weight-bold);
+  font-size: .75rem;
+}
+
+.before-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  &-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 0;
+    width: calc(50% - calc(.25rem - 2px));
+    overflow: hidden;
+  }
+  &-drag {
+    position: absolute;
+    top: 0;
+    left: calc(50% - calc(.25rem - 2px));
+    bottom: 0;
+    background: black;
+    width: .25rem;
+    border: 1px solid white;
+    cursor: ew-resize;
+  }
+}

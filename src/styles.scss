@@ -1,0 +1,131 @@
+@import "./theme/variables";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 1rem;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.hover-animation {
+  transition: color .15s ease-in-out, background-color .15s ease-in-out,
+  border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+// image carousel styles
+.carousel-control {
+  &-next,
+  &-prev,
+  &-indicators {
+    cursor: pointer;
+    z-index: 20;
+    width: 10%;
+  }
+}
+
+.carousel-item {
+  display: flex !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s ease-in-out, visibility .4s;
+  z-index: -1;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+//better scrollbar
+::-webkit-scrollbar {
+  width: .5%;
+
+  &-thumb {
+    border-radius: 10px;
+    background: gray;
+
+    &:hover {
+      background: darken(gray, 5%);
+    }
+
+    &:active {
+      background: darken(gray, 5%);
+    }
+  }
+}
+
+// global product styles
+.portfolio {
+  width: 100%;
+  background-color: black;
+  margin-top: -3rem;
+  min-height: 100%;
+  &-grid {
+    display: grid;
+    width: calc(100% - 1px);
+    grid-template-columns: repeat(3, minmax(20rem, 100%));
+    grid-auto-columns: minmax(20rem, 35rem);
+    @media only screen and (max-width: 992px) {
+      grid-template-columns: repeat(2, minmax(20rem, 100%));
+    }
+    @media only screen and (max-width: 660px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &-item {
+    width: 100%;
+    position: relative;
+    margin-bottom: -.5px;
+    cursor: pointer;
+    &:hover {
+      .portfolio-img {
+        opacity: .4;
+      }
+      .portfolio-img-sale, .portfolio-img-title {
+        background-color: rgba(0,0,0,0);
+      }
+    }
+  }
+  &-img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+    transition: .5s opacity ease;
+    &-title {
+      position: absolute;
+      background-color: rgba(0,0,0,.4);
+      padding: .3rem .5rem;
+      transition: .5s background-color ease;
+      z-index: 3;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: var(--weight-bold);
+      letter-spacing: 2px;
+      color: white;
+      text-align: center;
+    }
+  }
+}

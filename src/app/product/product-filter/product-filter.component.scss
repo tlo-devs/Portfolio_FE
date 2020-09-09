@@ -1,0 +1,64 @@
+.filter {
+  &-container {
+    background-color: black;
+  }
+  &-link {
+    text-align: center;
+    width: 10rem;
+    color: white;
+    font-weight: var(--weight-bold);
+    font-size: .9375rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    &:hover {
+      color: gray;
+    }
+    @media only screen and (max-width: 768px) {
+      width: 8rem;
+    }
+  }
+  &-items {
+    @media only screen and (max-width: 991px) {
+      width: 100% !important;
+    }
+    @media only screen and (min-width: 1440px) {
+      width: 50% !important;
+    }
+    @media only screen and (min-width: 2560px) {
+      width: 35% !important;
+    }
+  }
+  &-small {
+    @media only screen and (max-width: 768px) {
+      justify-content: space-around !important;
+    }
+  }
+}
+
+.active {
+  color: gray;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.visible {
+  overflow: hidden;
+  height: 13rem;
+  transition: .4s height;
+}
+
+.hidden {
+  height: 0;
+  overflow: hidden;
+  transition: .4s height;
+}
+
+.margin-top {
+  margin-top: 1.3rem;
+}
+
+.m-top {
+  margin-top: .3rem;
+}

@@ -1,0 +1,18 @@
+.about-wrapper {
+  height: 100%;
+  @media only screen and (max-width: 991px) {
+    flex-wrap: wrap;
+    height: auto;
+  }
+}
+
+.center-text-md * {
+  @media only screen and (max-width: 991px) {
+    text-align: center;
+    list-style: none;
+  }
+}
+
+.bold-item {
+  font-weight: var(--weight-bold);
+}

@@ -1,0 +1,34 @@
+<nav class="d-flex flex-column flex-md-row py-lg-4 py-md-3 py-2 align-text-bottom justify-content-center">
+  <ng-container *ngIf="width < 768; then smallerScreens; else biggerScreens"></ng-container>
+</nav>
+
+
+<ng-template #biggerScreens>
+  <ng-container *ngTemplateOutlet="navLink; context: {name: 'portfolio', ref: '/portfolio'}"></ng-container>
+  <div [class.lighten]="lighten" class="logo mx-5" routerLink="/">11SEVENDOME</div>
+  <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/shop'}"></ng-container>
+</ng-template>
+
+<ng-template #smallerScreens>
+  <div [ngClass]="{'lighten': lighten, 'mb-5': lighten}" class="logo mb-5" routerLink="/">11SEVENDOME</div>
+  <div
+    [ngClass]="{
+    'flex-column': lighten,
+    'justify-content-center': !lighten && width >= 768,
+    'justify-content-around': !lighten && width < 768
+    }"
+    class="d-flex align-items-center">
+    <ng-container *ngTemplateOutlet="navLink; context: {name: 'portfolio', ref: '/portfolio'}"></ng-container>
+    <ng-container *ngTemplateOutlet="navLink; context: {name: 'shop', ref: '/shop'}"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #navLink let-name="name" let-ref="ref">
+  <div class="nav-container d-flex justify-content-center align-items-end my-3 my-md-0 mx-sm-2 mx-md-3 mx-lg-5">
+    <span [routerLinkActive]="'active'" #rla="routerLinkActive"
+          [ngClass]="{'lighten': lighten, 'inactive': !rla.isActive}"
+          class="hover-animation nav-link p-0 pb-2 mx-md-3 mx-lg-5"
+          [routerLink]="ref">{{ name | uppercase }}</span>
+  </div>
+</ng-template>
+

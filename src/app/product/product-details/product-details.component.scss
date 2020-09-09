@@ -1,0 +1,17 @@
+@import "src/theme/product-item";
+
+.video-frame {
+  border: none;
+  margin-top: auto;
+}
+
+.absolute-text {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: white;
+  pointer-events: none;
+}
+

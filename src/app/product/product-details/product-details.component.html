@@ -1,0 +1,38 @@
+<app-nav lighten="true" class="absolute"></app-nav>
+
+<div class="product-container d-flex justify-content-center align-items-center">
+  <ngb-carousel #carousel class="w-100 product-carousel"
+                *ngIf="product.type === 'image'; else videoView">
+    <ng-container *ngFor="let imageUrl of product.images">
+      <ng-template ngbSlide>
+        <div class="carousel-caption">
+          <p class="product-scroll">Scroll down</p>
+        </div>
+        <div class="picsum-img-wrapper">
+          <img class="product-content" [src]="imageUrl.image" [alt]="product.title">
+        </div>
+      </ng-template>
+    </ng-container>
+  </ngb-carousel>
+</div>
+
+<article class="my-5 py-3">
+  <section class="d-flex justify-content-around mb-5">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <span class="pb-2 product-details">JAHR</span>
+      <strong class="product-details">{{ product.year }}</strong>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <span class="pb-2 product-details">KLIENT</span>
+      <strong class="product-details">{{ product.client | uppercase }}</strong>
+    </div>
+  </section>
+  <section class="w-75 m-auto d-flex justify-content-center align-items-center px-sm-5 pt-5">
+    <p class="product-description">{{ product.description }}</p>
+  </section>
+</article>
+
+<ng-template #videoView>
+  <p class="product-scroll absolute-text">Scroll down</p>
+  <iframe class="video-frame" width="100%" height="90%" [src]="createUrl(product.video)" allowfullscreen></iframe>
+</ng-template>
