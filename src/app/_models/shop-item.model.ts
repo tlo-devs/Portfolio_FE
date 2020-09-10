@@ -6,7 +6,7 @@ export interface ShopItemModel extends ProductItemModel {
   price: PriceModel;
 }
 
-interface ShopImageModel {
+export interface ShopImageModel {
   image_before: string;
   image_after: string;
 }

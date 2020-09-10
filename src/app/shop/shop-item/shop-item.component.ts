@@ -5,7 +5,7 @@ import {ValidationModel} from '../../_models/validation.model';
 import {IPayPalConfig} from 'ngx-paypal';
 import {ActivatedRoute} from '@angular/router';
 import {ShopService} from '../shop.service';
-import {ShopItemModel} from '../../_models/shop-item.model';
+import {ShopImageModel, ShopItemModel} from '../../_models/shop-item.model';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -16,12 +16,13 @@ import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('carousel', {static: false}) carousel: NgbCarousel;
-  @ViewChild('beforeImg') beforeImg: ElementRef;
+  @ViewChild('beforeImg', {static: false}) beforeImg: ElementRef;
 
   validation: ValidationModel = {finished: false};
   payPalConfig: IPayPalConfig;
   product: ShopItemModel;
-  dragging: boolean;
+  activeImages: ShopImageModel;
+  private dragging: boolean;
   private shopTimeout;
   // tslint:disable-next-line:variable-name
   private shop_item: ShopStateModel;
@@ -31,6 +32,8 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
+    this.activeImages = this.product.images[0];
+
     if (localStorage['shop_item_' + this.product.id]) {
       this.shopItem = JSON.parse(localStorage['shop_item_' + this.product.id]);
       if (this.checkExpiry()) {
@@ -56,12 +59,37 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
     clearTimeout(this.shopTimeout);
   }
 
-  onDrag(event: DragEvent): void {
-    if (event.x <= 0) {
+  onDragStart(event: PointerEvent): void {
+    const target = event.target as HTMLDivElement;
+    this.beforeImg.nativeElement.style.transition = '';
+    target.style.transition = '';
+    target.setPointerCapture(event.pointerId);
+    this.dragging = true;
+  }
+
+  onDrag(event: MouseEvent): void {
+    if (!this.dragging) {
       return;
     }
-    this.beforeImg.nativeElement.style.width = event.x + 'px';
-    (event.target as HTMLDivElement).style.left = event.x + 'px';
+    const target = (event.target as HTMLDivElement);
+    const parent = (target.offsetParent as HTMLElement);
+    const position = event.x - parent.offsetLeft;
+
+    if (position <= 0 || position >= parent.offsetWidth) {
+      return;
+    }
+    this.setSliderPosition(target, position + 'px');
+  }
+
+  onDragEnd(event: PointerEvent): void {
+    const target = event.target as HTMLDivElement;
+    this.resetSlider(target);
+    target.releasePointerCapture(event.pointerId);
+    this.dragging = false;
+  }
+
+  chooseImage(item: ShopImageModel): void {
+    this.activeImages = item;
   }
 
   downloadItem() {
@@ -73,6 +101,21 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
       this.shopItem = undefined;
       localStorage.removeItem('shop_item_' + this.product.id);
     }
+  }
+
+  private setSliderPosition(target: HTMLDivElement, value: string): void {
+    this.beforeImg.nativeElement.style.width = value;
+    target.style.left = value;
+  }
+
+  private resetSlider(target: HTMLDivElement): void {
+    this.beforeImg.nativeElement.style.transition = 'width 1s ease-in-out';
+    target.style.transition = 'left 1s ease-in-out';
+    setTimeout(() => {
+      this.beforeImg.nativeElement.style.transition = '';
+      target.style.transition = '';
+    }, 1000);
+    this.setSliderPosition(target, '');
   }
 
   private initConfig(): void {

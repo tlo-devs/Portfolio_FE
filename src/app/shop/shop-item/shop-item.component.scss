@@ -1,5 +1,58 @@
 @import "src/theme/product-item";
 
+figure {
+  margin: unset;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.shop {
+  &-container {
+    min-height: calc(100% - 6.75rem);
+    padding: 2rem;
+  }
+
+  &-image {
+    &-list {
+      height: 8rem;
+      width: 40%;
+      position: relative;
+      margin-top: 1rem;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      &::-webkit-scrollbar {
+        height: 7px;
+        &-track {
+          background: #bcbcbc;
+        }
+        &-thumb {
+          background: gray;
+
+          &:hover {
+            background: darken(gray, 5%);
+          }
+
+          &:active {
+            background: darken(gray, 5%);
+          }
+        }
+      }
+      &-item {
+        height: inherit;
+        cursor: pointer;
+        margin-right: 1rem;
+      }
+    }
+    &-before {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
 .transaction {
   &-success {
     color: green;
@@ -26,22 +79,38 @@
   top: 0;
   left: 0;
   height: 100%;
+
   &-wrapper {
     position: absolute;
     left: 0;
     top: 0;
     min-width: 0;
     width: calc(50% - calc(.25rem - 2px));
+    height: 100%;
     overflow: hidden;
   }
+
   &-drag {
     position: absolute;
     top: 0;
     left: calc(50% - calc(.25rem - 2px));
     bottom: 0;
-    background: black;
+    background: white;
     width: .25rem;
-    border: 1px solid white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
     cursor: ew-resize;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      top: calc(50% - 1.5rem);
+      left: calc(50% - 1.5rem);
+      width: 3rem;
+      height: 3rem;
+      border: 4px solid white;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+    }
   }
 }

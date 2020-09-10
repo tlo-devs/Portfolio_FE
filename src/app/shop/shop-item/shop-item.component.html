@@ -1,29 +1,60 @@
-<app-nav class="absolute"></app-nav>
-
-<div class="product-container d-flex justify-content-center align-items-center">
-  <ngb-carousel #carousel class="w-100 product-carousel">
-    <ng-container *ngFor="let imageUrl of product.images">
-      <ng-template ngbSlide>
-        <div class="carousel-caption">
-          <p class="product-scroll">Scroll down</p>
-        </div>
-        <div class="picsum-img-wrapper position-relative">
-          <div #beforeImg class="before-image-wrapper product-content">
-            <img [src]="imageUrl.image_before" class="before-image" [alt]="product.title + ' before'">
-          </div>
-          <div
-            draggable="true"
-            class="before-image-drag"
-            (dragstart)="dragging = true"
-            (dragend)="dragging = false"
-            (drag)="onDrag($event)">
-          </div>
-          <img class="product-content" [src]="imageUrl.image_after" [alt]="product.title + ' after'">
-        </div>
-      </ng-template>
-    </ng-container>
-  </ngb-carousel>
+<div style="background-color: black">
+  <app-nav [lighten]="true"></app-nav>
 </div>
+
+<!--<div class="product-container d-flex justify-content-center align-items-center">-->
+<!--  <ngb-carousel #carousel class="w-100 product-carousel">-->
+<!--    <ng-container *ngFor="let imageUrl of product.images">-->
+<!--      <ng-template ngbSlide>-->
+<!--        <div class="carousel-caption">-->
+<!--          <p class="product-scroll">Scroll down</p>-->
+<!--        </div>-->
+<!--        <div class="picsum-img-wrapper position-relative">-->
+<!--          <div #beforeImg class="before-image-wrapper product-content">-->
+<!--            <img [src]="imageUrl.image_before" class="before-image" [alt]="product.title + ' before'">-->
+<!--          </div>-->
+<!--          <div-->
+<!--            class="before-image-drag"-->
+<!--            (pointerdown)="onDragStart($event)"-->
+<!--            (pointermove)="onDrag($event)"-->
+<!--            (pointerup)="onDragEnd($event)">-->
+<!--          </div>-->
+<!--          <img class="product-content" [src]="imageUrl.image_after" [alt]="product.title + ' after'">-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </ng-container>-->
+<!--  </ngb-carousel>-->
+<!--</div>-->
+
+<main class="shop-container">
+  <article class="shop-image-wrapper">
+    <figure class="position-relative w-40">
+      <figure #beforeImg class="before-image-wrapper">
+        <img draggable="false" [src]="activeImages.image_before"
+             class="before-image" [alt]="product.title + ' before'">
+      </figure>
+      <div
+        class="before-image-drag"
+        (pointerdown)="onDragStart($event)"
+        (pointermove)="onDrag($event)"
+        (pointerup)="onDragEnd($event)">
+      </div>
+      <img draggable="false" class="w-100"
+           [src]="activeImages.image_after"
+           [alt]="product.title + ' after'">
+    </figure>
+    <section class="d-flex flex-row shop-image-list">
+      <ng-container *ngFor="let imageSet of product.images">
+        <figure class="shop-image-list-item position-relative" (click)="chooseImage(imageSet)">
+          <figure class="w-50 h-100 position-absolute overflow-hidden">
+            <img class="before-image" [src]="imageSet.image_before" alt="before preview">
+          </figure>
+          <img class="h-100" [src]="imageSet.image_after" alt="after preview">
+        </figure>
+      </ng-container>
+    </section>
+  </article>
+</main>
 
 
 <!--<header class="d-flex justify-content-center align-items-center">-->

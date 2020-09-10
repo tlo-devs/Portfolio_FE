@@ -28,7 +28,7 @@ body {
   &-prev,
   &-indicators {
     cursor: pointer;
-    z-index: 20;
+    z-index: 11;
     width: 10%;
   }
 }
@@ -60,7 +60,7 @@ body {
 
 //better scrollbar
 ::-webkit-scrollbar {
-  width: .5%;
+  width: .5rem;
 
   &-thumb {
     border-radius: 10px;
