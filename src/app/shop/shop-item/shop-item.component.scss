@@ -14,10 +14,15 @@ figure {
     padding: 2rem;
   }
 
+  &-details {
+    &-wrapper {
+      padding-left: 5rem;
+    }
+  }
+
   &-image {
     &-list {
       height: 8rem;
-      width: 40%;
       position: relative;
       margin-top: 1rem;
       overflow-x: scroll;
@@ -65,6 +70,11 @@ figure {
   &-waiting {
     color: #6ccfff;
   }
+}
+
+.payment-section {
+  width: 20rem;
+  margin-top: 10rem;
 }
 
 .sale-price {

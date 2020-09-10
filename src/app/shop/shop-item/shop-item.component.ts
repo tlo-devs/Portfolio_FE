@@ -32,8 +32,8 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
+    this.product.price.sale = 40;
     this.activeImages = this.product.images[0];
-
     if (localStorage['shop_item_' + this.product.id]) {
       this.shopItem = JSON.parse(localStorage['shop_item_' + this.product.id]);
       if (this.checkExpiry()) {
@@ -121,7 +121,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
   private initConfig(): void {
     this.payPalConfig = {
       clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
-      currency: 'EUR',
+      currency: this.product.price.currency,
       advanced: {extraQueryParams: [{name: 'disable-funding', value: 'sepa'}]},
       style: {label: 'pay'},
       createOrderOnServer: () => {

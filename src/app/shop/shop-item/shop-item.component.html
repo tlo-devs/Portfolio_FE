@@ -26,9 +26,9 @@
 <!--  </ngb-carousel>-->
 <!--</div>-->
 
-<main class="shop-container">
-  <article class="shop-image-wrapper">
-    <figure class="position-relative w-40">
+<main class="shop-container d-flex flex-row">
+  <article class="shop-image-wrapper w-50">
+    <figure class="position-relative">
       <figure #beforeImg class="before-image-wrapper">
         <img draggable="false" [src]="activeImages.image_before"
              class="before-image" [alt]="product.title + ' before'">
@@ -52,6 +52,34 @@
           <img class="h-100" [src]="imageSet.image_after" alt="after preview">
         </figure>
       </ng-container>
+    </section>
+  </article>
+  <article class="shop-details-wrapper mt-5">
+    <h3>{{product.title | uppercase}}</h3>
+    <section class="mt-3">
+      <div class="d-flex flex-column">
+        <span *ngIf="product.price.sale" class="sale-price">
+          {{ product.price.base_price | currency: product.price.currency}}
+        </span>
+        <span class="product-details">
+          {{ product.price.current_price | currency: product.price.currency}}
+        </span>
+      </div>
+    </section>
+    <section class="d-flex flex-column justify-content-center align-items-center mb-n3 payment-section">
+      <ngx-paypal [config]="payPalConfig" class="w-100"></ngx-paypal>
+      <strong *ngIf="validation.started || validation.finished"
+              [ngClass]="{
+                'transaction-waiting': validation.started,
+                'transaction-success': validation.finished && validation.value,
+                'transaction-error': validation.finished && !validation.value
+                }"
+              class="pt-2"> {{ validation.alert }} </strong>
+
+      <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">Download
+      </button>
+      <small *ngIf="shopItem && shopItem.tries > 0">The download link is valid 2 times and
+        until {{ downloadExpiry | date: 'medium' }}</small>
     </section>
   </article>
 </main>
