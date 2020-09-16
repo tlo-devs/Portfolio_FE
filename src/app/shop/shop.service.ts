@@ -9,7 +9,7 @@ export class ShopService {
 
   constructor(private rest: RestService) { }
 
-  completeOrder$<T>(id: string): Observable<T> {
-    return this.rest.post(`orders/${id}/complete`, {});
+  completeOrder$(id: string): Observable<{order_id: string, grant: string}> {
+    return this.rest.post(`orders/${id}/complete/`, undefined);
   }
 }

@@ -96,7 +96,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   downloadItem() {
     if (!this.checkExpiry()) {
-      window.open(environment.apiUrl + `orders/${this.product.id}/download/`, '_blank');
+      window.open(environment.apiUrl + `orders/${this._downloadState.orderId}/download/?grant=${this._downloadState.grant}`, '_blank');
       this._downloadState.tries--;
       localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this._downloadState));
     } else {
@@ -121,6 +121,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initConfig(): void {
+    let orderId: string;
     this.payPalConfig = {
       clientId: 'Adh7EP-GFNYIU6Ly0-SNHiUGxZL3bMBuVzwf6Vw3ZJ4ekTIvj6meOiU31pftJkCdxTzJlyG_d6rfyjcK',
       currency: this.product.price.currency,
@@ -129,14 +130,21 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
       createOrderOnServer: () => {
         this.validation.started = true;
         this.validation.alert = 'Zahlung wird verarbeitet...';
-        return fetch(environment.apiUrl + `shop/${this.product.id}/payment/`)
+        return fetch(environment.apiUrl + `shop/${this.product.id}/payment/`, {
+          method: 'POST'
+        })
           .then(res => res.json())
-          .then(order => order.order);
+          .then(order => {
+            orderId = order.system_order_id;
+            return order.paypal_order_id;
+          });
       },
-      onClientAuthorization: data => {
-        this.shopService.completeOrder$<string>(data.id).subscribe(
-          () => {
+      onClientAuthorization: () => {
+        this.shopService.completeOrder$(orderId).subscribe(
+          res => {
             this._downloadState = {
+              orderId: res.order_id,
+              grant: res.grant,
               expiry: Date.now() + 21600000,
               tries: 1
             };

@@ -63,7 +63,7 @@
         Download
       </button>
       <small *ngIf="downloadState && downloadState.tries > 0">
-        Der Download Link ist nur einmalig gültig und läuft am {{ downloadExpiry | date: 'medium': '': 'de-DE' }} ab.
+        Der Download Link ist nur einmalig gültig und läuft am {{ downloadExpiry | date: 'medium' }} ab.
       </small>
     </section>
   </article>
