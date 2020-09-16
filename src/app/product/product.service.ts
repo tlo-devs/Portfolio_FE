@@ -32,7 +32,7 @@ export class ProductService {
           .pipe(flatMap(items => this.initCache$(route, items))) as Observable<PortfolioItemModel[]>;
       case 'shop':
         if (this.shopCache$) {
-          return this.shopCache$.asObservable();
+          return this.shopCache$;
         }
         return this.rest.get<ShopItemModel[]>(this.shopUrl)
           .pipe(flatMap(items => this.initCache$(route, items))) as Observable<ShopItemModel[]>;
@@ -56,7 +56,8 @@ export class ProductService {
     if (this.filtersCache$) {
       return this.filtersCache$;
     }
-    return this.rest.get(this.categoriesUrl).pipe(map(filters => filters[0].children));
+    return this.rest.get<ProductFilterModel>(this.categoriesUrl)
+      .pipe(flatMap(filters => this.initCache$('filters', filters.children) as Observable<ProductFilterModel[]>));
   }
 
   private getAll$<T>(url: string): Observable<T[]> {
@@ -79,6 +80,7 @@ export class ProductService {
         return this.shopCache$;
       case 'filters':
         (this.filtersCache$ = new ReplaySubject<ProductFilterModel[]>(1)).next(items as ProductFilterModel[]);
+        return this.filtersCache$;
     }
   }
 }

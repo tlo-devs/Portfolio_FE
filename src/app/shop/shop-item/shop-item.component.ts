@@ -130,8 +130,8 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
         this.validation.started = true;
         this.validation.alert = 'Zahlung wird verarbeitet...';
         return fetch(environment.apiUrl + `shop/${this.product.id}/payment/`)
-          .then((res) => res.json())
-          .then((order) => order.order);
+          .then(res => res.json())
+          .then(order => order.order);
       },
       onClientAuthorization: data => {
         this.shopService.completeOrder$<string>(data.id).subscribe(

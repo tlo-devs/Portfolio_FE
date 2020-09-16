@@ -1,19 +1,19 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from './product.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, zip} from 'rxjs';
+import {Observable, of, zip} from 'rxjs';
 import {ProductFilterModel} from '../_models/product-filter.model';
-import {map} from 'rxjs/operators';
+import {flatMap, map} from 'rxjs/operators';
 import {PortfolioItemModel} from '../_models/portfolio-item.model';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './product.component.html'
 })
 export class ProductComponent implements OnInit {
 
   filters: ProductFilterModel[];
+  portfolioItems: PortfolioItemModel[];
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -21,12 +21,15 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.portfolioItems$().subscribe(res => this.portfolioItems = res);
     this.productService.filters$().subscribe(f => this.filters = f);
   }
 
   portfolioItems$(): Observable<PortfolioItemModel[]> {
-    return zip(this.route.params, this.productService.preview('portfolio'))
-      .pipe(map(zipped => this.filterBy(zipped[1] as PortfolioItemModel[], zipped[0].category)));
+    return this.route.params.pipe(
+      flatMap(res => zip(this.productService.preview('portfolio'), of(res))),
+      map(zipped => this.filterBy(zipped[0] as PortfolioItemModel[], zipped[1].category))
+    );
   }
 
   toDetails(item: PortfolioItemModel): void {

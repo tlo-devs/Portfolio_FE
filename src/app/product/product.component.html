@@ -3,8 +3,8 @@
   </app-product-filter>
 
 <main class="portfolio">
-  <article class="portfolio-grid mt-5" *ngIf="(portfolioItems$() | async) as items">
-    <ng-container *ngFor="let item of items">
+  <article class="portfolio-grid mt-5" *ngIf="portfolioItems">
+    <ng-container *ngFor="let item of portfolioItems">
       <figure (click)="toDetails(item)" class="portfolio-item">
         <figcaption class="portfolio-img-title w-100">
           <div>{{ item.title | uppercase }}</div>

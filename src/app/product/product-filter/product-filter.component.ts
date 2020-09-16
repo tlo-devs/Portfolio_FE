@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ProductFilterModel} from '../../_models/product-filter.model';
 import {ActivatedRoute} from '@angular/router';
 
