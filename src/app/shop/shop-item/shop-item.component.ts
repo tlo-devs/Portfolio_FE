@@ -25,7 +25,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
   private dragging: boolean;
   private shopTimeout;
   // tslint:disable-next-line:variable-name
-  private shop_item: ShopStateModel;
+  private _downloadState: ShopStateModel;
 
   constructor(private route: ActivatedRoute, private shopService: ShopService) {
   }
@@ -33,17 +33,19 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
     this.activeImages = this.product.images[0];
-    if (localStorage['shop_item_' + this.product.id]) {
-      this.shopItem = JSON.parse(localStorage['shop_item_' + this.product.id]);
+
+    const cachedItem = 'shop_item_' + this.product.id;
+    if (localStorage[cachedItem]) {
+      this._downloadState = JSON.parse(localStorage[cachedItem]);
       if (this.checkExpiry()) {
-        this.shopItem = undefined;
-        localStorage.removeItem('shop_item_' + this.product.id);
+        this._downloadState = undefined;
+        localStorage.removeItem(cachedItem);
         return;
       }
       this.shopTimeout = setTimeout(() => {
-        this.shopItem = undefined;
-        localStorage.removeItem('shop_item_' + this.product.id);
-      }, this.shopItem.expiry - Date.now());
+        this._downloadState = undefined;
+        localStorage.removeItem(cachedItem);
+      }, this._downloadState.expiry - Date.now());
     }
     this.initConfig();
   }
@@ -94,11 +96,11 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   downloadItem() {
     if (!this.checkExpiry()) {
-      window.open(environment.apiUrl + 'orders/download/' + this.shopItem.rel, '_blank');
-      this.shopItem.tries--;
-      localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this.shopItem));
+      window.open(environment.apiUrl + `orders/${this.product.id}/download/`, '_blank');
+      this._downloadState.tries--;
+      localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this._downloadState));
     } else {
-      this.shopItem = undefined;
+      this._downloadState = undefined;
       localStorage.removeItem('shop_item_' + this.product.id);
     }
   }
@@ -126,48 +128,53 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
       style: {label: 'pay'},
       createOrderOnServer: () => {
         this.validation.started = true;
-        this.validation.alert = 'Processing...';
+        this.validation.alert = 'Zahlung wird verarbeitet...';
         return fetch(environment.apiUrl + `shop/${this.product.id}/payment/`)
           .then((res) => res.json())
-          .then((order) => order.order_id);
+          .then((order) => order.order);
       },
       onClientAuthorization: data => {
-        this.shopService.shopItem$<string>(data.id).subscribe(
-          rel => {
-            this.shopItem = {rel, expiry: Date.now() + 21600000, tries: 2};
+        this.shopService.completeOrder$<string>(data.id).subscribe(
+          () => {
+            this._downloadState = {
+              expiry: Date.now() + 21600000,
+              tries: 1
+            };
             this.finishValidation(true,
-              'Transaction successful. Click the button below to start downloading the product.');
-            localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this.shopItem));
+              'Bezahlung erfolgreich. Klicke auf den Download Button um das gekaufte Produkt herunterzuladen.');
+            localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this._downloadState));
           },
-          err => this.finishValidation(false, err.error.message)
+          err => this.finishValidation(false, err?.msg || err?.error?.message)
         );
       },
       onCancel: () => this.validation = {finished: false},
-      onError: err => this.finishValidation(false, err.error.message),
+      onError: err => this.finishValidation(false, err?.msg || err?.error?.message),
       onClick: () => this.validation.started = true,
     };
   }
 
   private finishValidation(value: boolean, alert: string) {
-    this.validation = {...this.validation, started: false, finished: true, value, alert};
+    this.validation = {
+      ...this.validation,
+      started: false,
+      finished: true,
+      value,
+      alert
+    };
   }
 
   private checkExpiry(): boolean {
-    if (!this.shopItem) {
+    if (!this._downloadState) {
       return true;
     }
-    return Date.now() > this.shopItem.expiry || this.shopItem.tries <= 0;
+    return Date.now() > this._downloadState.expiry || this._downloadState.tries <= 0;
   }
 
   get downloadExpiry(): Date {
-    return new Date(this.shopItem.expiry);
+    return new Date(this._downloadState.expiry);
   }
 
-  get shopItem(): ShopStateModel {
-    return this.shop_item;
-  }
-
-  set shopItem(value: ShopStateModel) {
-    this.shop_item = value;
+  get downloadState(): ShopStateModel {
+    return this._downloadState;
   }
 }

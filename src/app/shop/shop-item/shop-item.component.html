@@ -59,18 +59,18 @@
         {{ validation.alert }}
       </strong>
 
-      <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">
+      <button *ngIf="downloadState && downloadState.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">
         Download
       </button>
-      <small *ngIf="shopItem && shopItem.tries > 0">
-        The download link is valid 2 times and until {{ downloadExpiry | date: 'medium' }}
+      <small *ngIf="downloadState && downloadState.tries > 0">
+        Der Download Link ist nur einmalig gültig und läuft am {{ downloadExpiry | date: 'medium': '': 'de-DE' }} ab.
       </small>
     </section>
   </article>
 
   <!--    Description -->
   <section class="shop-description">
-    <div>{{product.description}}</div>
+    <span>{{product.description}}</span>
   </section>
 </main>
 
