@@ -10,17 +10,17 @@ figure {
 
 .shop {
   grid-area: images;
-  // 6.75rem is the nav height
-  // height: calc(100% - 6.75rem);
+  width: min-content;
   &-container {
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 10% 40% 40% 10%;
+    grid-template-rows: calc(100vh - 11rem) auto;
+    grid-template-columns: auto min-content min-content auto;
     grid-template-areas:
       '. images details .'
       '. description description .';
-    grid-gap: 2rem;
-    padding: 2rem;
+    grid-gap: 4rem;
+    padding-top: 2rem;
+    padding-bottom: 10rem;
   }
   &-details {
     grid-area: details;
@@ -28,12 +28,13 @@ figure {
 
   &-description {
     grid-area: description;
+    justify-self: center;
   }
 
   &-image {
-    &-container {
-      width: 0;
-      flex: 1;
+    &-wrapper {
+      width: max-content;
+      height: calc(100% - 8rem);
     }
     &-list {
       height: 8rem;

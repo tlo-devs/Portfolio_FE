@@ -4,8 +4,8 @@
 
 <main class="shop-container">
   <!--    Shop images -->
-  <article class="d-flex flex-column shop">
-    <figure class="position-relative">
+  <article class="d-flex flex-column shop h-100">
+    <figure class="position-relative shop-image-wrapper">
       <figure #beforeImg class="before-image-wrapper">
         <img draggable="false" [src]="activeImages.image_before"
              class="before-image" [alt]="product.title + ' before'">
@@ -16,7 +16,7 @@
         (pointermove)="onDrag($event)"
         (pointerup)="onDragEnd($event)">
       </div>
-      <img draggable="false" class="w-100"
+      <img draggable="false" class="h-100"
            [src]="activeImages.image_after"
            [alt]="product.title + ' after'">
     </figure>
