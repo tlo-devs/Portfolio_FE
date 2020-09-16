@@ -127,5 +127,31 @@ body {
       color: white;
       text-align: center;
     }
+    &-sale {
+      position: absolute;
+      background-color: rgba(0,0,0,.4);
+      z-index: 3;
+      top: 0;
+      left: 0;
+      font-size: 1.25rem;
+      padding: .3rem .5rem;
+      border-bottom-right-radius: 3px;
+      font-weight: var(--weight-bold);
+      letter-spacing: 2px;
+      color: white;
+      transition: .5s background-color ease;
+    }
+    &-base {
+      color: var(--color-danger);
+      text-decoration: line-through;
+      font-weight: var(--weight-bold);
+      font-size: .75rem;
+      z-index: 3;
+    }
+    &-price {
+      font-weight: normal;
+      padding-top: .5rem;
+      font-size: 1rem;
+    }
   }
 }

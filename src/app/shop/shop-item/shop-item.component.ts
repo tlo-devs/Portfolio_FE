@@ -32,7 +32,6 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.product = this.route.snapshot.data.product;
-    this.product.price.sale = 40;
     this.activeImages = this.product.images[0];
     if (localStorage['shop_item_' + this.product.id]) {
       this.shopItem = JSON.parse(localStorage['shop_item_' + this.product.id]);
@@ -75,7 +74,8 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
     const parent = (target.offsetParent as HTMLElement);
     const position = event.x - parent.offsetLeft;
 
-    if (position <= 0 || position >= parent.offsetWidth) {
+    // offsetWidth - 4 to eliminate a small visual bug and make the slider stop similarly on both sides
+    if (position <= 0 || position >= parent.offsetWidth - 4) {
       return;
     }
     this.setSliderPosition(target, position + 'px');

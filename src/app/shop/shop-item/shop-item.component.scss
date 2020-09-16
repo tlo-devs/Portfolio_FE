@@ -9,23 +9,37 @@ figure {
 }
 
 .shop {
+  grid-area: images;
+  // 6.75rem is the nav height
+  // height: calc(100% - 6.75rem);
   &-container {
-    min-height: calc(100% - 6.75rem);
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 10% 40% 40% 10%;
+    grid-template-areas:
+      '. images details .'
+      '. description description .';
+    grid-gap: 2rem;
     padding: 2rem;
   }
-
   &-details {
-    &-wrapper {
-      padding-left: 5rem;
-    }
+    grid-area: details;
+  }
+
+  &-description {
+    grid-area: description;
   }
 
   &-image {
+    &-container {
+      width: 0;
+      flex: 1;
+    }
     &-list {
       height: 8rem;
       position: relative;
       margin-top: 1rem;
-      overflow-x: scroll;
+      overflow-x: auto;
       overflow-y: hidden;
       &::-webkit-scrollbar {
         height: 7px;
@@ -73,8 +87,11 @@ figure {
 }
 
 .payment-section {
-  width: 20rem;
+  width: 30rem;
   margin-top: 10rem;
+  @media only screen and (max-width: 1300px) {
+    width: 20rem;
+  }
 }
 
 .sale-price {

@@ -8,8 +8,10 @@
           <div>{{ item.title | uppercase }}</div>
           <div class="portfolio-img-price d-flex justify-content-center position-relative">
                 <span class="w-25 position-relative">
-                  <span class="portfolio-img-base" *ngIf="item.price.sale">{{ item.price.base_price }}€</span>
-                  {{ item.price.current_price}}€
+                  <span class="portfolio-img-base" *ngIf="item.price.sale">
+                    {{ item.price.base_price | currency: item.price.currency}}
+                  </span>
+                  {{ item.price.current_price | currency: item.price.currency}}
                 </span>
           </div>
         </figcaption>

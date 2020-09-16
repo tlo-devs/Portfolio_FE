@@ -2,32 +2,9 @@
   <app-nav [lighten]="true"></app-nav>
 </div>
 
-<!--<div class="product-container d-flex justify-content-center align-items-center">-->
-<!--  <ngb-carousel #carousel class="w-100 product-carousel">-->
-<!--    <ng-container *ngFor="let imageUrl of product.images">-->
-<!--      <ng-template ngbSlide>-->
-<!--        <div class="carousel-caption">-->
-<!--          <p class="product-scroll">Scroll down</p>-->
-<!--        </div>-->
-<!--        <div class="picsum-img-wrapper position-relative">-->
-<!--          <div #beforeImg class="before-image-wrapper product-content">-->
-<!--            <img [src]="imageUrl.image_before" class="before-image" [alt]="product.title + ' before'">-->
-<!--          </div>-->
-<!--          <div-->
-<!--            class="before-image-drag"-->
-<!--            (pointerdown)="onDragStart($event)"-->
-<!--            (pointermove)="onDrag($event)"-->
-<!--            (pointerup)="onDragEnd($event)">-->
-<!--          </div>-->
-<!--          <img class="product-content" [src]="imageUrl.image_after" [alt]="product.title + ' after'">-->
-<!--        </div>-->
-<!--      </ng-template>-->
-<!--    </ng-container>-->
-<!--  </ngb-carousel>-->
-<!--</div>-->
-
-<main class="shop-container d-flex flex-row">
-  <article class="shop-image-wrapper w-50">
+<main class="shop-container">
+  <!--    Shop images -->
+  <article class="d-flex flex-column shop">
     <figure class="position-relative">
       <figure #beforeImg class="before-image-wrapper">
         <img draggable="false" [src]="activeImages.image_before"
@@ -54,8 +31,11 @@
       </ng-container>
     </section>
   </article>
-  <article class="shop-details-wrapper mt-5">
-    <h3>{{product.title | uppercase}}</h3>
+
+
+  <!--    Shop details -->
+  <article class="mt-5 shop-details">
+    <h2>{{product.title | uppercase}}</h2>
     <section class="mt-3">
       <div class="d-flex flex-column">
         <span *ngIf="product.price.sale" class="sale-price">
@@ -74,38 +54,22 @@
                 'transaction-success': validation.finished && validation.value,
                 'transaction-error': validation.finished && !validation.value
                 }"
-              class="pt-2"> {{ validation.alert }} </strong>
+              class="pt-2">
+        {{ validation.alert }}
+      </strong>
 
-      <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">Download
+      <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">
+        Download
       </button>
-      <small *ngIf="shopItem && shopItem.tries > 0">The download link is valid 2 times and
-        until {{ downloadExpiry | date: 'medium' }}</small>
+      <small *ngIf="shopItem && shopItem.tries > 0">
+        The download link is valid 2 times and until {{ downloadExpiry | date: 'medium' }}
+      </small>
     </section>
   </article>
+
+  <!--    Description -->
+  <section class="shop-description">
+    <div>{{product.description}}</div>
+  </section>
 </main>
 
-
-<!--<header class="d-flex justify-content-center align-items-center">-->
-<!--  <strong class="product-details big">{{ product.title | uppercase }}</strong>-->
-<!--</header>-->
-
-<!--<section class="mt-5">-->
-<!--  <div class="d-flex flex-column justify-content-center align-items-center">-->
-<!--    <span *ngIf="product.sale" class="sale-price">{{ product.base_price }}€</span>-->
-<!--    <strong class="product-details big mt-2">{{ product.current_price }}€</strong>-->
-<!--  </div>-->
-<!--</section>-->
-
-<!--<section *ngIf="parent === 'shop'" class="d-flex flex-column justify-content-center align-items-center mt-5 mb-n3">-->
-<!--  <ngx-paypal [config]="payPalConfig"></ngx-paypal>-->
-<!--  <strong *ngIf="validation.started || validation.finished"-->
-<!--          [ngClass]="{-->
-<!--            'transaction-waiting': validation.started,-->
-<!--            'transaction-success': validation.finished && validation.value,-->
-<!--            'transaction-error': validation.finished && !validation.value-->
-<!--            }"-->
-<!--          class="pt-2"> {{ validation.alert }} </strong>-->
-
-<!--  <button *ngIf="shopItem && shopItem.tries > 0" class="btn btn-success mt-3" (click)="downloadItem()">Download</button>-->
-<!--  <small *ngIf="shopItem && shopItem.tries > 0">The download link is valid 2 times and until {{ downloadExpiry | date: 'medium' }}</small>-->
-<!--</section>-->
