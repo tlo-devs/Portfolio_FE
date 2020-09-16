@@ -36,15 +36,16 @@
   <!--    Shop details -->
   <article class="mt-5 shop-details">
     <h2>{{product.title | uppercase}}</h2>
-    <section class="mt-3">
-      <div class="d-flex flex-column">
-        <span *ngIf="product.price.sale" class="sale-price">
+    <section class="mt-5 d-flex flex-column">
+      <div class="d-inline-flex">
+        <span *ngIf="product.price.sale" class="sale-price mr-3 big">
           {{ product.price.base_price | currency: product.price.currency}}
         </span>
-        <span class="product-details">
+        <span class="product-details bold big">
           {{ product.price.current_price | currency: product.price.currency}}
         </span>
       </div>
+      <span>Inkl. MwSt.</span>
     </section>
     <section class="d-flex flex-column justify-content-center align-items-center mb-n3 payment-section">
       <ngx-paypal [config]="payPalConfig" class="w-100"></ngx-paypal>
