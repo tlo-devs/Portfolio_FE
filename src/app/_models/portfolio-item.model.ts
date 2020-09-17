@@ -3,7 +3,6 @@ import {ProductItemType} from './product-item.type';
 
 export interface PortfolioItemModel extends ProductItemModel {
   type: ProductItemType;
-  category: string;
   year: number;
   client: string;
 

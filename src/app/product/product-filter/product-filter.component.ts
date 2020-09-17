@@ -10,7 +10,6 @@ import {ActivatedRoute} from '@angular/router';
 export class ProductFilterComponent implements OnInit {
 
   @Input() productFilters: ProductFilterModel[];
-  // parent is only portfolio right now but it can be used to have the component work on multiple pages
   @Input() private parent: string;
 
   width: number;

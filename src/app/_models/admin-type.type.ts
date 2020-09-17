@@ -1,1 +1,1 @@
-export type AdminType = 'portfolio' | 'shop' | 'filters';
+export type AdminType = 'portfolio' | 'shop' | 'shopFilters' | 'portfolioFilters';

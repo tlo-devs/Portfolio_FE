@@ -4,11 +4,13 @@ import {RouterModule} from '@angular/router';
 
 import {ImagePreloadDirective} from './directives/image-preload.directive';
 import {NavComponent} from './nav/nav.component';
+import {ProductFilterComponent} from '../product/product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
     NavComponent,
-    ImagePreloadDirective
+    ImagePreloadDirective,
+    ProductFilterComponent
   ],
   imports: [
     CommonModule,
@@ -16,6 +18,7 @@ import {NavComponent} from './nav/nav.component';
   ],
   exports: [
     NavComponent,
+    ProductFilterComponent,
     ImagePreloadDirective
   ]
 })

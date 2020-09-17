@@ -10,13 +10,11 @@ import {ProductGuard} from './product.guard';
 
 import {ProductComponent} from './product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductFilterComponent } from './product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
     ProductComponent,
-    ProductDetailsComponent,
-    ProductFilterComponent
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,

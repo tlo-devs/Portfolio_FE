@@ -22,14 +22,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.portfolioItems$().subscribe(res => this.portfolioItems = res);
-    this.productService.filters$().subscribe(f => this.filters = f);
-  }
-
-  portfolioItems$(): Observable<PortfolioItemModel[]> {
-    return this.route.params.pipe(
-      flatMap(res => zip(this.productService.preview('portfolio'), of(res))),
-      map(zipped => this.filterBy(zipped[0] as PortfolioItemModel[], zipped[1].category))
-    );
+    this.productService.filters$('portfolio').subscribe(f => this.filters = f);
   }
 
   toDetails(item: PortfolioItemModel): void {
@@ -38,12 +31,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  private filterBy(items: PortfolioItemModel[], category: string): PortfolioItemModel[] {
-    const active = this.route.snapshot.url[0].path;
-    return items.filter(item =>
-      active === 'all' || (item.type === active &&
-      (category === 'all' || item.category === category))
-    );
+  private portfolioItems$(): Observable<PortfolioItemModel[]> {
+    return this.productService.items$('portfolio', this.route) as Observable<PortfolioItemModel[]>;
   }
-
 }

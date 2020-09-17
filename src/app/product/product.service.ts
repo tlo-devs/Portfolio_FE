@@ -1,23 +1,26 @@
 import {Injectable} from '@angular/core';
 import {RestService} from '../_shared/rest.service';
-import {Observable, ReplaySubject, zip} from 'rxjs';
+import {Observable, of, ReplaySubject, zip} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
 import {AdminType} from '../_models/admin-type.type';
 import {ProductFilterModel} from '../_models/product-filter.model';
 import {PortfolioItemModel} from '../_models/portfolio-item.model';
 import {ShopItemModel} from '../_models/shop-item.model';
 import {ProductItemType} from '../_models/product-item.type';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable()
 export class ProductService {
 
   private readonly portfolioUrl = 'portfolio/';
   private readonly shopUrl = 'shop/';
-  private readonly categoriesUrl = 'categories/portfolio/';
+  private readonly categoriesUrl = 'categories/';
 
   private portfolioCache$: ReplaySubject<PortfolioItemModel[]>;
   private shopCache$: ReplaySubject<ShopItemModel[]>;
-  private filtersCache$: ReplaySubject<ProductFilterModel[]>;
+
+  private portfolioFiltersCache$: ReplaySubject<ProductFilterModel[]>;
+  private shopFiltersCache$: ReplaySubject<ProductFilterModel[]>;
 
   constructor(private rest: RestService) {
   }
@@ -52,12 +55,51 @@ export class ProductService {
     return this.rest.get(url);
   }
 
-  filters$(): Observable<ProductFilterModel[]> {
-    if (this.filtersCache$) {
-      return this.filtersCache$;
+  filters$(type: 'shop' | 'portfolio'): Observable<ProductFilterModel[]> {
+    switch (type) {
+      case 'portfolio':
+        if (this.portfolioFiltersCache$) {
+          return this.portfolioFiltersCache$;
+        }
+        break;
+      case 'shop':
+        if (this.shopFiltersCache$) {
+          return this.shopFiltersCache$;
+        }
+        break;
     }
-    return this.rest.get<ProductFilterModel>(this.categoriesUrl)
-      .pipe(flatMap(filters => this.initCache$('filters', filters.children) as Observable<ProductFilterModel[]>));
+    return this.rest.get<ProductFilterModel>(this.categoriesUrl + type + '/')
+      .pipe(flatMap(filters => this.initCache$(type + 'Filters' as AdminType, filters.children) as Observable<ProductFilterModel[]>));
+  }
+
+  filterBy(items: Array<PortfolioItemModel | ShopItemModel>, category: string, route: 'portfolio' | 'shop', active: string)
+    : Array<PortfolioItemModel | ShopItemModel> {
+    if (route === 'portfolio') {
+      if (active === 'all') {
+        return items;
+      }
+      return (items as PortfolioItemModel[])
+        .filter(item => item.type === active
+            && (category === 'all' || item.category === category));
+    } else if (route === 'shop') {
+      if (category === 'all') {
+        return items;
+      }
+      return (items as ShopItemModel[])
+        .filter(item => item.category === category);
+    }
+  }
+
+  items$(route: 'portfolio' | 'shop', activatedRoute: ActivatedRoute): Observable<Array<PortfolioItemModel | ShopItemModel>> {
+    return activatedRoute.params.pipe(
+      flatMap(res => zip(this.preview(route), of(res))),
+      map(zipped => this.filterBy(
+        zipped[0],
+        zipped[1].category,
+        route,
+        activatedRoute.snapshot.url[0].path
+      ))
+    );
   }
 
   private getAll$<T>(url: string): Observable<T[]> {
@@ -78,9 +120,12 @@ export class ProductService {
       case 'shop':
         (this.shopCache$ = new ReplaySubject<ShopItemModel[]>(1)).next(items as ShopItemModel[]);
         return this.shopCache$;
-      case 'filters':
-        (this.filtersCache$ = new ReplaySubject<ProductFilterModel[]>(1)).next(items as ProductFilterModel[]);
-        return this.filtersCache$;
+      case 'portfolioFilters':
+        (this.portfolioFiltersCache$ = new ReplaySubject<ProductFilterModel[]>(1)).next(items as ProductFilterModel[]);
+        return this.portfolioFiltersCache$;
+      case 'shopFilters':
+        (this.shopFiltersCache$ = new ReplaySubject<ProductFilterModel[]>(1)).next(items as ProductFilterModel[]);
+        return this.shopFiltersCache$;
     }
   }
 }

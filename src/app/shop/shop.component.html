@@ -1,7 +1,10 @@
 <app-nav></app-nav>
+<app-product-filter [parent]="'shop'" *ngIf="filters" [productFilters]="filters">
+</app-product-filter>
+
 <main class="portfolio">
-  <article class="portfolio-grid mt-5" *ngIf="(shopItems$() | async) as items">
-    <ng-container *ngFor="let item of items">
+  <article class="portfolio-grid mt-5" *ngIf="shopItems">
+    <ng-container *ngFor="let item of shopItems">
       <figure (click)="toDetails(item)" class="portfolio-item">
         <div class="portfolio-img-sale" *ngIf="item.price.sale">-{{ item.price.sale }}%</div>
         <figcaption class="portfolio-img-title w-100">

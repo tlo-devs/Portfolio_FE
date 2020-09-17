@@ -15,11 +15,19 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'all/digital/:id',
+    path: 'digital/:category/:id',
     component: ShopItemComponent,
     resolve: {
       product: ProductItemResolver
     }
+  },
+  {
+    path: 'digital/:category',
+    component: ShopComponent
+  },
+  {
+    path: 'digital',
+    redirectTo: 'digital/all'
   }
 ];
 

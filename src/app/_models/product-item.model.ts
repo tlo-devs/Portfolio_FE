@@ -1,8 +1,9 @@
 export interface ProductItemModel {
-  id?: number;
+  id: number;
   title: string;
-  thumbnail?: string;
-  description?: string;
+  category: string;
+  thumbnail: string;
+  description: string;
 }
 
 
