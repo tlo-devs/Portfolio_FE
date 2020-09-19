@@ -1,12 +1,13 @@
 .about {
   &-wrapper {
+    padding: 5rem 0;
     @media only screen and (max-width: 991px) {
       flex-wrap: wrap;
-      padding-top: 1rem;
+      padding: 1rem 0 0;
     }
   }
   &-image {
-    height: calc(100vh - 12.75rem);
+    height: calc(100vh - 16.75rem);
     @media only screen and (max-width: 991px) {
       width: 100%;
       height: auto;
