@@ -1,5 +1,5 @@
 import {PriceModel} from './price.model';
-import {ProductItemModel} from './product-item.model';
+import {ProductItemModel} from '../product-item.model';
 import {ShopItemType} from './shop-item-type';
 
 export interface ShopItemModel extends ProductItemModel {

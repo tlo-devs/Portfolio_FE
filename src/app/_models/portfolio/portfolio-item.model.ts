@@ -1,5 +1,5 @@
-import {ProductItemModel} from './product-item.model';
-import {ProductItemType} from './product-item.type';
+import {ProductItemModel} from '../product-item.model';
+import {ProductItemType} from '../product-item.type';
 
 export interface PortfolioItemModel extends ProductItemModel {
   type: ProductItemType;

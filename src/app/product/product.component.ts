@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of, zip} from 'rxjs';
 import {ProductFilterModel} from '../_models/product-filter.model';
 import {flatMap, map} from 'rxjs/operators';
-import {PortfolioItemModel} from '../_models/portfolio-item.model';
+import {PortfolioItemModel} from '../_models/portfolio/portfolio-item.model';
 
 @Component({
   selector: 'app-product',

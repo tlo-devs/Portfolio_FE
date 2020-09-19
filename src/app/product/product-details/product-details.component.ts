@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
-import {PortfolioItemModel} from '../../_models/portfolio-item.model';
+import {PortfolioItemModel} from '../../_models/portfolio/portfolio-item.model';
 
 @Component({
   selector: 'app-product-details',

@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {ShopStateModel} from '../../_models/shop-state.model';
-import {ValidationModel} from '../../_models/validation.model';
+import {ShopStateModel} from '../../_models/shop/shop-state.model';
+import {ValidationModel} from '../../_models/shop/validation.model';
 import {IPayPalConfig} from 'ngx-paypal';
 import {ActivatedRoute} from '@angular/router';
 import {ShopService} from '../shop.service';
-import {ShopImageModel, ShopItemModel} from '../../_models/shop-item.model';
+import {ShopImageModel, ShopItemModel} from '../../_models/shop/shop-item.model';
 import {NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

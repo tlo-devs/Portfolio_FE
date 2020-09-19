@@ -4,8 +4,8 @@ import {Observable, of, ReplaySubject, zip} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
 import {AdminType} from '../_models/admin-type.type';
 import {ProductFilterModel} from '../_models/product-filter.model';
-import {PortfolioItemModel} from '../_models/portfolio-item.model';
-import {ShopItemModel} from '../_models/shop-item.model';
+import {PortfolioItemModel} from '../_models/portfolio/portfolio-item.model';
+import {ShopItemModel} from '../_models/shop/shop-item.model';
 import {ProductItemType} from '../_models/product-item.type';
 import {ActivatedRoute} from '@angular/router';
 

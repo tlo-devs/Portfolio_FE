@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ProductService} from '../product/product.service';
-import {ShopItemModel} from '../_models/shop-item.model';
+import {ShopItemModel} from '../_models/shop/shop-item.model';
 import {ProductFilterModel} from '../_models/product-filter.model';
 
 @Component({
