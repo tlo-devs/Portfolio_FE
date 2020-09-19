@@ -25,6 +25,11 @@ export class HomeComponent implements AfterViewInit {
       name: 'Spotify',
       ref: 'https://open.spotify.com/user/21lji7srmfwjcgsnwu4nfsj2a/',
       src: 'spotify.png'
+    },
+    {
+      name: 'TikTok',
+      ref: 'https://www.tiktok.com/',
+      src: 'tiktok.png'
     }
   ];
 

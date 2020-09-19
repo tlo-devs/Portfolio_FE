@@ -10,6 +10,7 @@ import {auditTime} from 'rxjs/operators';
 export class NavComponent implements OnInit {
 
   @Input() lighten = false;
+  @Input() background = false;
   width: number;
 
   ngOnInit() {

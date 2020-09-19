@@ -1,8 +1,16 @@
-.about-wrapper {
-  height: 100%;
-  @media only screen and (max-width: 991px) {
-    flex-wrap: wrap;
-    height: auto;
+.about {
+  &-wrapper {
+    @media only screen and (max-width: 991px) {
+      flex-wrap: wrap;
+      padding-top: 1rem;
+    }
+  }
+  &-image {
+    height: calc(100vh - 12.75rem);
+    @media only screen and (max-width: 991px) {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 

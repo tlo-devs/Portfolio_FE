@@ -1,4 +1,5 @@
-<nav class="d-flex flex-column flex-md-row py-lg-4 py-md-3 py-2 align-text-bottom justify-content-center">
+<nav [class.dark]="background"
+     class="d-flex flex-column flex-md-row py-lg-4 py-md-3 py-2 align-text-bottom justify-content-center">
   <ng-container *ngIf="width < 768; then smallerScreens; else biggerScreens"></ng-container>
 </nav>
 
