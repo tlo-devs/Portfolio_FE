@@ -31,13 +31,13 @@ export class ProductService {
         if (this.portfolioCache$) {
           return this.portfolioCache$;
         }
-        return this.getAll$<PortfolioItemModel>(this.portfolioUrl)
+        return this.getAll$<PortfolioItemModel>(this.portfolioUrl, route)
           .pipe(flatMap(items => this.initCache$(route, items))) as Observable<PortfolioItemModel[]>;
       case 'shop':
         if (this.shopCache$) {
           return this.shopCache$;
         }
-        return this.rest.get<ShopItemModel[]>(this.shopUrl)
+        return this.getAll$<ShopItemModel>(this.shopUrl, route)
           .pipe(flatMap(items => this.initCache$(route, items))) as Observable<ShopItemModel[]>;
     }
   }
@@ -80,7 +80,7 @@ export class ProductService {
       }
       return (items as PortfolioItemModel[])
         .filter(item => item.type === active
-            && (category === 'all' || item.category === category));
+          && (category === 'all' || item.category === category));
     } else if (route === 'shop') {
       if (category === 'all') {
         return items;
@@ -102,11 +102,16 @@ export class ProductService {
     );
   }
 
-  private getAll$<T>(url: string): Observable<T[]> {
-    return zip(
-      this.rest.get<T[]>(url + 'image/'),
-      this.rest.get<T[]>(url + 'video/')
-    ).pipe(map(d => [...d[0], ...d[1]]));
+  private getAll$<T>(url: string, route: 'portfolio' | 'shop'): Observable<T[]> {
+    switch (route) {
+      case 'shop':
+        return this.rest.get<T[]>(url + 'digital/');
+      case 'portfolio':
+        return zip(
+          this.rest.get<T[]>(url + 'image/'),
+          this.rest.get<T[]>(url + 'video/')
+        ).pipe(map(d => [...d[0], ...d[1]]));
+    }
   }
 
   private initCache$(
