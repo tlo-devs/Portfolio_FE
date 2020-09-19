@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://api.tlo-devs.com/stag/11sevendome/',
+  apiUrl: 'https://api.11sevendome.de/',
   production: true
 };
