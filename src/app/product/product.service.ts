@@ -74,20 +74,11 @@ export class ProductService {
 
   filterBy(items: Array<PortfolioItemModel | ShopItemModel>, category: string, route: 'portfolio' | 'shop', active: string)
     : Array<PortfolioItemModel | ShopItemModel> {
-    if (route === 'portfolio') {
-      if (active === 'all') {
-        return items;
-      }
-      return (items as PortfolioItemModel[])
-        .filter(item => item.type === active
-          && (category === 'all' || item.category === category));
-    } else if (route === 'shop') {
-      if (category === 'all') {
-        return items;
-      }
-      return (items as ShopItemModel[])
-        .filter(item => item.category === category);
+    if (active === 'all') {
+      return items;
     }
+    return items.filter(item => item.type === active
+      && (category === 'all' || item.category === category));
   }
 
   items$(route: 'portfolio' | 'shop', activatedRoute: ActivatedRoute): Observable<Array<PortfolioItemModel | ShopItemModel>> {
