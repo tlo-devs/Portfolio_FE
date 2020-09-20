@@ -25,14 +25,14 @@ export class AboutComponent implements OnInit {
   }
 
   get about(): AboutContentModel[] {
-    return this.aboutItems.about;
+    return this.aboutItems?.about || [];
   }
 
   get vita(): VitaModel[] {
-    return this.aboutItems.vita;
+    return this.aboutItems?.vita || [];
   }
 
   get srcImage(): string {
-    return this.aboutItems.img;
+    return this.aboutItems?.img;
   }
 }
