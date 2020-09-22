@@ -1,6 +1,4 @@
 export interface OrdersModel {
-  product_id: number;
-  purchased_on: string;
-  buyer_email: string;
-  downloads_remaining: number;
+  system_order_id: string;
+  paypal_order_id: string;
 }

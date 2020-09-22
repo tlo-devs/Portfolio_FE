@@ -49,7 +49,7 @@ export class ProductService {
         url = `${this.portfolioUrl}${type}/${id}/`;
         break;
       case 'shop':
-        url = `${this.shopUrl}${id}/`;
+        url = `${this.shopUrl}${type}/${id}/`;
         break;
     }
     return this.rest.get(url);

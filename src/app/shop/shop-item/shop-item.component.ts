@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {ShopStateModel} from '../../_models/shop/shop-state.model';
 import {ValidationModel} from '../../_models/shop/validation.model';
 import {IPayPalConfig} from 'ngx-paypal';
@@ -96,7 +95,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   downloadItem() {
     if (!this.checkExpiry()) {
-      window.open(environment.apiUrl + `orders/${this._downloadState.orderId}/download/?grant=${this._downloadState.grant}`, '_blank');
+      this.shopService.downloadItem(this.downloadState);
       this._downloadState.tries--;
       localStorage.setItem('shop_item_' + this.product.id, JSON.stringify(this._downloadState));
     } else {
@@ -130,10 +129,7 @@ export class ShopItemComponent implements OnInit, AfterViewInit, OnDestroy {
       createOrderOnServer: () => {
         this.validation.started = true;
         this.validation.alert = 'Zahlung wird verarbeitet...';
-        return fetch(environment.apiUrl + `shop/${this.product.id}/payment/`, {
-          method: 'POST'
-        })
-          .then(res => res.json())
+        return this.shopService.createOrder$(this.product.type, this.product.id)
           .then(order => {
             orderId = order.system_order_id;
             return order.paypal_order_id;
