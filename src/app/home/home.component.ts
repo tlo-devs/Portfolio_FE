@@ -23,12 +23,12 @@ export class HomeComponent implements AfterViewInit {
     },
     {
       name: 'Spotify',
-      ref: 'https://open.spotify.com/user/21lji7srmfwjcgsnwu4nfsj2a/',
+      ref: 'https://open.spotify.com/show/3CsVqoXDfLLjsYHm6ArIa7',
       src: 'spotify.png'
     },
     {
       name: 'TikTok',
-      ref: 'https://www.tiktok.com/',
+      ref: 'https://www.tiktok.com/@11sevendome',
       src: 'tiktok.png'
     }
   ];
