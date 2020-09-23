@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  frontend:
+    ports:
+      - 4350:80
+    build:
+      context: ..
+      dockerfile: Dockerfile
