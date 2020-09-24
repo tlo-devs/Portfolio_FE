@@ -1,0 +1,17 @@
+server {
+    charset     utf-8;
+    include mime.types;
+    etag off;
+    server_tokens off;
+    add_header X-XSS-Protection "1; mode=block";
+    listen ${PORT};
+    server_name ${CONTAINER_HOST};
+    client_max_body_size 100M;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

@@ -6,6 +6,11 @@ RUN npm install
 COPY . .
 RUN ng build --prod
 
-FROM nginx:1.17.1-alpine
-COPY custom.conf /etc/nginx/custom.conf
+FROM nginx:stable
+ENV CONTAINER_HOST="localhost"
+COPY docker/docker-entrypoint.sh /
+COPY docker/nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY --from=build /usr/src/app/dist/portfolio /usr/share/nginx/html
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
